@@ -205,4 +205,4 @@ For questions or collaborations, reach out via the contact form on the website.
 
 ---
 
-**Built with ❤️ by a RevoU Full Stack Developer Graduate**
+**Built by Jek**

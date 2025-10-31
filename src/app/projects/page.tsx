@@ -31,6 +31,8 @@ export default function ProjectsPage() {
     {
       id: 1,
       title: "DRIBBLE",
+      type: "Final Project - RevoU Bootcamp",
+      privacy: "Public",
       description: "End-to-end futsal court booking platform that digitizes manual scheduling workflows. Full-stack solution with real-time availability, role-based dashboards for admins and field owners, and secure authentication—built with modern architecture (Next.js, NestJS, PostgreSQL) as RevoU bootcamp final project.",
       tech: ["Next.js", "Tailwind", "NestJS", "PostgreSQL", "Prisma ORM"],
       github: "https://github.com/yourusername/dribble",
@@ -72,6 +74,8 @@ export default function ProjectsPage() {
     {
       id: 2,
       title: "PERSONAL PORTFOLIO WEBSITE",
+      type: "Personal Project",
+      privacy: "Public",
       description: "Personal portfolio website to showcase projects, skills, and experience. Built with Next.js, Tailwind CSS, and Framer Motion for smooth animations and modern UI.",
       tech: ["Next.js", "Tailwind", "Framer Motion"],
       github: "https://github.com/yourusername/portfolio",
@@ -99,7 +103,9 @@ export default function ProjectsPage() {
     {
       id: 3,
       title: "Kos-Kosan Gang Family No.3",
-      description: "A web app for boarding house (kos) management, featuring room availability, booking, and payment tracking. Built for property owners and tenants.",
+      type: "Freelance Project",
+      privacy: "Private",
+      description: "Real-world solution for boarding house business addressing inefficiencies in manual booking processes, property management, and tenant communication. Delivered working platform for dual user personas (property owners & tenants).",
       tech: ["HTML", "CSS", "Javascript", "PHP", "MySQL"],
       github: "https://github.com/yourusername/koskosan",
       live: null,
@@ -112,18 +118,26 @@ export default function ProjectsPage() {
         "Home Page"
       ],
       keyFeatures: [
-        "Room management",
-        "Online booking",
-        "Payment tracking"
+        "Multi-role authentication (landlord + tenant)",
+        "Real-time room availability & booking system",
+        "Reservation management & status tracking",
+        "Responsive, user-friendly interface",
+        "Efficient property management workflows"
       ],
       contribution: [
-        "Fullstack development",
-        "UI/UX"
+        "Led frontend architecture & implementation",
+        "Designed intuitive UI for dual user personas",
+        "Implemented responsive design & client-side validation",
+        "Collaborated with backend developer on system integration",
+        "Gathered client requirements & incorporated feedback iteratively",
+        "Managed quality assurance & user testing"
       ]
     },
     {
       id: 4,
       title: "Absensi SDN 064037",
+      type: "Freelance Project",
+      privacy: "Private",
       description: "A digital platform for elementary school (SDN) administration, including student data, attendance, and report cards. Built for school digitalization.",
       tech: ["HTML", "CSS", "Javascript", "PHP", "MySQL"],
       github: "https://github.com/yourusername/sdn",
@@ -205,6 +219,12 @@ export default function ProjectsPage() {
                       <div className="w-full md:w-1/2 flex flex-col justify-center p-6">
                         <div className="flex items-center justify-between mb-2">
                           <span className={`text-xs font-mono px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
+                            {'[ '}{project.type}{' ]'}
+                          </span>
+                          <span className={`text-xs font-mono px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
+                            {'[ '}{project.privacy}{' ]'}
+                          </span>
+                          <span className={`text-xs font-mono px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
                             {'[ '}{project.status}{' ]'}
                           </span>
                         </div>
@@ -260,6 +280,12 @@ export default function ProjectsPage() {
                       {/* Left: Details */}
                       <div className="w-full md:w-1/2 flex flex-col justify-center p-6">
                         <div className="flex items-center justify-between mb-2">
+                          <span className={`text-xs font-mono px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
+                            {'[ '}{project.type}{' ]'}
+                          </span>
+                          <span className={`text-xs font-mono px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
+                            {'[ '}{project.privacy}{' ]'}
+                          </span>
                           <span className={`text-xs font-mono px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
                             {'[ '}{project.status}{' ]'}
                           </span>
@@ -326,6 +352,7 @@ export default function ProjectsPage() {
             <p className="text-gray-500 text-sm font-mono">
               <span className="text-neon-cyan">{'>> '}</span>
               More projects coming soon. Stay tuned!
+              <span className="text-neon-cyan">{' <<'}</span>
             </p>
           </div>
         </div>

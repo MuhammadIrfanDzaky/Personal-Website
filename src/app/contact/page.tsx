@@ -238,7 +238,7 @@ export default function ContactPage() {
                     <span className="text-neon-cyan">{'>'}</span>
                   </AnimatedButton>
                   <AnimatedButton
-                    href="https://www.linkedin.com/in/mhdirfndzky/"
+                    href="https://www.linkedin.com/in/muhammad-irfan-dzaky/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group/btn w-full flex items-center gap-4 p-4 border-2 border-neon-purple/30 hover:border-neon-purple hover:bg-neon-purple/10 transition-all duration-300"
@@ -246,7 +246,7 @@ export default function ContactPage() {
                     <FaLinkedin className="text-neon-purple text-2xl" />
                     <div className="flex-1 text-left">
                       <p className="text-white font-mono text-sm">LinkedIn</p>
-                      <p className="text-gray-500 text-xs font-mono">@mhdirfndzky</p>
+                      <p className="text-gray-500 text-xs font-mono">@muhammad-irfan-dzaky</p>
                     </div>
                     <span className="text-neon-purple">{'>'}</span>
                   </AnimatedButton>
@@ -257,27 +257,27 @@ export default function ContactPage() {
                     href="mailto:irfndzky@gmail.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group/btn w-full flex items-center gap-4 p-4 border-2 border-neon-cyan/30 hover:border-neon-cyan hover:bg-neon-cyan/10 transition-all duration-300"
+                    className="group/btn w-full flex items-center gap-4 p-4 border-2 border-neon-green/30 hover:border-neon-green hover:bg-neon-green/10 transition-all duration-300"
                   >
-                    <FaEnvelope className="text-neon-cyan text-2xl" />
+                    <FaEnvelope className="text-neon-green text-2xl" />
                     <div className="flex-1 text-left">
                       <p className="text-white font-mono text-sm">Email</p>
                       <p className="text-gray-500 text-xs font-mono">irfndzky@gmail.com</p>
                     </div>
-                    <span className="text-neon-cyan">{'>'}</span>
+                    <span className="text-neon-green">{'>'}</span>
                   </AnimatedButton>
                   <AnimatedButton
                     href="https://wa.me/6285767615311?text=Hi%20Jek!"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group/btn w-full flex items-center gap-4 p-4 border-2 border-neon-purple/30 hover:border-neon-purple hover:bg-neon-purple/10 transition-all duration-300"
+                    className="group/btn w-full flex items-center gap-4 p-4 border-2 border-neon-pink/30 hover:border-neon-pink hover:bg-neon-pink/10 transition-all duration-300"
                   >
-                    <FaWhatsapp className="text-neon-purple text-2xl" />
+                    <FaWhatsapp className="text-neon-pink text-2xl" />
                     <div className="flex-1 text-left">
                       <p className="text-white font-mono text-sm">WhatsApp</p>
                       <p className="text-gray-500 text-xs font-mono">+62 857-6761-5311</p>
                     </div>
-                    <span className="text-neon-purple">{'>'}</span>
+                    <span className="text-neon-pink">{'>'}</span>
                   </AnimatedButton>
                 </div>
               </div>

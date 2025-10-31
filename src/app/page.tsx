@@ -181,7 +181,7 @@ export default function Home() {
                     <div className="absolute inset-0 bg-neon-pink transform -translate-x-full group-hover/btn:translate-x-0 transition-transform duration-300" />
                   </AnimatedButton>
                   <AnimatedButton
-                    href="/CV.pdf"
+                    href="/jek's-resume.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group/btn flex items-center justify-center px-4 py-3 text-sm font-mono bg-transparent border-2 border-neon-green text-neon-green hover:bg-neon-green hover:text-dark-900 rounded-none transition-all duration-300 relative overflow-hidden"
