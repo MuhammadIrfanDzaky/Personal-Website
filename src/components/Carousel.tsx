@@ -103,7 +103,7 @@ export default function Carousel({ images, alt, imagePlaceholders, color }: Caro
               </div>
 
               {/* Image Counter */}
-              <div className="absolute top-2 right-2 bg-dark-900/80 backdrop-blur-sm px-2 py-1 rounded text-xs font-mono text-neon-cyan border border-neon-cyan/30 z-20">
+              <div className="absolute top-2 right-2 bg-dark-900/80 backdrop-blur-sm px-2 py-1 rounded text-sm font-mono text-neon-cyan border border-neon-cyan/30 z-20">
                 {currentIndex + 1} / {images.length}
               </div>
             </>
@@ -122,7 +122,7 @@ export default function Carousel({ images, alt, imagePlaceholders, color }: Caro
             className="mt-6 flex justify-center w-full"
           >
             <span
-              className={`text-xs font-mono text-center px-3 py-1 rounded shadow-md bg-dark-900/80 border 
+              className={`text-sm font-mono text-center px-3 py-1 rounded shadow-md bg-dark-900/80 border 
                 ${color === 'cyan' ? 'text-neon-cyan border-neon-cyan/40' : ''}
                 ${color === 'pink' ? 'text-neon-pink border-neon-pink/40' : ''}
                 ${color === 'purple' ? 'text-neon-purple border-neon-purple/40' : ''}

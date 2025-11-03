@@ -1,40 +1,69 @@
-/* Accordion Animations (inspired by shadcn/ui & motion-primitives) */
+/* Accordion Animations (inspired by shadcn/ui) */
 @keyframes accordion-down {
-  0% {
+  from {
     height: 0;
-    opacity: 0.5;
   }
-  60% {
-    opacity: 1;
-  }
-  100% {
+  to {
     height: var(--radix-accordion-content-height);
-    opacity: 1;
   }
 }
+
 @keyframes accordion-up {
-  0% {
+  from {
     height: var(--radix-accordion-content-height);
-    opacity: 1;
   }
-  40% {
-    opacity: 1;
-  }
-  100% {
+  to {
     height: 0;
-    opacity: 0.5;
   }
 }
 
 .animate-accordion-down {
-  animation: accordion-down 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-  will-change: height, opacity;
-  overflow: hidden;
+  animation: accordion-down 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .animate-accordion-up {
-  animation: accordion-up 0.45s cubic-bezier(0.77, 0, 0.175, 1);
-  will-change: height, opacity;
-  overflow: hidden;
+  animation: accordion-up 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Smooth content fade-in when accordion opens */
+[data-state="open"] .accordion-content-inner {
+  animation: accordion-content-in 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes accordion-content-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Section expansion animation */
+@keyframes section-expand {
+  0% {
+    transform: scale(1.03);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+  30% {
+    transform: scale(1.04);
+    box-shadow: 0 35px 70px -12px rgba(0, 0, 0, 0.4);
+  }
+  60% {
+    transform: scale(1.035);
+    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.35);
+  }
+  100% {
+    transform: scale(1.03);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+}
+
+.animate-section-expand {
+  animation: section-expand 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
 }
 @tailwind base;
 @tailwind components;
@@ -314,23 +343,23 @@
 /* RGB Split Glitch */
 @keyframes rgb-split {
   0%, 100% { 
-    text-shadow: 0 0 0 transparent, 0 0 0 transparent;
+    text-smhadow: 0 0 0 transparent, 0 0 0 transparent;
     transform: translateX(0);
   }
   20% {
-    text-shadow: -3px 0 0 rgba(0, 229, 255, 0.9), 3px 0 0 rgba(255, 16, 240, 0.9);
+    text-smhadow: -3px 0 0 rgba(0, 229, 255, 0.9), 3px 0 0 rgba(255, 16, 240, 0.9);
     transform: translateX(-2px);
   }
   40% {
-    text-shadow: 3px 0 0 rgba(0, 229, 255, 0.9), -3px 0 0 rgba(255, 16, 240, 0.9);
+    text-smhadow: 3px 0 0 rgba(0, 229, 255, 0.9), -3px 0 0 rgba(255, 16, 240, 0.9);
     transform: translateX(2px);
   }
   60% {
-    text-shadow: -2px 0 0 rgba(0, 229, 255, 0.9), 2px 0 0 rgba(255, 16, 240, 0.9);
+    text-smhadow: -2px 0 0 rgba(0, 229, 255, 0.9), 2px 0 0 rgba(255, 16, 240, 0.9);
     transform: translateX(-1px);
   }
   80% {
-    text-shadow: 2px 0 0 rgba(0, 229, 255, 0.9), -2px 0 0 rgba(255, 16, 240, 0.9);
+    text-smhadow: 2px 0 0 rgba(0, 229, 255, 0.9), -2px 0 0 rgba(255, 16, 240, 0.9);
     transform: translateX(1px);
   }
 }

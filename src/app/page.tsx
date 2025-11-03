@@ -215,8 +215,7 @@ export default function Home() {
                 </h3>
               </div>
               <p className="text-gray-400 text-base leading-relaxed mb-6 font-light">
-                Motivated junior developer with a strong foundation in full-stack development. 
-                Passionate about creating efficient, scalable web applications and continuously learning new technologies.
+              I am a proactive and adaptable full-stack web developer with hands-on experience building web-based systems using modern frameworks such as Next.js and NestJS, combined with solid skills in JavaScript, PHP, and database management. Committed to effective communication and teamwork, I excel in collaborating with diverse teams to deliver high-quality, user-friendly applications. My recent project, DRIBBLE, a futsal booking management system, showcases my ability to learn rapidly, solve complex problems, and integrate new technologies efficiently. I'm proficient in self-learning, critical thinking, and leveraging AI tools to drive productivity and deliver impactful solutions. As an aspiring remote software engineer, I'm building a career that merges technical excellence with entrepreneurial vision in the tech industry.
               </p>
               
               {/* Stats Row */}
@@ -224,14 +223,14 @@ export default function Home() {
                 <div className="border-2 border-neon-green/30 p-4 relative group hover:border-neon-green transition-all duration-300">
                   <div className="absolute top-0 left-0 w-2 h-2 bg-neon-green" />
                   <div className="absolute bottom-0 right-0 w-2 h-2 bg-neon-green" />
-                  <p className="text-gray-500 text-xs font-mono mb-2">EXPERIENCE</p>
+                  <p className="text-gray-500 text-sm font-mono mb-2">EXPERIENCE</p>
                   <p className="text-neon-green font-bold text-2xl font-mono">{'>'}1 YR</p>
                 </div>
                 
                 <div className="border-2 border-neon-cyan/30 p-4 relative group hover:border-neon-cyan transition-all duration-300">
                   <div className="absolute top-0 left-0 w-2 h-2 bg-neon-cyan" />
                   <div className="absolute bottom-0 right-0 w-2 h-2 bg-neon-cyan" />
-                  <p className="text-gray-500 text-xs font-mono mb-2">PROJECTS</p>
+                  <p className="text-gray-500 text-sm font-mono mb-2">PROJECTS</p>
                   <p className="text-neon-cyan font-bold text-2xl font-mono">4</p>
                 </div>
               </div>

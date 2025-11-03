@@ -1,6 +1,3 @@
-// File cleaned up and fixed
-
-
 "use client";
 
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
@@ -31,7 +28,7 @@ export default function ProjectsPage() {
     {
       id: 1,
       title: "DRIBBLE",
-      type: "Final Project - RevoU Bootcamp",
+      type: "Final Project - RevoU",
       privacy: "Public",
       description: "End-to-end futsal court booking platform that digitizes manual scheduling workflows. Full-stack solution with real-time availability, role-based dashboards for admins and field owners, and secure authentication—built with modern architecture (Next.js, NestJS, PostgreSQL) as RevoU bootcamp final project.",
       tech: ["Next.js", "Tailwind", "NestJS", "PostgreSQL", "Prisma ORM"],
@@ -40,13 +37,13 @@ export default function ProjectsPage() {
       status: "Completed",
       color: "green",
       images: [
-        "/dribble/dribble-1.png",
-        "/dribble/dribble-2.png",
-        "/dribble/dribble-3.png",
-        "/dribble/dribble-4.png",
-        "/dribble/dribble-5.png",
-        "/dribble/dribble-6.png",
-        "/dribble/dribble-7.png"
+        "/dribble/dribble-1.jpg",
+        "/dribble/dribble-2.jpg",
+        "/dribble/dribble-3.jpg",
+        "/dribble/dribble-4.jpg",
+        "/dribble/dribble-5.jpg",
+        "/dribble/dribble-6.jpg",
+        "/dribble/dribble-7.jpg"
       ],
       imagePlaceholders: [
         "Login Page",
@@ -83,12 +80,12 @@ export default function ProjectsPage() {
       status: "Ongoing",
       color: "cyan",
       images: [
-        "/portfolio-1.png",
-        "/portfolio-2.png"
+        "/portfolio-1.jpg",
+        "/portfolio-2.jpg"
       ],
       imagePlaceholders: [
-        "Dark Theme Landing Page",
-        "Light Theme Landing Page"
+        "Dark Theme",
+        "Light Theme"
       ],
       keyFeatures: [
         "Responsive design",
@@ -112,7 +109,7 @@ export default function ProjectsPage() {
       status: "Completed",
       color: "pink",
       images: [
-        "/koskosan-1.png"
+        "/koskosan-1.jpg"
       ],
       imagePlaceholders: [
         "Home Page"
@@ -145,7 +142,7 @@ export default function ProjectsPage() {
       status: "Completed",
       color: "purple",
       images: [
-        "/sdn-1.png"
+        "/sdn-1.jpg"
       ],
       imagePlaceholders: [
         "Login Page"
@@ -203,10 +200,14 @@ export default function ProjectsPage() {
 
           {/* Projects Grid */}
           <div className="space-y-8 mb-8">
-            {projects.map((project, index) => (
+            {projects.map((project, index) => {
+              const isExpanded = expandedProjectId === project.id;
+              return (
               <div key={project.id} className="w-full">
                 <div
-                  className={`bg-dark-800/50 backdrop-blur-sm border-2 ${getColorClasses(project.color)} rounded-2xl relative group transition-all duration-500 ease-in-out hover:shadow-2xl overflow-hidden flex flex-col md:flex-row items-stretch min-h-[340px] h-auto p-0 scale-[1.03] shadow-2xl`}
+                  className={`bg-dark-800/50 backdrop-blur-sm border-2 ${getColorClasses(project.color)} rounded-2xl relative group transition-all duration-500 ease-in-out hover:shadow-2xl overflow-hidden flex flex-col md:flex-row items-stretch min-h-[340px] p-0 scale-[1.03] shadow-2xl ${
+                    isExpanded ? 'animate-section-expand' : ''
+                  }`}
                 >
                   {/* ODD: Carousel kiri, info kanan; EVEN: info kiri, carousel kanan */}
                   {index % 2 === 0 ? (
@@ -218,13 +219,13 @@ export default function ProjectsPage() {
                       {/* Right: Details */}
                       <div className="w-full md:w-1/2 flex flex-col justify-center p-6">
                         <div className="flex items-center justify-between mb-2">
-                          <span className={`text-xs font-mono px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
+                          <span className={`text-sm font-mono px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
                             {'[ '}{project.type}{' ]'}
                           </span>
-                          <span className={`text-xs font-mono px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
+                          <span className={`text-sm font-mono px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
                             {'[ '}{project.privacy}{' ]'}
                           </span>
-                          <span className={`text-xs font-mono px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
+                          <span className={`text-sm font-mono px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
                             {'[ '}{project.status}{' ]'}
                           </span>
                         </div>
@@ -241,6 +242,9 @@ export default function ProjectsPage() {
                             tech={project.tech}
                             demo={project.github}
                             color={project.color}
+                            onExpandChange={(isExpanded) => {
+                              setExpandedProjectId(isExpanded ? project.id : null);
+                            }}
                             resource={
                               <div className="flex gap-3 pt-2">
                                 <AnimatedButton
@@ -280,13 +284,13 @@ export default function ProjectsPage() {
                       {/* Left: Details */}
                       <div className="w-full md:w-1/2 flex flex-col justify-center p-6">
                         <div className="flex items-center justify-between mb-2">
-                          <span className={`text-xs font-mono px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
+                          <span className={`text-sm font-mono px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
                             {'[ '}{project.type}{' ]'}
                           </span>
-                          <span className={`text-xs font-mono px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
+                          <span className={`text-sm font-mono px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
                             {'[ '}{project.privacy}{' ]'}
                           </span>
-                          <span className={`text-xs font-mono px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
+                          <span className={`text-sm font-mono px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
                             {'[ '}{project.status}{' ]'}
                           </span>
                         </div>
@@ -303,6 +307,9 @@ export default function ProjectsPage() {
                             tech={project.tech}
                             demo={project.github}
                             color={project.color}
+                            onExpandChange={(isExpanded) => {
+                              setExpandedProjectId(isExpanded ? project.id : null);
+                            }}
                             resource={
                               <div className="flex gap-3 pt-2">
                                 <AnimatedButton
@@ -344,7 +351,8 @@ export default function ProjectsPage() {
                   )}
                 </div>
               </div>
-            ))}
+            );
+            })}
           </div>
 
           {/* Bottom Note */}

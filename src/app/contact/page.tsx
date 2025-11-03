@@ -177,7 +177,7 @@ export default function ContactPage() {
                       <span className="relative z-10 flex items-center gap-2">
                         <span className="flex flex-col items-center">
                           <span className="relative z-10">{'[ SEND TO WHATSAPP ]'}</span>
-                          <span className="text-xs mt-1 relative z-10 transition-colors duration-300 text-neon-cyan/80 group-hover/submit:text-dark-900 font-semibold tracking-wide">Faster Response</span>
+                          <span className="text-sm mt-1 relative z-10 transition-colors duration-300 text-neon-cyan/80 group-hover/submit:text-dark-900 font-semibold tracking-wide">Faster Response</span>
                         </span>
                       </span>
                       <div className="absolute inset-0 bg-neon-cyan transform -translate-x-full group-hover/submit:translate-x-0 transition-transform duration-300" />
@@ -196,7 +196,7 @@ export default function ContactPage() {
                       <span className="relative z-10 flex items-center gap-2">
                         <span className="flex flex-col items-center">
                           <span className="relative z-10">{'[ SEND TO EMAIL ]'}</span>
-                          <span className="text-xs mt-1 relative z-10 transition-colors duration-300 text-gray-400 group-hover/submit:text-dark-900 font-semibold tracking-wide">Slower Response</span>
+                          <span className="text-sm mt-1 relative z-10 transition-colors duration-300 text-neon-cyan/80 group-hover/submit:text-dark-900 font-semibold tracking-wide">Slower Response</span>
                         </span>
                       </span>
                       <div className="absolute inset-0 bg-neon-cyan transform -translate-x-full group-hover/submit:translate-x-0 transition-transform duration-300" />
@@ -233,7 +233,7 @@ export default function ContactPage() {
                     <FaGithub className="text-neon-cyan text-2xl" />
                     <div className="flex-1 text-left">
                       <p className="text-white font-mono text-sm">GitHub</p>
-                      <p className="text-gray-500 text-xs font-mono">@MuhammadIrfanDzaky</p>
+                      <p className="text-gray-500 text-sm font-mono">@MuhammadIrfanDzaky</p>
                     </div>
                     <span className="text-neon-cyan">{'>'}</span>
                   </AnimatedButton>
@@ -246,7 +246,7 @@ export default function ContactPage() {
                     <FaLinkedin className="text-neon-purple text-2xl" />
                     <div className="flex-1 text-left">
                       <p className="text-white font-mono text-sm">LinkedIn</p>
-                      <p className="text-gray-500 text-xs font-mono">@muhammad-irfan-dzaky</p>
+                      <p className="text-gray-500 text-sm font-mono">@muhammad-irfan-dzaky</p>
                     </div>
                     <span className="text-neon-purple">{'>'}</span>
                   </AnimatedButton>
@@ -262,7 +262,7 @@ export default function ContactPage() {
                     <FaEnvelope className="text-neon-green text-2xl" />
                     <div className="flex-1 text-left">
                       <p className="text-white font-mono text-sm">Email</p>
-                      <p className="text-gray-500 text-xs font-mono">irfndzky@gmail.com</p>
+                      <p className="text-gray-500 text-sm font-mono">irfndzky@gmail.com</p>
                     </div>
                     <span className="text-neon-green">{'>'}</span>
                   </AnimatedButton>
@@ -275,7 +275,7 @@ export default function ContactPage() {
                     <FaWhatsapp className="text-neon-pink text-2xl" />
                     <div className="flex-1 text-left">
                       <p className="text-white font-mono text-sm">WhatsApp</p>
-                      <p className="text-gray-500 text-xs font-mono">+62 857-6761-5311</p>
+                      <p className="text-gray-500 text-sm font-mono">+62 857-6761-5311</p>
                     </div>
                     <span className="text-neon-pink">{'>'}</span>
                   </AnimatedButton>
