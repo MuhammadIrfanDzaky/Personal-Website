@@ -32,131 +32,135 @@ export default function ProjectsPage() {
       privacy: "Public",
       description: "End-to-end futsal court booking platform that digitizes manual scheduling workflows. Full-stack solution with real-time availability, role-based dashboards for admins and field owners, and secure authentication—built with modern architecture (Next.js, NestJS, PostgreSQL) as RevoU bootcamp final project.",
       tech: ["Next.js", "Tailwind", "NestJS", "PostgreSQL", "Prisma ORM"],
-      github: "https://github.com/yourusername/dribble",
-      live: null,
-      status: "Completed",
-      color: "green",
-      images: [
-        "/dribble/dribble-1.jpg",
-        "/dribble/dribble-2.jpg",
-        "/dribble/dribble-3.jpg",
-        "/dribble/dribble-4.jpg",
-        "/dribble/dribble-5.jpg",
-        "/dribble/dribble-6.jpg",
-        "/dribble/dribble-7.jpg"
-      ],
-      imagePlaceholders: [
-        "Login Page",
-        "Register Page",
-        "Dashboard Page",
-        "Court(s) Page",
-        "Booking(s) Page",
-        "User(s) Page",
-        "Profile Page"
-      ],
-      keyFeatures: [
-        "User authentication & role-based access (player + admin)",
-        "Real-time court availability & booking system",
-        "Admin dashboard for schedule & reservation management",
-        "RESTful API architecture with PostgreSQL database",
-        "Responsive UI with modern design patterns"
-      ],
-      contribution: [
-        "Independently designed & developed full-stack application (frontend + backend)",
-        "Implemented Scrum methodology with iterative user feedback",
-        "Architected scalable RESTful API with NestJS & Prisma ORM",
-        "Conducted end-to-end testing & quality assurance"
-      ]
-    },
-    {
-      id: 2,
-      title: "PERSONAL PORTFOLIO WEBSITE",
-      type: "Personal Project",
-      privacy: "Public",
-      description: "Personal portfolio website to showcase projects, skills, and experience. Built with Next.js, Tailwind CSS, and Framer Motion for smooth animations and modern UI.",
-      tech: ["Next.js", "Tailwind", "Framer Motion"],
-      github: "https://github.com/yourusername/portfolio",
-      live: null,
-      status: "Ongoing",
-      color: "cyan",
-      images: [
-        "/portfolio-1.jpg",
-        "/portfolio-2.jpg"
-      ],
-      imagePlaceholders: [
-        "Dark Theme",
-        "Light Theme"
-      ],
-      keyFeatures: [
-        "Responsive design",
-        "Animated transitions",
-        "Project showcase"
-      ],
-      contribution: [
-        "Design & development",
-        "Content writing"
-      ]
-    },
-    {
-      id: 3,
-      title: "Kos-Kosan Gang Family No.3",
-      type: "Freelance Project",
-      privacy: "Private",
-      description: "Real-world solution for boarding house business addressing inefficiencies in manual booking processes, property management, and tenant communication. Delivered working platform for dual user personas (property owners & tenants).",
-      tech: ["HTML", "CSS", "Javascript", "PHP", "MySQL"],
-      github: "https://github.com/yourusername/koskosan",
-      live: null,
-      status: "Completed",
-      color: "pink",
-      images: [
-        "/koskosan-1.jpg"
-      ],
-      imagePlaceholders: [
-        "Home Page"
-      ],
-      keyFeatures: [
-        "Multi-role authentication (landlord + tenant)",
-        "Real-time room availability & booking system",
-        "Reservation management & status tracking",
-        "Responsive, user-friendly interface",
-        "Efficient property management workflows"
-      ],
-      contribution: [
-        "Led frontend architecture & implementation",
-        "Designed intuitive UI for dual user personas",
-        "Implemented responsive design & client-side validation",
-        "Collaborated with backend developer on system integration",
-        "Gathered client requirements & incorporated feedback iteratively",
-        "Managed quality assurance & user testing"
-      ]
-    },
-    {
-      id: 4,
-      title: "Absensi SDN 064037",
-      type: "Freelance Project",
-      privacy: "Private",
-      description: "A digital platform for elementary school (SDN) administration, including student data, attendance, and report cards. Built for school digitalization.",
-      tech: ["HTML", "CSS", "Javascript", "PHP", "MySQL"],
-      github: "https://github.com/yourusername/sdn",
-      live: null,
-      status: "Completed",
-      color: "purple",
-      images: [
-        "/sdn-1.jpg"
-      ],
-      imagePlaceholders: [
-        "Login Page"
-      ],
-      keyFeatures: [
-        "Student management",
-        "Attendance tracking",
-        "Report cards"
-      ],
-      contribution: [
-        "Backend",
-        "Frontend"
-      ]
-    }
+        github: "https://github.com/yourusername/dribble",
+        live: null,
+        status: "Completed",
+        color: "green",
+        repoType: "public",
+        images: [
+          "/dribble/dribble-1.jpg",
+          "/dribble/dribble-2.jpg",
+          "/dribble/dribble-3.jpg",
+          "/dribble/dribble-4.jpg",
+          "/dribble/dribble-5.jpg",
+          "/dribble/dribble-6.jpg",
+          "/dribble/dribble-7.jpg"
+        ],
+        imagePlaceholders: [
+          "Login Page",
+          "Register Page",
+          "Dashboard Page",
+          "Court(s) Page",
+          "Booking(s) Page",
+          "User(s) Page",
+          "Profile Page"
+        ],
+        keyFeatures: [
+          "User authentication & role-based access (player + admin)",
+          "Real-time court availability & booking system",
+          "Admin dashboard for schedule & reservation management",
+          "RESTful API architecture with PostgreSQL database",
+          "Responsive UI with modern design patterns"
+        ],
+        contribution: [
+          "Independently designed & developed full-stack application (frontend + backend)",
+          "Implemented Scrum methodology with iterative user feedback",
+          "Architected scalable RESTful API with NestJS & Prisma ORM",
+          "Conducted end-to-end testing & quality assurance"
+        ]
+      },
+      {
+        id: 2,
+        title: "PERSONAL PORTFOLIO WEBSITE",
+        type: "Personal Project",
+        privacy: "Public",
+        description: "Personal portfolio website to showcase projects, skills, and experience. Built with Next.js, Tailwind CSS, and Framer Motion for smooth animations and modern UI.",
+        tech: ["Next.js", "Tailwind", "Framer Motion"],
+        github: "https://github.com/yourusername/portfolio",
+        live: null,
+        status: "Ongoing",
+        color: "cyan",
+        repoType: "public",
+        images: [
+          "/portfolio-1.jpg",
+          "/portfolio-2.jpg"
+        ],
+        imagePlaceholders: [
+          "Dark Theme",
+          "Light Theme"
+        ],
+        keyFeatures: [
+          "Responsive design",
+          "Animated transitions",
+          "Project showcase"
+        ],
+        contribution: [
+          "Design & development",
+          "Content writing"
+        ]
+      },
+      {
+        id: 3,
+        title: "Kos-Kosan Gang Family No.3",
+        type: "Freelance Project",
+        privacy: "Private",
+        description: "Real-world solution for boarding house business addressing inefficiencies in manual booking processes, property management, and tenant communication. Delivered working platform for dual user personas (property owners & tenants).",
+        tech: ["HTML", "CSS", "Javascript", "PHP", "MySQL"],
+        github: "https://github.com/yourusername/koskosan",
+        live: null,
+        status: "Completed",
+        color: "pink",
+        repoType: "private",
+        images: [
+          "/koskosan-1.jpg"
+        ],
+        imagePlaceholders: [
+          "Home Page"
+        ],
+        keyFeatures: [
+          "Multi-role authentication (landlord + tenant)",
+          "Real-time room availability & booking system",
+          "Reservation management & status tracking",
+          "Responsive, user-friendly interface",
+          "Efficient property management workflows"
+        ],
+        contribution: [
+          "Led frontend architecture & implementation",
+          "Designed intuitive UI for dual user personas",
+          "Implemented responsive design & client-side validation",
+          "Collaborated with backend developer on system integration",
+          "Gathered client requirements & incorporated feedback iteratively",
+          "Managed quality assurance & user testing"
+        ]
+      },
+      {
+        id: 4,
+        title: "Absensi SDN 064037",
+        type: "Freelance Project",
+        privacy: "Private",
+        description: "A digital platform for elementary school (SDN) administration, including student data, attendance, and report cards. Built for school digitalization.",
+        tech: ["HTML", "CSS", "Javascript", "PHP", "MySQL"],
+        github: "https://github.com/yourusername/sdn",
+        live: null,
+        status: "Completed",
+        color: "purple",
+        repoType: "private",
+        images: [
+          "/sdn-1.jpg"
+        ],
+        imagePlaceholders: [
+          "Login Page"
+        ],
+        keyFeatures: [
+          "Student management",
+          "Attendance tracking",
+          "Report cards"
+        ],
+        contribution: [
+          "Backend",
+          "Frontend"
+        ]
+      }
   ];
 
   return (
@@ -223,9 +227,6 @@ export default function ProjectsPage() {
                             {'[ '}{project.type}{' ]'}
                           </span>
                           <span className={`text-sm font-mono px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
-                            {'[ '}{project.privacy}{' ]'}
-                          </span>
-                          <span className={`text-sm font-mono px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
                             {'[ '}{project.status}{' ]'}
                           </span>
                         </div>
@@ -242,6 +243,7 @@ export default function ProjectsPage() {
                             tech={project.tech}
                             demo={project.github}
                             color={project.color}
+                            repoType={project.repoType}
                             onExpandChange={(isExpanded) => {
                               setExpandedProjectId(isExpanded ? project.id : null);
                             }}
@@ -255,7 +257,7 @@ export default function ProjectsPage() {
                                 >
                                   <span className="relative z-10 flex items-center gap-2">
                                     <FaGithub />
-                                    <span>CODE</span>
+                                    <span>{project.repoType === 'private' ? 'PRIVATE' : 'REPO'}</span>
                                   </span>
                                   <div className={`absolute inset-0 ${project.color === 'cyan' ? 'bg-neon-cyan' : project.color === 'pink' ? 'bg-neon-pink' : project.color === 'purple' ? 'bg-neon-purple' : 'bg-neon-green'} transform -translate-x-full group-hover/btn:translate-x-0 transition-transform duration-300`} />
                                 </AnimatedButton>
@@ -288,9 +290,6 @@ export default function ProjectsPage() {
                             {'[ '}{project.type}{' ]'}
                           </span>
                           <span className={`text-sm font-mono px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
-                            {'[ '}{project.privacy}{' ]'}
-                          </span>
-                          <span className={`text-sm font-mono px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
                             {'[ '}{project.status}{' ]'}
                           </span>
                         </div>
@@ -320,7 +319,7 @@ export default function ProjectsPage() {
                                 >
                                   <span className="relative z-10 flex items-center gap-2">
                                     <FaGithub />
-                                    <span>CODE</span>
+                                    <span>{project.repoType === 'private' ? 'PRIVATE' : 'REPO'}</span>
                                   </span>
                                   <div className={`absolute inset-0 ${project.color === 'cyan' ? 'bg-neon-cyan' : project.color === 'pink' ? 'bg-neon-pink' : project.color === 'purple' ? 'bg-neon-purple' : 'bg-neon-green'} transform -translate-x-full group-hover/btn:translate-x-0 transition-transform duration-300`} />
                                 </AnimatedButton>
