@@ -154,47 +154,47 @@ export default function ContactPage() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 pt-20 md:pt-28 pb-24 md:pb-8">
         
         {/* Page Header */}
-        <div className="mb-12 relative">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="w-2 h-16 bg-gradient-to-b from-neon-cyan via-neon-purple to-neon-pink flicker-slow" />
+        <div className="mb-8 md:mb-12 relative">
+          <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
+            <div className="w-1 md:w-2 h-12 md:h-16 bg-gradient-to-b from-neon-cyan via-neon-purple to-neon-pink flicker-slow" />
             <div>
-              <h1 className="text-5xl font-bold font-mono bg-gradient-to-r from-neon-cyan via-neon-purple to-neon-pink bg-clip-text text-transparent">
+              <h1 className="text-3xl md:text-5xl font-bold font-mono bg-gradient-to-r from-neon-cyan via-neon-purple to-neon-pink bg-clip-text text-transparent">
                 <GlitchText text="GET_IN_TOUCH" delay={2800} />
               </h1>
-              <p className="text-gray-500 text-sm font-mono mt-2">{'<contact> Let\'s work together </contact>'}</p>
+              <p className="text-gray-500 text-xs md:text-sm font-mono mt-1 md:mt-2">{'<contact> Let\'s work together </contact>'}</p>
             </div>
           </div>
           <div className="h-px w-full bg-gradient-to-r from-neon-cyan/50 via-transparent to-transparent" />
         </div>
 
-        <div className="flex flex-col gap-8 mb-8">
+        <div className="flex flex-col gap-6 md:gap-8 mb-8">
           {/* Contact Form (SEND_MESSAGE) */}
-          <div className="bg-dark-800/50 backdrop-blur-sm border-2 border-neon-cyan/30 rounded-2xl p-8 relative group hover:border-neon-cyan/60 transition-all duration-500 hover:shadow-2xl hover:shadow-neon-cyan/20">
+          <div className="bg-dark-800/50 backdrop-blur-sm border-2 border-neon-cyan/30 rounded-2xl p-4 md:p-8 relative group hover:border-neon-cyan/60 transition-all duration-500 hover:shadow-2xl hover:shadow-neon-cyan/20">
             {/* Scanline Effect on Hover */}
             <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-10 transition-opacity duration-500 overflow-hidden rounded-2xl">
               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-neon-cyan to-transparent animate-scan" />
             </div>
 
             {/* Corner Accents */}
-            <div className="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-neon-cyan" />
-            <div className="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-neon-cyan" />
+            <div className="absolute top-0 left-0 w-4 h-4 md:w-8 md:h-8 border-t-2 md:border-t-4 border-l-2 md:border-l-4 border-neon-cyan" />
+            <div className="absolute bottom-0 right-0 w-4 h-4 md:w-8 md:h-8 border-b-2 md:border-b-4 border-r-2 md:border-r-4 border-neon-cyan" />
             
             {/* Watermark */}
-            <div className="absolute top-4 right-4 text-neon-cyan/20 text-6xl font-mono">01</div>
+            <div className="absolute top-2 right-2 md:top-4 md:right-4 text-neon-cyan/20 text-4xl md:text-6xl font-mono">01</div>
 
             <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-1 h-8 bg-neon-cyan flicker-fast" />
-                <h3 className="text-2xl font-bold font-mono text-white">
+              <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
+                <div className="w-1 h-6 md:h-8 bg-neon-cyan flicker-fast" />
+                <h3 className="text-lg md:text-2xl font-bold font-mono text-white">
                   <GlitchText text="SEND_MESSAGE" delay={3200} />
                 </h3>
               </div>
 
-              <form className="flex flex-col md:flex-row gap-6">
+              <form className="flex flex-col md:flex-row gap-4 md:gap-6">
                 {/* Left: Name, Email, Subject */}
-                <div className="flex-1 space-y-4">
+                <div className="flex-1 space-y-3 md:space-y-4">
                   <div>
-                    <label className="block text-sm font-mono text-gray-400 mb-2">
+                    <label className="block text-xs md:text-sm font-mono text-gray-400 mb-1.5 md:mb-2">
                       {'<name>'}
                     </label>
                     <input
@@ -207,21 +207,21 @@ export default function ContactPage() {
                         touched.name && errors.name 
                           ? 'border-red-500 focus:border-red-500' 
                           : 'border-neon-cyan/30 focus:border-neon-cyan'
-                      } text-white px-4 py-3 font-mono focus:outline-none transition-colors duration-300`}
+                      } text-white px-3 md:px-4 py-2 md:py-3 text-sm md:text-base font-mono focus:outline-none transition-colors duration-300`}
                       placeholder="Your name..."
                     />
                     {touched.name && errors.name && (
-                      <div className="flex items-center gap-2 mt-2 text-red-500 text-xs font-mono">
+                      <div className="flex items-center gap-2 mt-1.5 md:mt-2 text-red-500 text-xs font-mono">
                         <FaExclamationCircle />
                         <span>{errors.name}</span>
                       </div>
                     )}
-                    <label className="block text-sm font-mono text-gray-400 mt-1">
+                    <label className="block text-xs md:text-sm font-mono text-gray-400 mt-1">
                       {'</name>'}
                     </label>
                   </div>
                   <div>
-                    <label className="block text-sm font-mono text-gray-400 mb-2">
+                    <label className="block text-xs md:text-sm font-mono text-gray-400 mb-1.5 md:mb-2">
                       {'<email>'}
                     </label>
                     <input
@@ -234,16 +234,16 @@ export default function ContactPage() {
                         touched.email && errors.email 
                           ? 'border-red-500 focus:border-red-500' 
                           : 'border-neon-cyan/30 focus:border-neon-cyan'
-                      } text-white px-4 py-3 font-mono focus:outline-none transition-colors duration-300`}
+                      } text-white px-3 md:px-4 py-2 md:py-3 text-sm md:text-base font-mono focus:outline-none transition-colors duration-300`}
                       placeholder="your.email@example.com"
                     />
                     {touched.email && errors.email && (
-                      <div className="flex items-center gap-2 mt-2 text-red-500 text-xs font-mono">
+                      <div className="flex items-center gap-2 mt-1.5 md:mt-2 text-red-500 text-xs font-mono">
                         <FaExclamationCircle />
                         <span>{errors.email}</span>
                       </div>
                     )}
-                    <label className="block text-sm font-mono text-gray-400 mt-1">
+                    <label className="block text-xs md:text-sm font-mono text-gray-400 mt-1">
                       {'</email>'}
                     </label>
                   </div>

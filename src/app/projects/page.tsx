@@ -198,27 +198,27 @@ export default function ProjectsPage() {
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 pt-20 md:pt-28 pb-24 md:pb-8">
           {/* Page Header */}
-          <div className="mb-12 relative">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-2 h-16 bg-gradient-to-b from-neon-cyan via-neon-purple to-neon-pink flicker-slow" />
+          <div className="mb-8 md:mb-12 relative">
+            <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
+              <div className="w-1 md:w-2 h-12 md:h-16 bg-gradient-to-b from-neon-cyan via-neon-purple to-neon-pink flicker-slow" />
               <div>
-                <h1 className="text-5xl font-bold font-mono bg-gradient-to-r from-neon-cyan via-neon-purple to-neon-pink bg-clip-text text-transparent">
+                <h1 className="text-3xl md:text-5xl font-bold font-mono bg-gradient-to-r from-neon-cyan via-neon-purple to-neon-pink bg-clip-text text-transparent">
                   <GlitchText text="PROJECTS" delay={2500} />
                 </h1>
-                <p className="text-gray-500 text-sm font-mono mt-2">{'<portfolio> Featured work and experiments </portfolio>'}</p>
+                <p className="text-gray-500 text-xs md:text-sm font-mono mt-1 md:mt-2">{'<portfolio> Featured work and experiments </portfolio>'}</p>
               </div>
             </div>
             <div className="h-px w-full bg-gradient-to-r from-neon-cyan/50 via-transparent to-transparent" />
           </div>
 
           {/* Projects Grid */}
-          <div className="space-y-8 mb-8">
+          <div className="space-y-6 md:space-y-8 mb-8">
             {projects.map((project, index) => {
               const isExpanded = expandedProjectId === project.id;
               return (
               <div key={project.id} className="w-full">
                 <div
-                  className={`bg-dark-800/50 backdrop-blur-sm border-2 ${getColorClasses(project.color)} rounded-2xl relative group transition-all duration-500 ease-in-out hover:shadow-2xl overflow-hidden flex flex-col md:flex-row items-stretch min-h-[340px] p-0 scale-[1.03] shadow-2xl ${
+                  className={`bg-dark-800/50 backdrop-blur-sm border-2 ${getColorClasses(project.color)} rounded-2xl relative group transition-all duration-500 ease-in-out hover:shadow-2xl overflow-hidden flex flex-col md:flex-row items-stretch min-h-[280px] md:min-h-[340px] p-0 scale-100 md:scale-[1.03] shadow-2xl ${
                     isExpanded ? 'animate-section-expand' : ''
                   }`}
                 >
@@ -226,20 +226,20 @@ export default function ProjectsPage() {
                   {index % 2 === 0 ? (
                     <>
                       {/* Left: Carousel */}
-                      <div className="w-full md:w-1/2 flex items-center justify-center bg-dark-900/80 p-6">
+                      <div className="w-full md:w-1/2 flex items-center justify-center bg-dark-900/80 p-4 md:p-6">
                         <Carousel images={project.images} alt={project.title} imagePlaceholders={project.imagePlaceholders} color={project.color} />
                       </div>
                       {/* Right: Details */}
-                      <div className="w-full md:w-1/2 flex flex-col justify-center p-6">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className={`text-sm font-mono px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
+                      <div className="w-full md:w-1/2 flex flex-col justify-center p-4 md:p-6">
+                        <div className="flex items-center justify-between mb-2 gap-2">
+                          <span className={`text-xs md:text-sm font-mono px-2 md:px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
                             {'[ '}{project.type}{' ]'}
                           </span>
-                          <span className={`text-sm font-mono px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
+                          <span className={`text-xs md:text-sm font-mono px-2 md:px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
                             {'[ '}{project.status}{' ]'}
                           </span>
                         </div>
-                        <h3 className="text-2xl font-bold text-white font-mono mb-2">
+                        <h3 className="text-xl md:text-2xl font-bold text-white font-mono mb-2">
                           <span className="text-gray-500">{'<'}</span>
                           {project.title}
                           <span className="text-gray-500">{' />'}</span>
@@ -257,14 +257,14 @@ export default function ProjectsPage() {
                               setExpandedProjectId(isExpanded ? project.id : null);
                             }}
                             resource={
-                              <div className="flex gap-3 pt-2">
+                              <div className="flex gap-2 md:gap-3 pt-2">
                                 <AnimatedButton
                                   href={project.github}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className={`group/btn flex items-center gap-2 px-4 py-2 text-sm font-mono bg-transparent border-2 ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan hover:bg-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink hover:bg-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple hover:bg-neon-purple' : 'border-neon-green text-neon-green hover:bg-neon-green'} hover:text-dark-900 transition-all duration-300 relative overflow-hidden`}
+                                  className={`group/btn flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-mono bg-transparent border-2 ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan hover:bg-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink hover:bg-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple hover:bg-neon-purple' : 'border-neon-green text-neon-green hover:bg-neon-green'} hover:text-dark-900 transition-all duration-300 relative overflow-hidden`}
                                 >
-                                  <span className="relative z-10 flex items-center gap-2">
+                                  <span className="relative z-10 flex items-center gap-1.5 md:gap-2">
                                     <FaGithub />
                                     <span>{project.repoType === 'private' ? 'PRIVATE' : 'REPO'}</span>
                                   </span>
@@ -275,9 +275,9 @@ export default function ProjectsPage() {
                                     href={project.live}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className={`group/btn flex items-center gap-2 px-4 py-2 text-sm font-mono bg-transparent border-2 ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan hover:bg-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink hover:bg-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple hover:bg-neon-purple' : 'border-neon-green text-neon-green hover:bg-neon-green'} hover:text-dark-900 transition-all duration-300 relative overflow-hidden`}
+                                    className={`group/btn flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-mono bg-transparent border-2 ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan hover:bg-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink hover:bg-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple hover:bg-neon-purple' : 'border-neon-green text-neon-green hover:bg-neon-green'} hover:text-dark-900 transition-all duration-300 relative overflow-hidden`}
                                   >
-                                    <span className="relative z-10 flex items-center gap-2">
+                                    <span className="relative z-10 flex items-center gap-1.5 md:gap-2">
                                       <FaExternalLinkAlt />
                                       <span>LIVE</span>
                                     </span>
@@ -293,16 +293,16 @@ export default function ProjectsPage() {
                   ) : (
                     <>
                       {/* Left: Details */}
-                      <div className="w-full md:w-1/2 flex flex-col justify-center p-6">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className={`text-sm font-mono px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
+                      <div className="w-full md:w-1/2 flex flex-col justify-center p-4 md:p-6 md:order-1 order-2">
+                        <div className="flex items-center justify-between mb-2 gap-2">
+                          <span className={`text-xs md:text-sm font-mono px-2 md:px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
                             {'[ '}{project.type}{' ]'}
                           </span>
-                          <span className={`text-sm font-mono px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
+                          <span className={`text-xs md:text-sm font-mono px-2 md:px-3 py-1 border ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple' : 'border-neon-green text-neon-green'}`}>
                             {'[ '}{project.status}{' ]'}
                           </span>
                         </div>
-                        <h3 className="text-2xl font-bold text-white font-mono mb-2">
+                        <h3 className="text-xl md:text-2xl font-bold text-white font-mono mb-2">
                           <span className="text-gray-500">{'<'}</span>
                           {project.title}
                           <span className="text-gray-500">{' />'}</span>
@@ -319,14 +319,14 @@ export default function ProjectsPage() {
                               setExpandedProjectId(isExpanded ? project.id : null);
                             }}
                             resource={
-                              <div className="flex gap-3 pt-2">
+                              <div className="flex gap-2 md:gap-3 pt-2">
                                 <AnimatedButton
                                   href={project.github}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className={`group/btn flex items-center gap-2 px-4 py-2 text-sm font-mono bg-transparent border-2 ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan hover:bg-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink hover:bg-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple hover:bg-neon-purple' : 'border-neon-green text-neon-green hover:bg-neon-green'} hover:text-dark-900 transition-all duration-300 relative overflow-hidden`}
+                                  className={`group/btn flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-mono bg-transparent border-2 ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan hover:bg-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink hover:bg-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple hover:bg-neon-purple' : 'border-neon-green text-neon-green hover:bg-neon-green'} hover:text-dark-900 transition-all duration-300 relative overflow-hidden`}
                                 >
-                                  <span className="relative z-10 flex items-center gap-2">
+                                  <span className="relative z-10 flex items-center gap-1.5 md:gap-2">
                                     <FaGithub />
                                     <span>{project.repoType === 'private' ? 'PRIVATE' : 'REPO'}</span>
                                   </span>
@@ -337,9 +337,9 @@ export default function ProjectsPage() {
                                     href={project.live}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className={`group/btn flex items-center gap-2 px-4 py-2 text-sm font-mono bg-transparent border-2 ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan hover:bg-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink hover:bg-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple hover:bg-neon-purple' : 'border-neon-green text-neon-green hover:bg-neon-green'} hover:text-dark-900 transition-all duration-300 relative overflow-hidden`}
+                                    className={`group/btn flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-mono bg-transparent border-2 ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan hover:bg-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink hover:bg-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple hover:bg-neon-purple' : 'border-neon-green text-neon-green hover:bg-neon-green'} hover:text-dark-900 transition-all duration-300 relative overflow-hidden`}
                                   >
-                                    <span className="relative z-10 flex items-center gap-2">
+                                    <span className="relative z-10 flex items-center gap-1.5 md:gap-2">
                                       <FaExternalLinkAlt />
                                       <span>LIVE</span>
                                     </span>
@@ -352,7 +352,7 @@ export default function ProjectsPage() {
                         </div>
                       </div>
                       {/* Right: Carousel */}
-                      <div className="w-full md:w-1/2 flex items-center justify-center bg-dark-900/80 p-6">
+                      <div className="w-full md:w-1/2 flex items-center justify-center bg-dark-900/80 p-4 md:p-6 md:order-2 order-1">
                         <Carousel images={project.images} alt={project.title} imagePlaceholders={project.imagePlaceholders} color={project.color} />
                       </div>
                     </>
