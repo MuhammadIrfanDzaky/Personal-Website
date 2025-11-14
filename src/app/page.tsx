@@ -1,6 +1,5 @@
 'use client';
 
-import ScrambleText from '@/components/ScrambleText';
 import GlitchText from '@/components/GlitchText';
 import TechBadge from '@/components/TechBadge';
 import AnimatedButton from '@/components/AnimatedButton';
@@ -133,8 +132,8 @@ export default function Home() {
                       Hi! My name is
                     </h2>
                   </div>
-                  <h1 className="text-5xl lg:text-6xl font-bold bg-gradient-to-r from-neon-cyan via-neon-purple to-neon-pink bg-clip-text text-transparent leading-tight min-h-[4rem] lg:min-h-[5rem]">
-                    <ScrambleText text="Muhammad Irfan Dzaky" />
+                  <h1 className="text-5xl lg:text-6xl font-bold bg-gradient-to-r from-neon-cyan via-neon-purple to-neon-pink bg-clip-text text-transparent leading-tight">
+                    Muhammad Irfan Dzaky
                   </h1>
                   <div className="flex items-center gap-3">
                     <div className="h-px w-12 bg-gradient-to-r from-transparent to-neon-cyan" />
