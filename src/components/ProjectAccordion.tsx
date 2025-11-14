@@ -1,7 +1,7 @@
 
 import * as Accordion from '@radix-ui/react-accordion';
 import React, { useRef, useState, useEffect } from 'react';
-import { FaChevronDown } from 'react-icons/fa';
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { useTheme } from '@/contexts/ThemeContext';
 
 type ProjectAccordionProps = {
@@ -29,9 +29,10 @@ export default function ProjectAccordion({ description, keyFeatures, tech, color
       {/* Brief Description */}
       <Accordion.Item value="desc" className={`border-b ${borderThemeClass}`}>
         <Accordion.Header>
-          <Accordion.Trigger className={`flex w-full items-center justify-between px-4 py-3 font-mono text-base font-bold ${colorClass} ${textClass} transition-colors ${theme === 'dark' ? 'hover:bg-dark-800/60 data-[state=open]:bg-dark-800/80' : 'hover:bg-gray-100 data-[state=open]:bg-gray-100'} focus:outline-none`}>
+          <Accordion.Trigger className={`flex w-full items-center justify-between px-4 py-3 font-mono text-base font-bold ${colorClass} ${textClass} transition-colors ${theme === 'dark' ? 'hover:bg-dark-800/60 data-[state=open]:bg-dark-800/80' : 'hover:bg-gray-100 data-[state=open]:bg-gray-100'} focus:outline-none group`}>
             Brief Description
-            <FaChevronDown className="ml-2 transition-transform duration-300 data-[state=open]:rotate-180" />
+            <FaChevronDown className="ml-2 transition-all duration-300 group-data-[state=open]:hidden" />
+            <FaChevronUp className="ml-2 transition-all duration-300 hidden group-data-[state=open]:block" />
           </Accordion.Trigger>
         </Accordion.Header>
         <Accordion.Content className="overflow-hidden data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up">
@@ -41,9 +42,10 @@ export default function ProjectAccordion({ description, keyFeatures, tech, color
       {/* Key Features */}
       <Accordion.Item value="features" className={`border-b ${borderThemeClass}`}>
         <Accordion.Header>
-          <Accordion.Trigger className={`flex w-full items-center justify-between px-4 py-3 font-mono text-base font-bold ${colorClass} ${textClass} transition-colors ${theme === 'dark' ? 'hover:bg-dark-800/60 data-[state=open]:bg-dark-800/80' : 'hover:bg-gray-100 data-[state=open]:bg-gray-100'} focus:outline-none`}>
+          <Accordion.Trigger className={`flex w-full items-center justify-between px-4 py-3 font-mono text-base font-bold ${colorClass} ${textClass} transition-colors ${theme === 'dark' ? 'hover:bg-dark-800/60 data-[state=open]:bg-dark-800/80' : 'hover:bg-gray-100 data-[state=open]:bg-gray-100'} focus:outline-none group`}>
             Key Features
-            <FaChevronDown className="ml-2 transition-transform duration-300 data-[state=open]:rotate-180" />
+            <FaChevronDown className="ml-2 transition-all duration-300 group-data-[state=open]:hidden" />
+            <FaChevronUp className="ml-2 transition-all duration-300 hidden group-data-[state=open]:block" />
           </Accordion.Trigger>
         </Accordion.Header>
         <Accordion.Content className="overflow-hidden data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up">
@@ -60,9 +62,10 @@ export default function ProjectAccordion({ description, keyFeatures, tech, color
       {contribution && contribution.length > 0 && (
         <Accordion.Item value="contribution" className={`border-b ${borderThemeClass}`}>
           <Accordion.Header>
-            <Accordion.Trigger className={`flex w-full items-center justify-between px-4 py-3 font-mono text-base font-bold ${colorClass} ${textClass} transition-colors ${theme === 'dark' ? 'hover:bg-dark-800/60 data-[state=open]:bg-dark-800/80' : 'hover:bg-gray-100 data-[state=open]:bg-gray-100'} focus:outline-none`}>
+            <Accordion.Trigger className={`flex w-full items-center justify-between px-4 py-3 font-mono text-base font-bold ${colorClass} ${textClass} transition-colors ${theme === 'dark' ? 'hover:bg-dark-800/60 data-[state=open]:bg-dark-800/80' : 'hover:bg-gray-100 data-[state=open]:bg-gray-100'} focus:outline-none group`}>
               Contribution
-              <FaChevronDown className="ml-2 transition-transform duration-300 data-[state=open]:rotate-180" />
+              <FaChevronDown className="ml-2 transition-all duration-300 group-data-[state=open]:hidden" />
+              <FaChevronUp className="ml-2 transition-all duration-300 hidden group-data-[state=open]:block" />
             </Accordion.Trigger>
           </Accordion.Header>
           <Accordion.Content className="overflow-hidden data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up">
@@ -80,9 +83,10 @@ export default function ProjectAccordion({ description, keyFeatures, tech, color
       {resource && (
         <Accordion.Item value="resource" className={`border-b ${borderThemeClass}`}>
           <Accordion.Header>
-            <Accordion.Trigger className={`flex w-full items-center justify-between px-4 py-3 font-mono text-base font-bold ${colorClass} ${textClass} transition-colors ${theme === 'dark' ? 'hover:bg-dark-800/60 data-[state=open]:bg-dark-800/80' : 'hover:bg-gray-100 data-[state=open]:bg-gray-100'} focus:outline-none`}>
+            <Accordion.Trigger className={`flex w-full items-center justify-between px-4 py-3 font-mono text-base font-bold ${colorClass} ${textClass} transition-colors ${theme === 'dark' ? 'hover:bg-dark-800/60 data-[state=open]:bg-dark-800/80' : 'hover:bg-gray-100 data-[state=open]:bg-gray-100'} focus:outline-none group`}>
               Resource
-              <FaChevronDown className="ml-2 transition-transform duration-300 data-[state=open]:rotate-180" />
+              <FaChevronDown className="ml-2 transition-all duration-300 group-data-[state=open]:hidden" />
+              <FaChevronUp className="ml-2 transition-all duration-300 hidden group-data-[state=open]:block" />
             </Accordion.Trigger>
           </Accordion.Header>
           <Accordion.Content className="overflow-hidden data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up">
@@ -93,9 +97,10 @@ export default function ProjectAccordion({ description, keyFeatures, tech, color
       {/* Tech Stack */}
       <Accordion.Item value="tech">
         <Accordion.Header>
-          <Accordion.Trigger className={`flex w-full items-center justify-between px-4 py-3 font-mono text-base font-bold ${colorClass} ${textClass} transition-colors ${theme === 'dark' ? 'hover:bg-dark-800/60 data-[state=open]:bg-dark-800/80' : 'hover:bg-gray-100 data-[state=open]:bg-gray-100'} focus:outline-none`}>
+          <Accordion.Trigger className={`flex w-full items-center justify-between px-4 py-3 font-mono text-base font-bold ${colorClass} ${textClass} transition-colors ${theme === 'dark' ? 'hover:bg-dark-800/60 data-[state=open]:bg-dark-800/80' : 'hover:bg-gray-100 data-[state=open]:bg-gray-100'} focus:outline-none group`}>
             Tech Stack
-            <FaChevronDown className="ml-2 transition-transform duration-300 data-[state=open]:rotate-180" />
+            <FaChevronDown className="ml-2 transition-all duration-300 group-data-[state=open]:hidden" />
+            <FaChevronUp className="ml-2 transition-all duration-300 hidden group-data-[state=open]:block" />
           </Accordion.Trigger>
         </Accordion.Header>
         <Accordion.Content className="overflow-hidden data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up">
