@@ -74,10 +74,10 @@ export default function ProjectsPage() {
         title: "Personal Portfolio Website",
         type: "Personal Project",
         privacy: "Public",
-        description: "Personal portfolio website to showcase projects, skills, and experience. Built with Next.js, Tailwind CSS, and Framer Motion for smooth animations and modern UI.",
-        tech: ["Next.js", "Tailwind", "Framer Motion"],
-        github: "https://github.com/yourusername/portfolio",
-        live: null,
+        description: "Modern portfolio website with cyberpunk/neon aesthetic featuring smooth animations, interactive components, and responsive design. Showcases projects, skills, and professional experience with custom glitch effects and dynamic UI elements.",
+        tech: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Radix UI", "React Hot Toast"],
+        github: "https://github.com/MuhammadIrfanDzaky/Personal-Website",
+        live: "https://muhammadirfandzaky.netlify.app",
         status: "Ongoing",
         color: "cyan",
         repoType: "public",
@@ -90,13 +90,22 @@ export default function ProjectsPage() {
           "Light Theme"
         ],
         keyFeatures: [
-          "Responsive design",
-          "Animated transitions",
-          "Project showcase"
+          "Cyberpunk/neon themed UI with custom glitch animations",
+          "Smooth page transitions and interactive components",
+          "Dynamic carousel with aggressive image preloading",
+          "Form validation with toast notifications",
+          "Responsive design with mobile hamburger menu",
+          "Tech stack tooltips and project accordions",
+          "Dark/Light theme switcher",
+          "Scroll progress indicator"
         ],
         contribution: [
-          "Design & development",
-          "Content writing"
+          "Designed & developed complete portfolio from scratch",
+          "Implemented custom animations (glitch, scramble, float effects)",
+          "Built 14+ reusable React components",
+          "Optimized images with Next.js Image (AVIF/WebP support)",
+          "Created responsive navigation with scroll progress bar",
+          "Integrated Radix UI for accessible components"
         ]
       },
       {

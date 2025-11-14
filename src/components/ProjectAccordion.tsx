@@ -107,26 +107,221 @@ export default function ProjectAccordion({ description, keyFeatures, tech, color
           <div className={`px-6 pb-4 pt-2 text-sm ${textClass}`}>
             <div className="flex flex-wrap gap-2">
               {tech.map((t: string, idx: number) => {
-                // Official color mapping for each technology (with neon glow)
-                const techColors: Record<string, { bg: string; text: string; border: string; shadow: string }> = {
-                  'Next.js': { bg: theme === 'dark' ? 'bg-[#000000]' : 'bg-[#FFFFFF]', text: theme === 'dark' ? 'text-white' : 'text-black', border: 'border-[#000000]', shadow: 'shadow-[0_0_8px_#000]' },
-                  'Tailwind': { bg: 'bg-[#06B6D4]', text: 'text-white', border: 'border-[#06B6D4]', shadow: 'shadow-[0_0_8px_#06B6D4]' },
-                  'NestJS': { bg: 'bg-[#E0234E]', text: 'text-white', border: 'border-[#E0234E]', shadow: 'shadow-[0_0_8px_#E0234E]' },
-                  'PostgreSQL': { bg: 'bg-[#336791]', text: 'text-white', border: 'border-[#336791]', shadow: 'shadow-[0_0_8px_#336791]' },
-                  'Prisma ORM': { bg: 'bg-[#2D3748]', text: 'text-white', border: 'border-[#2D3748]', shadow: 'shadow-[0_0_8px_#2D3748]' },
-                  'Framer Motion': { bg: 'bg-[#0055FF]', text: 'text-white', border: 'border-[#0055FF]', shadow: 'shadow-[0_0_8px_#0055FF]' },
-                  'HTML': { bg: 'bg-[#E34F26]', text: 'text-white', border: 'border-[#E34F26]', shadow: 'shadow-[0_0_8px_#E34F26]' },
-                  'CSS': { bg: 'bg-[#1572B6]', text: 'text-white', border: 'border-[#1572B6]', shadow: 'shadow-[0_0_8px_#1572B6]' },
-                  'Javascript': { bg: 'bg-[#F7DF1E]', text: 'text-black', border: 'border-[#F7DF1E]', shadow: 'shadow-[0_0_8px_#F7DF1E]' },
-                  'PHP': { bg: 'bg-[#777BB4]', text: 'text-white', border: 'border-[#777BB4]', shadow: 'shadow-[0_0_8px_#777BB4]' },
-                  'MySQL': { bg: 'bg-[#4479A1]', text: 'text-white', border: 'border-[#4479A1]', shadow: 'shadow-[0_0_8px_#4479A1]' },
+                // Official color mapping for each technology
+                // Badges dengan background hitam/gelap akan ada border yang berubah (putih di dark, hitam di light)
+                // Badges dengan background berwarna tidak ada border
+                const techColors: Record<string, { bg: string; text: string; hasBorder: boolean; borderDark: string; borderLight: string; shadow: string }> = {
+                  // Frontend Frameworks
+                  'Next.js': { 
+                    bg: 'bg-[#000000]', 
+                    text: 'text-white',
+                    hasBorder: true,
+                    borderDark: 'border-[#FFFFFF]/60',
+                    borderLight: 'border-[#000000]',
+                    shadow: theme === 'dark' ? 'shadow-[0_0_8px_rgba(255,255,255,0.5)]' : 'shadow-[0_0_8px_rgba(0,0,0,0.3)]' 
+                  },
+                  'React': { 
+                    bg: 'bg-[#61DAFB]', 
+                    text: 'text-[#282C34]',
+                    hasBorder: false,
+                    borderDark: '',
+                    borderLight: '',
+                    shadow: 'shadow-[0_0_8px_rgba(97,218,251,0.5)]' 
+                  },
+                  
+                  // Languages
+                  'TypeScript': { 
+                    bg: 'bg-[#3178C6]', 
+                    text: 'text-white',
+                    hasBorder: false,
+                    borderDark: '',
+                    borderLight: '',
+                    shadow: 'shadow-[0_0_8px_rgba(49,120,198,0.5)]' 
+                  },
+                  'Javascript': { 
+                    bg: 'bg-[#F7DF1E]', 
+                    text: 'text-white',
+                    hasBorder: false,
+                    borderDark: '',
+                    borderLight: '',
+                    shadow: 'shadow-[0_0_8px_rgba(247,223,30,0.5)]' 
+                  },
+                  'PHP': { 
+                    bg: 'bg-[#777BB4]', 
+                    text: 'text-white',
+                    hasBorder: false,
+                    borderDark: '',
+                    borderLight: '',
+                    shadow: 'shadow-[0_0_8px_rgba(119,123,180,0.5)]' 
+                  },
+                  'HTML': { 
+                    bg: 'bg-[#E34F26]', 
+                    text: 'text-white',
+                    hasBorder: false,
+                    borderDark: '',
+                    borderLight: '',
+                    shadow: 'shadow-[0_0_8px_rgba(227,79,38,0.5)]' 
+                  },
+                  'CSS': { 
+                    bg: 'bg-[#1572B6]', 
+                    text: 'text-white',
+                    hasBorder: false,
+                    borderDark: '',
+                    borderLight: '',
+                    shadow: 'shadow-[0_0_8px_rgba(21,114,182,0.5)]' 
+                  },
+                  
+                  // Styling
+                  'Tailwind': { 
+                    bg: 'bg-[#06B6D4]', 
+                    text: 'text-white',
+                    hasBorder: false,
+                    borderDark: '',
+                    borderLight: '',
+                    shadow: 'shadow-[0_0_8px_rgba(6,182,212,0.5)]' 
+                  },
+                  'Tailwind CSS': { 
+                    bg: 'bg-[#06B6D4]', 
+                    text: 'text-white',
+                    hasBorder: false,
+                    borderDark: '',
+                    borderLight: '',
+                    shadow: 'shadow-[0_0_8px_rgba(6,182,212,0.5)]' 
+                  },
+                  
+                  // Backend Frameworks
+                  'NestJS': { 
+                    bg: 'bg-[#E0234E]', 
+                    text: 'text-white',
+                    hasBorder: false,
+                    borderDark: '',
+                    borderLight: '',
+                    shadow: 'shadow-[0_0_8px_rgba(224,35,78,0.5)]' 
+                  },
+                  'Node.js': { 
+                    bg: 'bg-[#339933]', 
+                    text: 'text-white',
+                    hasBorder: false,
+                    borderDark: '',
+                    borderLight: '',
+                    shadow: 'shadow-[0_0_8px_rgba(51,153,51,0.5)]' 
+                  },
+                  'Express': { 
+                    bg: 'bg-[#000000]', 
+                    text: 'text-white',
+                    hasBorder: true,
+                    borderDark: 'border-[#FFFFFF]/60',
+                    borderLight: 'border-[#000000]',
+                    shadow: theme === 'dark' ? 'shadow-[0_0_8px_rgba(255,255,255,0.5)]' : 'shadow-[0_0_8px_rgba(0,0,0,0.3)]' 
+                  },
+                  
+                  // Databases
+                  'PostgreSQL': { 
+                    bg: 'bg-[#336791]', 
+                    text: 'text-white',
+                    hasBorder: false,
+                    borderDark: '',
+                    borderLight: '',
+                    shadow: 'shadow-[0_0_8px_rgba(51,103,145,0.5)]' 
+                  },
+                  'MySQL': { 
+                    bg: 'bg-[#4479A1]', 
+                    text: 'text-white',
+                    hasBorder: false,
+                    borderDark: '',
+                    borderLight: '',
+                    shadow: 'shadow-[0_0_8px_rgba(68,121,161,0.5)]' 
+                  },
+                  'MongoDB': { 
+                    bg: 'bg-[#47A248]', 
+                    text: 'text-white',
+                    hasBorder: false,
+                    borderDark: '',
+                    borderLight: '',
+                    shadow: 'shadow-[0_0_8px_rgba(71,162,72,0.5)]' 
+                  },
+                  
+                  // ORMs
+                  'Prisma ORM': { 
+                    bg: theme === 'dark' ? 'bg-[#1A202C]' : 'bg-[#2D3748]', 
+                    text: 'text-white',
+                    hasBorder: true,
+                    borderDark: 'border-[#FFFFFF]/40',
+                    borderLight: 'border-[#2D3748]',
+                    shadow: theme === 'dark' ? 'shadow-[0_0_8px_rgba(90,103,216,0.5)]' : 'shadow-[0_0_8px_rgba(45,55,72,0.3)]' 
+                  },
+                  'Prisma': { 
+                    bg: theme === 'dark' ? 'bg-[#1A202C]' : 'bg-[#2D3748]', 
+                    text: 'text-white',
+                    hasBorder: true,
+                    borderDark: 'border-[#FFFFFF]/40',
+                    borderLight: 'border-[#2D3748]',
+                    shadow: theme === 'dark' ? 'shadow-[0_0_8px_rgba(90,103,216,0.5)]' : 'shadow-[0_0_8px_rgba(45,55,72,0.3)]' 
+                  },
+                  
+                  // Animation & UI Libraries
+                  'Framer Motion': { 
+                    bg: 'bg-[#0055FF]', 
+                    text: 'text-white',
+                    hasBorder: false,
+                    borderDark: '',
+                    borderLight: '',
+                    shadow: 'shadow-[0_0_8px_rgba(0,85,255,0.5)]' 
+                  },
+                  'Radix UI': { 
+                    bg: theme === 'dark' ? 'bg-[#161618]' : 'bg-[#FFFFFF]', 
+                    text: 'text-white',
+                    hasBorder: true,
+                    borderDark: 'border-[#FFFFFF]/60',
+                    borderLight: 'border-[#161618]',
+                    shadow: theme === 'dark' ? 'shadow-[0_0_8px_rgba(255,255,255,0.5)]' : 'shadow-[0_0_8px_rgba(22,22,24,0.3)]' 
+                  },
+                  'React Hot Toast': { 
+                    bg: 'bg-[#FF6B6B]', 
+                    text: 'text-white',
+                    hasBorder: false,
+                    borderDark: '',
+                    borderLight: '',
+                    shadow: 'shadow-[0_0_8px_rgba(255,107,107,0.5)]' 
+                  },
+                  
+                  // Version Control & Tools
+                  'Git': { 
+                    bg: 'bg-[#F05032]', 
+                    text: 'text-white',
+                    hasBorder: false,
+                    borderDark: '',
+                    borderLight: '',
+                    shadow: 'shadow-[0_0_8px_rgba(240,80,50,0.5)]' 
+                  },
+                  'GitHub': { 
+                    bg: 'bg-[#181717]', 
+                    text: 'text-white',
+                    hasBorder: true,
+                    borderDark: 'border-[#FFFFFF]/60',
+                    borderLight: 'border-[#181717]',
+                    shadow: theme === 'dark' ? 'shadow-[0_0_8px_rgba(255,255,255,0.5)]' : 'shadow-[0_0_8px_rgba(24,23,23,0.3)]' 
+                  },
                 };
-                const color = techColors[t] || { bg: theme === 'dark' ? 'bg-dark-900/50' : 'bg-gray-100', text: colorClass, border: borderClass, shadow: 'shadow-[0_0_8px_rgba(0,255,255,0.5)]' };
+                
+                const color = techColors[t] || { 
+                  bg: theme === 'dark' ? 'bg-dark-900/50' : 'bg-gray-100', 
+                  text: 'text-white',
+                  hasBorder: false,
+                  borderDark: '',
+                  borderLight: '',
+                  shadow: 'shadow-[0_0_8px_rgba(0,229,255,0.5)]' 
+                };
+                
+                const borderClass = color.hasBorder 
+                  ? (theme === 'dark' ? color.borderDark : color.borderLight)
+                  : '';
+                
                 return (
                   <span
                     key={idx}
-                    className={`text-sm font-mono px-2 py-1 ${color.bg} ${color.text} ${color.border} ${color.shadow} rounded border`}
-                    style={{ filter: 'brightness(1.2)' }}
+                    style={{ color: '#FFFFFF' }}
+                    className={`text-sm font-mono font-semibold px-3 py-1.5 rounded transition-all duration-300 hover:scale-105 ${color.bg} ${color.shadow} ${color.hasBorder ? `border-2 ${borderClass}` : ''}`}
                   >
                     {t}
                   </span>
