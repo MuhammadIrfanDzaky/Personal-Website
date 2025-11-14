@@ -7,6 +7,26 @@ import { FaHome, FaCode, FaEnvelope, FaSun, FaMoon, FaBars, FaTimes } from 'reac
 import { useTheme } from '@/contexts/ThemeContext';
 import Dock from '@/components/Dock';
 
+const animationSteps = [
+  '[J]',
+  '[Je]',
+  '[Jek]',
+  '[Jek,]',
+  '[Jek, i]',
+  '[Jek, is]',
+  '[Jek, is ]',
+  '[Jek, is m]',
+  '[Jek, is my]',
+  '[Jek, is my ]',
+  '[Jek, is my s]',
+  '[Jek, is my su]',
+  '[Jek, is my sur]',
+  '[Jek, is my surn]',
+  '[Jek, is my surna]',
+  '[Jek, is my surnam]',
+  '[Jek, is my surname]',
+];
+
 export default function Navigation() {
   const pathname = usePathname();
   const [isHovered, setIsHovered] = useState(false);
@@ -18,26 +38,6 @@ export default function Navigation() {
   // Simpan interval agar bisa dibersihkan saat hover berubah di tengah animasi
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const { theme, toggleTheme } = useTheme();
-
-  const animationSteps = [
-    '[J]',
-    '[Je]',
-    '[Jek]',
-    '[Jek,]',
-    '[Jek, i]',
-    '[Jek, is]',
-    '[Jek, is ]',
-    '[Jek, is m]',
-    '[Jek, is my]',
-    '[Jek, is my ]',
-    '[Jek, is my s]',
-    '[Jek, is my su]',
-    '[Jek, is my sur]',
-    '[Jek, is my surn]',
-    '[Jek, is my surna]',
-    '[Jek, is my surnam]',
-    '[Jek, is my surname]',
-  ];
 
   // Scroll progress bar
   useEffect(() => {

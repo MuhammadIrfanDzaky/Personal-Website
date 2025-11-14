@@ -423,7 +423,7 @@ export default function ContactPage() {
         <div className="text-center py-8">
           <p className="text-gray-500 text-sm font-mono">
             <span className="text-neon-cyan">{'>> '}</span>
-            Let's Connect!
+            Let&apos;s Connect!
             <span className="text-neon-cyan">{' <<'}</span>
           </p>
         </div>
