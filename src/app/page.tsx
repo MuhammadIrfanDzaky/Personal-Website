@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import GlitchText from '@/components/GlitchText';
 import TechBadge from '@/components/TechBadge';
 import AnimatedButton from '@/components/AnimatedButton';
@@ -111,10 +112,14 @@ export default function Home() {
                   className="block w-40 h-40 lg:w-48 lg:h-48 rounded-2xl border-4 border-neon-cyan overflow-hidden bg-dark-700 relative hover:border-neon-pink transition-all duration-500 hover:shadow-2xl hover:shadow-neon-cyan hover:rotate-2 transform cursor-pointer"
                   title="Click Me!"
                 >
-                  <img 
+                  <Image 
                     src="/avatar.png" 
                     alt="Muhammad Irfan Dzaky" 
-                    className="w-full h-full object-cover group-hover/photo:scale-110 transition-transform duration-500"
+                    fill
+                    sizes="(max-width: 768px) 160px, 192px"
+                    className="object-cover group-hover/photo:scale-110 transition-transform duration-500"
+                    priority
+                    quality={90}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-neon-cyan/30 to-transparent opacity-0 group-hover/photo:opacity-100 transition-opacity duration-500" />
                 </a>

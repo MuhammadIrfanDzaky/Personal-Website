@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
@@ -13,7 +14,43 @@ interface CarouselProps {
 
 export default function Carousel({ images, alt, imagePlaceholders, color }: CarouselProps) {
   const [[currentIndex, direction], setCurrentIndex] = useState<[number, number]>([0, 0]);
+  const [preloadedImages, setPreloadedImages] = useState<Set<number>>(new Set([0]));
 
+  // Aggressively preload all images when component mounts
+  useEffect(() => {
+    // Preload images with smart priority:
+    // 1. Current image (0ms)
+    // 2. Next & Previous (immediate)
+    // 3. First & Last images (high priority for common navigation)
+    // 4. Rest of images
+    const highPriority = [
+      currentIndex,
+      currentIndex + 1,
+      currentIndex - 1,
+      0, // First image
+      images.length - 1 // Last image
+    ];
+    
+    const restImages = images
+      .map((_, i) => i)
+      .filter(i => !highPriority.includes(i));
+    
+    const uniqueSet = new Set([...highPriority, ...restImages]);
+    const preloadOrder = Array.from(uniqueSet).filter(i => i >= 0 && i < images.length);
+
+    // Preload with minimal delays (20ms instead of 50ms)
+    preloadOrder.forEach((index, priority) => {
+      setTimeout(() => {
+        const img = new window.Image();
+        img.src = images[index];
+        setPreloadedImages(prev => {
+          const newSet = new Set(Array.from(prev));
+          newSet.add(index);
+          return newSet;
+        });
+      }, priority * 20); // Reduced from 50ms to 20ms
+    });
+  }, [images, currentIndex]);
 
   const goToPrevious = () => {
     setCurrentIndex(([prevIndex]) => [
@@ -47,19 +84,44 @@ export default function Carousel({ images, alt, imagePlaceholders, color }: Caro
       <div className="relative flex flex-col items-center justify-center bg-dark-700 overflow-hidden rounded-lg max-w-full max-h-[320px] min-h-[120px] min-w-[120px]" style={{margin: '0 auto', height: '300px', width: '100%'}}>
         <div className="relative w-full h-[300px] flex items-center justify-center">
           <AnimatePresence initial={false} custom={direction}>
-            <motion.img
+            <motion.div
               key={currentIndex}
-              src={images[currentIndex]}
-              alt={`${alt} - ${currentIndex + 1}`}
-              className="absolute left-0 top-0 w-full h-full object-contain"
+              className="absolute left-0 top-0 w-full h-full"
               initial={{ x: direction > 0 ? 300 : -300, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: direction > 0 ? -300 : 300, opacity: 0 }}
               transition={{ x: { type: 'spring', stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
-              style={{ margin: '0 auto' }}
               custom={direction}
-            />
+            >
+              <Image
+                src={images[currentIndex]}
+                alt={`${alt} - ${currentIndex + 1}`}
+                fill
+                className="object-contain"
+                sizes="(max-width: 768px) 100vw, 600px"
+                priority={currentIndex === 0}
+                quality={85}
+                loading="eager"
+              />
+            </motion.div>
           </AnimatePresence>
+          
+          {/* Hidden preload for ALL carousel images */}
+          <div className="hidden">
+            {images.map((img, idx) => (
+              idx !== currentIndex && (
+                <Image
+                  key={img}
+                  src={img}
+                  alt={`preload-${idx}`}
+                  width={1}
+                  height={1}
+                  quality={85}
+                  priority={idx <= 2}
+                />
+              )
+            ))}
+          </div>
 
           {/* Navigation Buttons - moved inside image container so positioning anchors to this fixed-height box */}
           {images.length > 1 && (
