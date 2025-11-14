@@ -87,17 +87,35 @@ export default function Carousel({ images, alt, imagePlaceholders, color }: Caro
             <motion.div
               key={currentIndex}
               className="absolute left-0 top-0 w-full h-full"
+              custom={direction}
               initial={{ x: direction > 0 ? 300 : -300, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: direction > 0 ? -300 : 300, opacity: 0 }}
               transition={{ x: { type: 'spring', stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
-              custom={direction}
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={1}
+              onDragEnd={(e, { offset, velocity }) => {
+                const swipe = Math.abs(offset.x) * velocity.x;
+                
+                if (swipe > 10000) {
+                  // Swiped right (go to previous)
+                  if (currentIndex > 0) {
+                    goToPrevious();
+                  }
+                } else if (swipe < -10000) {
+                  // Swiped left (go to next)
+                  if (currentIndex < images.length - 1) {
+                    goToNext();
+                  }
+                }
+              }}
             >
               <Image
                 src={images[currentIndex]}
                 alt={`${alt} - ${currentIndex + 1}`}
                 fill
-                className="object-contain"
+                className="object-contain pointer-events-none"
                 sizes="(max-width: 768px) 100vw, 600px"
                 priority={currentIndex === 0}
                 quality={85}
@@ -130,10 +148,10 @@ export default function Carousel({ images, alt, imagePlaceholders, color }: Caro
               {currentIndex > 0 && (
                 <button
                   onClick={goToPrevious}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-dark-900/80 backdrop-blur-sm border border-neon-cyan/30 text-neon-cyan hover:bg-neon-cyan hover:text-dark-900 transition-all duration-300 opacity-0 group-hover:opacity-100 z-20"
+                  className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-dark-900/80 backdrop-blur-sm border border-neon-cyan/30 text-neon-cyan hover:bg-neon-cyan hover:text-dark-900 transition-all duration-300 md:opacity-0 md:group-hover:opacity-100 opacity-60 active:opacity-100 z-20"
                   aria-label="Previous image"
                 >
-                  <FaChevronLeft className="text-sm" />
+                  <FaChevronLeft className="text-sm md:text-base" />
                 </button>
               )}
 
@@ -141,10 +159,10 @@ export default function Carousel({ images, alt, imagePlaceholders, color }: Caro
               {currentIndex < images.length - 1 && (
                 <button
                   onClick={goToNext}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-dark-900/80 backdrop-blur-sm border border-neon-cyan/30 text-neon-cyan hover:bg-neon-cyan hover:text-dark-900 transition-all duration-300 opacity-0 group-hover:opacity-100 z-20"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-dark-900/80 backdrop-blur-sm border border-neon-cyan/30 text-neon-cyan hover:bg-neon-cyan hover:text-dark-900 transition-all duration-300 md:opacity-0 md:group-hover:opacity-100 opacity-60 active:opacity-100 z-20"
                   aria-label="Next image"
                 >
-                  <FaChevronRight className="text-sm" />
+                  <FaChevronRight className="text-sm md:text-base" />
                 </button>
               )}
 
