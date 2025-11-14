@@ -196,7 +196,7 @@ export default function ProjectsPage() {
           <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-neon-green/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '2s' }} />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 pt-16 md:pt-24 pb-8">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 pt-20 md:pt-28 pb-24 md:pb-8">
           {/* Page Header */}
           <div className="mb-12 relative">
             <div className="flex items-center gap-4 mb-4">

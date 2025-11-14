@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
-import { FaHome, FaCode, FaEnvelope, FaSun, FaMoon, FaBars, FaTimes } from 'react-icons/fa';
+import { FaHome, FaCode, FaEnvelope, FaSun, FaMoon } from 'react-icons/fa';
 import { useTheme } from '@/contexts/ThemeContext';
 import Dock from '@/components/Dock';
 
@@ -32,7 +32,6 @@ export default function Navigation() {
   const [isHovered, setIsHovered] = useState(false);
   const [displayText, setDisplayText] = useState('[J]');
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   // Simpan posisi terakhir yang tampil (baik maju/mundur)
   const lastStepRef = useRef(0);
   // Simpan interval agar bisa dibersihkan saat hover berubah di tengah animasi
@@ -50,23 +49,6 @@ export default function Navigation() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  // Close mobile menu when route changes
-  useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [pathname]);
-
-  // Prevent body scroll when mobile menu is open
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isMobileMenuOpen]);
 
 
 
@@ -203,21 +185,20 @@ export default function Navigation() {
         </div>
       </nav>
 
-      {/* Mobile/Tablet Navigation */}
+      {/* Mobile/Tablet Navigation - Bottom Navbar */}
       <div className="md:hidden">
-        {/* Mobile Header */}
+        {/* Mobile Top Bar (Logo only) */}
         <nav className="fixed top-0 left-0 right-0 z-50 bg-dark-900/95 backdrop-blur-md border-b border-neon-cyan/20">
           {/* Scroll Progress Bar */}
           <div className="absolute top-0 left-0 h-1 bg-gradient-to-r from-neon-cyan via-neon-pink to-neon-purple transition-all duration-300"
             style={{ width: `${scrollProgress}%` }}
           />
           
-          <div className="flex items-center justify-between px-6 py-4">
+          <div className="flex items-center justify-center px-6 py-4">
             {/* Logo */}
             <Link 
               href="/" 
               className="text-xl font-bold"
-              onClick={() => setIsMobileMenuOpen(false)}
             >
               <span
                 className="text-neon-cyan transition-colors duration-300"
@@ -226,67 +207,60 @@ export default function Navigation() {
                 [J]
               </span>
             </Link>
-
-            {/* Hamburger Button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="relative w-10 h-10 flex items-center justify-center text-neon-cyan hover:text-neon-pink transition-colors duration-300"
-              aria-label="Toggle menu"
-            >
-              {/* Animated hamburger icon */}
-              <div className="relative w-6 h-5">
-                <span className={`absolute left-0 w-full h-0.5 bg-current transition-all duration-300 ease-in-out ${
-                  isMobileMenuOpen ? 'top-2 rotate-45' : 'top-0 rotate-0'
-                }`} />
-                <span className={`absolute left-0 top-2 w-full h-0.5 bg-current transition-all duration-300 ease-in-out ${
-                  isMobileMenuOpen ? 'opacity-0 scale-0' : 'opacity-100 scale-100'
-                }`} />
-                <span className={`absolute left-0 w-full h-0.5 bg-current transition-all duration-300 ease-in-out ${
-                  isMobileMenuOpen ? 'top-2 -rotate-45' : 'top-4 rotate-0'
-                }`} />
-              </div>
-            </button>
           </div>
         </nav>
 
-        {/* Mobile Menu Overlay */}
-        <div 
-          className={`fixed inset-0 bg-dark-900/95 backdrop-blur-md z-40 transition-all duration-500 ease-in-out ${
-            isMobileMenuOpen 
-              ? 'opacity-100 pointer-events-auto' 
-              : 'opacity-0 pointer-events-none'
-          }`}
-          style={{ top: '73px' }} // Height of mobile header
-        >
-          <div className={`flex flex-col items-center justify-center h-full gap-6 transition-all duration-500 ease-in-out ${
-            isMobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-          }`}>
-            {navItems.map((item, index) => {
+        {/* Bottom Navigation Bar (Instagram/TikTok style) */}
+        <nav className="fixed bottom-0 left-0 right-0 z-50 bg-dark-900/95 backdrop-blur-md border-t border-neon-cyan/20 pb-safe">
+          <div className="flex items-center justify-around px-4 py-3">
+            {navItems.map((item) => {
               const isActive = pathname === item.path;
               return (
                 <Link
                   key={item.path}
                   href={item.path}
-                  onClick={() => setIsMobileMenuOpen(false)}
                   className={`
-                    relative flex items-center gap-3 px-8 py-4 font-mono text-lg
-                    border-2 transition-all duration-300
-                    ${getColorClasses(item.color, isActive)}
+                    relative flex flex-col items-center justify-center gap-1 px-4 py-2 
+                    transition-all duration-300 group
+                    ${isActive ? 'scale-110' : 'scale-100'}
                   `}
-                  style={{
-                    transitionDelay: isMobileMenuOpen ? `${index * 50}ms` : '0ms'
-                  }}
                 >
-                  {item.icon}
-                  <span>{item.name}</span>
-                  {/* Active indicator */}
+                  {/* Icon */}
+                  <div className={`
+                    text-2xl transition-all duration-300
+                    ${isActive 
+                      ? item.color === 'cyan' ? 'text-neon-cyan drop-shadow-[0_0_8px_rgba(0,229,255,0.8)]' :
+                        item.color === 'green' ? 'text-neon-green drop-shadow-[0_0_8px_rgba(16,240,160,0.8)]' :
+                        item.color === 'purple' ? 'text-neon-purple drop-shadow-[0_0_8px_rgba(168,85,247,0.8)]' :
+                        'text-neon-pink drop-shadow-[0_0_8px_rgba(255,16,240,0.8)]'
+                      : 'text-gray-400 group-hover:text-gray-300'
+                    }
+                  `}>
+                    {item.icon}
+                  </div>
+                  
+                  {/* Label */}
+                  <span className={`
+                    text-xs font-mono transition-all duration-300
+                    ${isActive 
+                      ? item.color === 'cyan' ? 'text-neon-cyan font-semibold' :
+                        item.color === 'green' ? 'text-neon-green font-semibold' :
+                        item.color === 'purple' ? 'text-neon-purple font-semibold' :
+                        'text-neon-pink font-semibold'
+                      : 'text-gray-400 group-hover:text-gray-300'
+                    }
+                  `}>
+                    {item.name}
+                  </span>
+
+                  {/* Active indicator dot */}
                   {isActive && (
                     <span 
-                      className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${
-                        item.color === 'cyan' ? 'from-transparent via-neon-cyan to-transparent' :
-                        item.color === 'green' ? 'from-transparent via-neon-green to-transparent' :
-                        item.color === 'purple' ? 'from-transparent via-neon-purple to-transparent' :
-                        'from-transparent via-neon-pink to-transparent'
+                      className={`absolute -top-1 w-1.5 h-1.5 rounded-full animate-pulse ${
+                        item.color === 'cyan' ? 'bg-neon-cyan shadow-[0_0_8px_rgba(0,229,255,0.8)]' :
+                        item.color === 'green' ? 'bg-neon-green shadow-[0_0_8px_rgba(16,240,160,0.8)]' :
+                        item.color === 'purple' ? 'bg-neon-purple shadow-[0_0_8px_rgba(168,85,247,0.8)]' :
+                        'bg-neon-pink shadow-[0_0_8px_rgba(255,16,240,0.8)]'
                       }`}
                     />
                   )}
@@ -294,22 +268,27 @@ export default function Navigation() {
               );
             })}
 
-            {/* Theme Toggle in Mobile Menu */}
+            {/* Theme Toggle Button */}
             <button
-              onClick={() => {
-                toggleTheme();
-                setIsMobileMenuOpen(false);
-              }}
-              className="flex items-center gap-3 px-8 py-4 font-mono text-lg border-2 border-neon-pink text-neon-pink hover:bg-neon-pink hover:text-dark-900 transition-all duration-300"
-              style={{
-                transitionDelay: isMobileMenuOpen ? `${navItems.length * 50}ms` : '0ms'
-              }}
+              onClick={toggleTheme}
+              className="relative flex flex-col items-center justify-center gap-1 px-4 py-2 transition-all duration-300 group"
             >
-              {theme === 'dark' ? <FaSun className="text-xl" /> : <FaMoon className="text-xl" />}
-              <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
+              {/* Icon */}
+              <div className="text-2xl text-neon-pink transition-all duration-300 group-hover:text-neon-pink/80 drop-shadow-[0_0_8px_rgba(255,16,240,0.6)]">
+                {theme === 'dark' ? (
+                  <FaSun className="transition-transform duration-300 group-hover:rotate-180" />
+                ) : (
+                  <FaMoon className="transition-transform duration-300 group-hover:rotate-12" />
+                )}
+              </div>
+              
+              {/* Label */}
+              <span className="text-xs font-mono text-neon-pink transition-all duration-300 group-hover:text-neon-pink/80">
+                Theme
+              </span>
             </button>
           </div>
-        </div>
+        </nav>
       </div>
     </>
   );
