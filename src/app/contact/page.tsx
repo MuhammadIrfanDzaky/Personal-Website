@@ -1,10 +1,18 @@
 'use client';
 
 import { useState } from 'react';
-import { FaGithub, FaLinkedin, FaEnvelope, FaPhone, FaMapMarkerAlt, FaWhatsapp } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaPhone, FaMapMarkerAlt, FaWhatsapp, FaExclamationCircle } from 'react-icons/fa';
 import AnimatedButton from '@/components/AnimatedButton';
 import GlitchText from '@/components/GlitchText';
 import SquaresBackground from '@/components/SquaresBackground';
+import toast, { Toaster } from 'react-hot-toast';
+
+interface FormErrors {
+  name?: string;
+  email?: string;
+  subject?: string;
+  message?: string;
+}
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -14,21 +22,114 @@ export default function ContactPage() {
     message: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+
+  // Validation function
+  const validateField = (name: string, value: string): string | undefined => {
+    switch (name) {
+      case 'name':
+        if (!value.trim()) return 'Name is required';
+        if (value.trim().length < 2) return 'Name must be at least 2 characters';
+        if (value.trim().length > 50) return 'Name must be less than 50 characters';
+        break;
+      case 'email':
+        if (!value.trim()) return 'Email is required';
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) return 'Invalid email format';
+        break;
+      case 'subject':
+        if (!value.trim()) return 'Subject is required';
+        if (value.trim().length < 5) return 'Subject must be at least 5 characters';
+        if (value.trim().length > 100) return 'Subject must be less than 100 characters';
+        break;
+      case 'message':
+        if (!value.trim()) return 'Message is required';
+        if (value.trim().length < 10) return 'Message must be at least 10 characters';
+        if (value.trim().length > 1000) return 'Message must be less than 1000 characters';
+        break;
+    }
+    return undefined;
+  };
+
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+    Object.keys(formData).forEach((key) => {
+      const error = validateField(key, formData[key as keyof typeof formData]);
+      if (error) {
+        newErrors[key as keyof FormErrors] = error;
+      }
+    });
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleBlur = (field: string) => {
+    setTouched({ ...touched, [field]: true });
+    const error = validateField(field, formData[field as keyof typeof formData]);
+    setErrors({ ...errors, [field]: error });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value
     });
+    
+    // Validate on change if field has been touched
+    if (touched[name]) {
+      const error = validateField(name, value);
+      setErrors({ ...errors, [name]: error });
+    }
+  };
+
+  const handleWhatsAppClick = () => {
+    if (!validateForm()) {
+      toast.error('Please fill in all fields correctly', {
+        icon: '⚠️',
+        style: {
+          background: '#12121a',
+          color: '#ff10f0',
+          border: '2px solid #ff10f0',
+          fontFamily: 'monospace',
+        },
+      });
+      return;
+    }
+
+    const msg = encodeURIComponent(
+      `Hi Jek, saya ${formData.name}\n(${formData.email})\n\n**Subjek:** ${formData.subject}\n\n**Pesan:** ${formData.message}`
+    );
+    window.open(`https://wa.me/6285767615311?text=${msg}`, '_blank');
+  };
+
+  const handleEmailClick = () => {
+    if (!validateForm()) {
+      toast.error('Please fill in all fields correctly', {
+        icon: '⚠️',
+        style: {
+          background: '#12121a',
+          color: '#ff10f0',
+          border: '2px solid #ff10f0',
+          fontFamily: 'monospace',
+        },
+      });
+      return;
+    }
+
+    const subject = encodeURIComponent(formData.subject);
+    const body = encodeURIComponent(
+      `Hi Jek, saya ${formData.name}\n(${formData.email})\n\n**Subjek:** ${formData.subject}\n\n**Pesan:** ${formData.message}`
+    );
+    window.open(`mailto:irfndzky@gmail.com?subject=${subject}&body=${body}`, '_blank');
   };
 
   return (
-    <div className="min-h-screen bg-dark-900 relative overflow-x-hidden">
+    <>
+      <Toaster position="top-right" />
+      <div className="min-h-screen bg-dark-900 relative overflow-x-hidden">
       {/* Animated Squares Background */}
       <SquaresBackground
         squareSize={40}
@@ -89,7 +190,7 @@ export default function ContactPage() {
                 </h3>
               </div>
 
-              <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-6">
+              <form className="flex flex-col md:flex-row gap-6">
                 {/* Left: Name, Email, Subject */}
                 <div className="flex-1 space-y-4">
                   <div>
@@ -101,10 +202,20 @@ export default function ContactPage() {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      required
-                      className="w-full bg-dark-900/50 border-2 border-neon-cyan/30 text-white px-4 py-3 font-mono focus:border-neon-cyan focus:outline-none transition-colors duration-300"
+                      onBlur={() => handleBlur('name')}
+                      className={`w-full bg-dark-900/50 border-2 ${
+                        touched.name && errors.name 
+                          ? 'border-red-500 focus:border-red-500' 
+                          : 'border-neon-cyan/30 focus:border-neon-cyan'
+                      } text-white px-4 py-3 font-mono focus:outline-none transition-colors duration-300`}
                       placeholder="Your name..."
                     />
+                    {touched.name && errors.name && (
+                      <div className="flex items-center gap-2 mt-2 text-red-500 text-xs font-mono">
+                        <FaExclamationCircle />
+                        <span>{errors.name}</span>
+                      </div>
+                    )}
                     <label className="block text-sm font-mono text-gray-400 mt-1">
                       {'</name>'}
                     </label>
@@ -118,10 +229,20 @@ export default function ContactPage() {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      required
-                      className="w-full bg-dark-900/50 border-2 border-neon-cyan/30 text-white px-4 py-3 font-mono focus:border-neon-cyan focus:outline-none transition-colors duration-300"
+                      onBlur={() => handleBlur('email')}
+                      className={`w-full bg-dark-900/50 border-2 ${
+                        touched.email && errors.email 
+                          ? 'border-red-500 focus:border-red-500' 
+                          : 'border-neon-cyan/30 focus:border-neon-cyan'
+                      } text-white px-4 py-3 font-mono focus:outline-none transition-colors duration-300`}
                       placeholder="your.email@example.com"
                     />
+                    {touched.email && errors.email && (
+                      <div className="flex items-center gap-2 mt-2 text-red-500 text-xs font-mono">
+                        <FaExclamationCircle />
+                        <span>{errors.email}</span>
+                      </div>
+                    )}
                     <label className="block text-sm font-mono text-gray-400 mt-1">
                       {'</email>'}
                     </label>
@@ -135,10 +256,20 @@ export default function ContactPage() {
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      required
-                      className="w-full bg-dark-900/50 border-2 border-neon-cyan/30 text-white px-4 py-3 font-mono focus:border-neon-cyan focus:outline-none transition-colors duration-300"
+                      onBlur={() => handleBlur('subject')}
+                      className={`w-full bg-dark-900/50 border-2 ${
+                        touched.subject && errors.subject 
+                          ? 'border-red-500 focus:border-red-500' 
+                          : 'border-neon-cyan/30 focus:border-neon-cyan'
+                      } text-white px-4 py-3 font-mono focus:outline-none transition-colors duration-300`}
                       placeholder="What's this about?"
                     />
+                    {touched.subject && errors.subject && (
+                      <div className="flex items-center gap-2 mt-2 text-red-500 text-xs font-mono">
+                        <FaExclamationCircle />
+                        <span>{errors.subject}</span>
+                      </div>
+                    )}
                     <label className="block text-sm font-mono text-gray-400 mt-1">
                       {'</subject>'}
                     </label>
@@ -154,49 +285,51 @@ export default function ContactPage() {
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
-                      required
+                      onBlur={() => handleBlur('message')}
                       rows={5}
-                      className="w-full h-full min-h-[120px] bg-dark-900/50 border-2 border-neon-cyan/30 text-white px-4 py-3 font-mono focus:border-neon-cyan focus:outline-none transition-colors duration-300 resize-none"
+                      className={`w-full h-full min-h-[120px] bg-dark-900/50 border-2 ${
+                        touched.message && errors.message 
+                          ? 'border-red-500 focus:border-red-500' 
+                          : 'border-neon-cyan/30 focus:border-neon-cyan'
+                      } text-white px-4 py-3 font-mono focus:outline-none transition-colors duration-300 resize-none`}
                       placeholder="Your message..."
                     />
+                    {touched.message && errors.message && (
+                      <div className="flex items-center gap-2 mt-2 text-red-500 text-xs font-mono">
+                        <FaExclamationCircle />
+                        <span>{errors.message}</span>
+                      </div>
+                    )}
                     <label className="block text-sm font-mono text-gray-400 mt-1">
                       {'</message>'}
                     </label>
                   </div>
+
                   <div className="flex flex-row gap-4 w-full">
                     <button
                       type="button"
-                      onClick={() => {
-                        const msg = encodeURIComponent(
-                          `Hi Jek, saya ${formData.name} \n(${formData.email})\n\n**Subjek:** ${formData.subject}\n\n**Pesan:** ${formData.message}`
-                        );
-                        window.open(`https://wa.me/6285767615311?text=${msg}`, '_blank');
-                      }}
-                      className="group/submit flex-1 flex items-center justify-center gap-2 px-6 py-4 text-sm font-mono bg-transparent border-2 border-neon-cyan text-neon-cyan hover:bg-neon-cyan hover:text-dark-900 transition-all duration-300 relative overflow-hidden"
+                      onClick={handleWhatsAppClick}
+                      disabled={isLoading}
+                      className="group/submit flex-1 flex items-center justify-center gap-2 px-6 py-4 text-sm font-mono bg-transparent border-2 border-neon-cyan text-neon-cyan hover:bg-neon-cyan hover:text-dark-900 transition-all duration-300 relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <span className="relative z-10 flex items-center gap-2">
                         <span className="flex flex-col items-center">
-                          <span className="relative z-10">{'[ SEND TO WHATSAPP ]'}</span>
-                          <span className="text-sm mt-1 relative z-10 transition-colors duration-300 text-neon-cyan/80 group-hover/submit:text-dark-900 font-semibold tracking-wide">Faster Response</span>
+                          <span className="relative z-10">{'[ WHATSAPP ]'}</span>
+                          <span className="text-xs mt-1 relative z-10 transition-colors duration-300 text-neon-cyan/80 group-hover/submit:text-dark-900 font-semibold tracking-wide">Faster</span>
                         </span>
                       </span>
                       <div className="absolute inset-0 bg-neon-cyan transform -translate-x-full group-hover/submit:translate-x-0 transition-transform duration-300" />
                     </button>
                     <button
                       type="button"
-                      onClick={() => {
-                        const subject = encodeURIComponent(formData.subject);
-                        const body = encodeURIComponent(
-                          `Hi Jek, saya ${formData.name} \n(${formData.email})\n\n**Subjek:** ${formData.subject}\n\n**Pesan:** ${formData.message}`
-                        );
-                        window.open(`mailto:irfndzky@gmail.com?subject=${subject}&body=${body}`, '_blank');
-                      }}
-                      className="group/submit flex-1 flex items-center justify-center gap-2 px-6 py-4 text-sm font-mono bg-transparent border-2 border-neon-cyan text-neon-cyan hover:bg-neon-cyan hover:text-dark-900 transition-all duration-300 relative overflow-hidden"
+                      onClick={handleEmailClick}
+                      disabled={isLoading}
+                      className="group/submit flex-1 flex items-center justify-center gap-2 px-6 py-4 text-sm font-mono bg-transparent border-2 border-neon-cyan text-neon-cyan hover:bg-neon-cyan hover:text-dark-900 transition-all duration-300 relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <span className="relative z-10 flex items-center gap-2">
                         <span className="flex flex-col items-center">
-                          <span className="relative z-10">{'[ SEND TO EMAIL ]'}</span>
-                          <span className="text-sm mt-1 relative z-10 transition-colors duration-300 text-neon-cyan/80 group-hover/submit:text-dark-900 font-semibold tracking-wide">Slower Response</span>
+                          <span className="relative z-10">{'[ EMAIL ]'}</span>
+                          <span className="text-xs mt-1 relative z-10 transition-colors duration-300 text-neon-cyan/80 group-hover/submit:text-dark-900 font-semibold tracking-wide">Standard</span>
                         </span>
                       </span>
                       <div className="absolute inset-0 bg-neon-cyan transform -translate-x-full group-hover/submit:translate-x-0 transition-transform duration-300" />
@@ -285,7 +418,17 @@ export default function ContactPage() {
           </div>
 
         </div>
+
+        {/* Bottom Note - Let's Connect! */}
+        <div className="text-center py-8">
+          <p className="text-gray-500 text-sm font-mono">
+            <span className="text-neon-cyan">{'>> '}</span>
+            Let's Connect!
+            <span className="text-neon-cyan">{' <<'}</span>
+          </p>
+        </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

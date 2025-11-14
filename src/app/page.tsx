@@ -5,6 +5,7 @@ import GlitchText from '@/components/GlitchText';
 import TechBadge from '@/components/TechBadge';
 import AnimatedButton from '@/components/AnimatedButton';
 import SquaresBackground from '@/components/SquaresBackground';
+import { TooltipProvider } from '@/components/Tooltip';
 import { 
   FaGithub, 
   FaLinkedin, 
@@ -63,20 +64,21 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-dark-900 relative overflow-x-hidden">
-      {/* Animated Squares Background */}
-      <SquaresBackground
-        squareSize={40}
-        speed={0.5}
-        direction="down"
-        borderColor="rgba(0, 229, 255, 0.15)"
-        hoverColor={[
-          'rgba(0, 229, 255, 0.6)',    // cyan
-          'rgba(255, 16, 240, 0.6)',   // pink
-          'rgba(168, 85, 247, 0.6)',   // purple
-          'rgba(16, 240, 160, 0.6)',   // green
-        ]}
-      />
+    <TooltipProvider delayDuration={200}>
+      <div className="min-h-screen bg-dark-900 relative overflow-x-hidden">
+        {/* Animated Squares Background */}
+        <SquaresBackground
+          squareSize={40}
+          speed={0.5}
+          direction="down"
+          borderColor="rgba(0, 229, 255, 0.15)"
+          hoverColor={[
+            'rgba(0, 229, 255, 0.6)',    // cyan
+            'rgba(255, 16, 240, 0.6)',   // pink
+            'rgba(168, 85, 247, 0.6)',   // purple
+            'rgba(16, 240, 160, 0.6)',   // green
+          ]}
+        />
 
       {/* Glowing Orbs Background */}
       <div className="fixed inset-0 pointer-events-none">
@@ -327,7 +329,7 @@ export default function Home() {
                   </h4>
                   <div className="flex flex-wrap gap-3">
                     {techStack.frontend.map((tech, index) => (
-                      <TechBadge key={index} name={tech.name} icon={tech.icon} color={tech.color} iconColor={tech.iconColor} iconOnly />
+                      <TechBadge key={index} name={tech.name} icon={tech.icon} color={tech.color} iconColor={tech.iconColor} iconOnly showTooltip />
                     ))}
                   </div>
                 </div>
@@ -343,7 +345,7 @@ export default function Home() {
                   </h4>
                   <div className="flex flex-wrap gap-3">
                     {techStack.backend.map((tech, index) => (
-                      <TechBadge key={index} name={tech.name} icon={tech.icon} color={tech.color} iconColor={tech.iconColor} iconOnly />
+                      <TechBadge key={index} name={tech.name} icon={tech.icon} color={tech.color} iconColor={tech.iconColor} iconOnly showTooltip />
                     ))}
                   </div>
                 </div>
@@ -359,7 +361,7 @@ export default function Home() {
                   </h4>
                   <div className="flex flex-wrap gap-3">
                     {techStack.database.map((tech, index) => (
-                      <TechBadge key={index} name={tech.name} icon={tech.icon} color={tech.color} iconColor={tech.iconColor} iconOnly />
+                      <TechBadge key={index} name={tech.name} icon={tech.icon} color={tech.color} iconColor={tech.iconColor} iconOnly showTooltip />
                     ))}
                   </div>
                 </div>
@@ -375,7 +377,7 @@ export default function Home() {
                   </h4>
                   <div className="flex flex-wrap gap-3">
                     {techStack.tools.map((tech, index) => (
-                      <TechBadge key={index} name={tech.name} icon={tech.icon} color={tech.color} iconColor={tech.iconColor} iconOnly />
+                      <TechBadge key={index} name={tech.name} icon={tech.icon} color={tech.color} iconColor={tech.iconColor} iconOnly showTooltip />
                     ))}
                   </div>
                 </div>
@@ -387,13 +389,14 @@ export default function Home() {
         {/* Footer */}
         <footer className="mt-auto pt-8 pb-4 text-center">
           <div className="flex items-center justify-center gap-2 text-gray-500 text-sm font-mono">
-            <span className="text-neon-cyan">&lt;</span>
+            <span className="text-neon-cyan">{'>> '}</span>
             <span>Designed & Built by Muhammad Irfan Dzaky</span>
-            <span className="text-neon-cyan">/&gt;</span>
+            <span className="text-neon-cyan">{' <<'}</span>
           </div>
         </footer>
 
+        </div>
       </div>
-    </div>
+    </TooltipProvider>
   );
 }

@@ -71,7 +71,7 @@ export default function ProjectsPage() {
       },
       {
         id: 2,
-        title: "PERSONAL PORTFOLIO WEBSITE",
+        title: "Personal Portfolio Website",
         type: "Personal Project",
         privacy: "Public",
         description: "Personal portfolio website to showcase projects, skills, and experience. Built with Next.js, Tailwind CSS, and Framer Motion for smooth animations and modern UI.",

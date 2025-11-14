@@ -47,6 +47,8 @@ const config: Config = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'float': 'float 3s ease-in-out infinite',
+        'in': 'in 0.2s ease-out',
+        'out': 'out 0.2s ease-in',
       },
       keyframes: {
         glitch: {
@@ -96,6 +98,14 @@ const config: Config = {
             transform: 'translateY(-20px) translateX(5px)',
             opacity: '0.5'
           },
+        },
+        'in': {
+          '0%': { opacity: '0', transform: 'scale(0.95)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+        'out': {
+          '0%': { opacity: '1', transform: 'scale(1)' },
+          '100%': { opacity: '0', transform: 'scale(0.95)' },
         },
       },
     },

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useTheme } from '@/contexts/ThemeContext';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/Tooltip';
 
 interface TechBadgeProps {
   name: string;
@@ -9,9 +10,10 @@ interface TechBadgeProps {
   color: 'cyan' | 'pink' | 'purple' | 'green';
   iconColor?: string;
   iconOnly?: boolean;
+  showTooltip?: boolean;
 }
 
-export default function TechBadge({ name, icon, color, iconColor, iconOnly = false }: TechBadgeProps) {
+export default function TechBadge({ name, icon, color, iconColor, iconOnly = false, showTooltip = false }: TechBadgeProps) {
   const { theme } = useTheme();
   
   const colorClasses = {
@@ -35,7 +37,7 @@ export default function TechBadge({ name, icon, color, iconColor, iconOnly = fal
   const isNextJsWhiteLogo = iconColor === '#FFFFFF';
   const displayIconColor = isNextJsWhiteLogo && theme === 'light' ? '#000000' : iconColor;
 
-  return (
+  const badgeContent = (
     <div
       className={`
         flex items-center gap-2 px-3 py-2
@@ -44,7 +46,6 @@ export default function TechBadge({ name, icon, color, iconColor, iconOnly = fal
         hover:shadow-lg
         group/badge cursor-default
       `}
-      title={name}
     >
       <span 
         className={`text-3xl transition-colors duration-300 ${needsWhiteOnHover ? 'group-hover/badge:!text-white' : ''}`}
@@ -55,4 +56,19 @@ export default function TechBadge({ name, icon, color, iconColor, iconOnly = fal
       {!iconOnly && <span className={`text-sm font-medium ${textColorClasses[color]} group-hover/badge:text-dark-900 transition-colors duration-300`}>{name}</span>}
     </div>
   );
+
+  if (showTooltip && iconOnly) {
+    return (
+      <Tooltip>
+        <TooltipTrigger asChild>
+          {badgeContent}
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>{name}</p>
+        </TooltipContent>
+      </Tooltip>
+    );
+  }
+
+  return badgeContent;
 }
