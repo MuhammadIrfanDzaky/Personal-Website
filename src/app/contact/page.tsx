@@ -50,7 +50,7 @@ export default function ContactPage() {
         <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-neon-purple/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '2s' }} />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-24 pb-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-16 md:pt-24 pb-8">
         
         {/* Page Header */}
         <div className="mb-12 relative">

@@ -46,6 +46,7 @@ const config: Config = {
         'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'float': 'float 3s ease-in-out infinite',
       },
       keyframes: {
         glitch: {
@@ -77,6 +78,24 @@ const config: Config = {
         'accordion-up': {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
+        },
+        'float': {
+          '0%, 100%': { 
+            transform: 'translateY(0px) translateX(0px)',
+            opacity: '0.3'
+          },
+          '25%': { 
+            transform: 'translateY(-20px) translateX(10px)',
+            opacity: '0.6'
+          },
+          '50%': { 
+            transform: 'translateY(-40px) translateX(-10px)',
+            opacity: '0.8'
+          },
+          '75%': { 
+            transform: 'translateY(-20px) translateX(5px)',
+            opacity: '0.5'
+          },
         },
       },
     },
