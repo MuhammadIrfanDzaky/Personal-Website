@@ -81,12 +81,13 @@ export default function Carousel({ images, alt, imagePlaceholders, color }: Caro
   return (
     <div className="relative w-full flex flex-col items-center group">
       {/* Main Image with Slide Animation */}
-      <div className="relative flex flex-col items-center justify-center bg-dark-700 overflow-hidden rounded-lg max-w-full max-h-[320px] min-h-[120px] min-w-[120px]" style={{margin: '0 auto', height: '300px', width: '100%'}}>
-        <div className="relative w-full h-[300px] flex items-center justify-center">
+      <div className="relative w-full overflow-hidden rounded-lg bg-gradient-to-br from-dark-800 via-dark-700 to-dark-900 shadow-2xl border border-neon-cyan/20">
+        {/* Aspect ratio container - 16:9 on mobile, auto on desktop */}
+        <div className="relative w-full aspect-video md:aspect-auto md:h-[400px] lg:h-[500px]">
           <AnimatePresence initial={false} custom={direction}>
             <motion.div
               key={currentIndex}
-              className="absolute left-0 top-0 w-full h-full"
+              className="absolute inset-0 flex items-center justify-center p-2 md:p-4"
               custom={direction}
               initial={{ x: direction > 0 ? 300 : -300, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
@@ -111,16 +112,18 @@ export default function Carousel({ images, alt, imagePlaceholders, color }: Caro
                 }
               }}
             >
-              <Image
-                src={images[currentIndex]}
-                alt={`${alt} - ${currentIndex + 1}`}
-                fill
-                className="object-contain pointer-events-none"
-                sizes="(max-width: 768px) 100vw, 600px"
-                priority={currentIndex === 0}
-                quality={85}
-                loading="eager"
-              />
+              <div className="relative w-full h-full">
+                <Image
+                  src={images[currentIndex]}
+                  alt={`${alt} - ${currentIndex + 1}`}
+                  fill
+                  className="object-contain pointer-events-none drop-shadow-2xl"
+                  sizes="(max-width: 768px) 100vw, 800px"
+                  priority={currentIndex === 0}
+                  quality={90}
+                  loading="eager"
+                />
+              </div>
             </motion.div>
           </AnimatePresence>
           
@@ -141,50 +144,52 @@ export default function Carousel({ images, alt, imagePlaceholders, color }: Caro
             ))}
           </div>
 
-          {/* Navigation Buttons - moved inside image container so positioning anchors to this fixed-height box */}
+          {/* Navigation Buttons */}
           {images.length > 1 && (
             <>
-              {/* Previous Button - hide if first image */}
+              {/* Previous Button */}
               {currentIndex > 0 && (
                 <button
                   onClick={goToPrevious}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-dark-900/80 backdrop-blur-sm border border-neon-cyan/30 text-neon-cyan hover:bg-neon-cyan hover:text-dark-900 transition-all duration-300 md:opacity-0 md:group-hover:opacity-100 opacity-60 active:opacity-100 z-20"
+                  className="absolute left-1.5 md:left-3 top-1/2 -translate-y-1/2 w-9 h-9 md:w-11 md:h-11 flex items-center justify-center rounded-full bg-dark-900/90 backdrop-blur-md border-2 border-neon-cyan/40 text-neon-cyan hover:bg-neon-cyan hover:text-dark-900 hover:scale-110 active:scale-95 transition-all duration-300 md:opacity-0 md:group-hover:opacity-100 opacity-70 active:opacity-100 shadow-lg shadow-neon-cyan/20 z-20"
                   aria-label="Previous image"
                 >
                   <FaChevronLeft className="text-sm md:text-base" />
                 </button>
               )}
 
-              {/* Next Button - hide if last image */}
+              {/* Next Button */}
               {currentIndex < images.length - 1 && (
                 <button
                   onClick={goToNext}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-dark-900/80 backdrop-blur-sm border border-neon-cyan/30 text-neon-cyan hover:bg-neon-cyan hover:text-dark-900 transition-all duration-300 md:opacity-0 md:group-hover:opacity-100 opacity-60 active:opacity-100 z-20"
+                  className="absolute right-1.5 md:right-3 top-1/2 -translate-y-1/2 w-9 h-9 md:w-11 md:h-11 flex items-center justify-center rounded-full bg-dark-900/90 backdrop-blur-md border-2 border-neon-cyan/40 text-neon-cyan hover:bg-neon-cyan hover:text-dark-900 hover:scale-110 active:scale-95 transition-all duration-300 md:opacity-0 md:group-hover:opacity-100 opacity-70 active:opacity-100 shadow-lg shadow-neon-cyan/20 z-20"
                   aria-label="Next image"
                 >
                   <FaChevronRight className="text-sm md:text-base" />
                 </button>
               )}
 
-              {/* Dots Indicator */}
-              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+              {/* Dots Indicator - Redesigned */}
+              <div className="absolute bottom-3 md:bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 md:gap-2 bg-dark-900/70 backdrop-blur-md px-3 py-2 rounded-full border border-neon-cyan/20 z-20">
                 {images.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => goToSlide(index)}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    className={`transition-all duration-300 rounded-full ${
                       index === currentIndex
-                        ? 'bg-neon-cyan w-6'
-                        : 'bg-gray-500 hover:bg-gray-400'
+                        ? 'bg-neon-cyan w-6 md:w-8 h-2 shadow-lg shadow-neon-cyan/50'
+                        : 'bg-gray-500/60 hover:bg-gray-400 w-2 h-2'
                     }`}
                     aria-label={`Go to image ${index + 1}`}
                   />
                 ))}
               </div>
 
-              {/* Image Counter */}
-              <div className="absolute top-2 right-2 bg-dark-900/80 backdrop-blur-sm px-2 py-1 rounded text-sm font-mono text-neon-cyan border border-neon-cyan/30 z-20">
-                {currentIndex + 1} / {images.length}
+              {/* Image Counter - Redesigned */}
+              <div className="absolute top-3 md:top-4 right-3 md:right-4 bg-dark-900/90 backdrop-blur-md px-3 py-1.5 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-mono text-neon-cyan border-2 border-neon-cyan/40 shadow-lg shadow-neon-cyan/20 z-20">
+                <span className="font-bold">{currentIndex + 1}</span>
+                <span className="text-neon-cyan/60 mx-1">/</span>
+                <span className="text-neon-cyan/80">{images.length}</span>
               </div>
             </>
           )}
@@ -199,14 +204,14 @@ export default function Carousel({ images, alt, imagePlaceholders, color }: Caro
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
-            className="mt-6 flex justify-center w-full"
+            className="mt-4 md:mt-6 flex justify-center w-full"
           >
             <span
-              className={`text-sm font-mono text-center px-3 py-1 rounded shadow-md bg-dark-900/80 border 
-                ${color === 'cyan' ? 'text-neon-cyan border-neon-cyan/40' : ''}
-                ${color === 'pink' ? 'text-neon-pink border-neon-pink/40' : ''}
-                ${color === 'purple' ? 'text-neon-purple border-neon-purple/40' : ''}
-                ${color === 'green' ? 'text-neon-green border-neon-green/40' : ''}
+              className={`text-xs md:text-sm font-mono text-center px-4 md:px-5 py-2 md:py-2.5 rounded-full shadow-lg backdrop-blur-md bg-dark-900/90 border-2 transition-all duration-300
+                ${color === 'cyan' ? 'text-neon-cyan border-neon-cyan/50 shadow-neon-cyan/30' : ''}
+                ${color === 'pink' ? 'text-neon-pink border-neon-pink/50 shadow-neon-pink/30' : ''}
+                ${color === 'purple' ? 'text-neon-purple border-neon-purple/50 shadow-neon-purple/30' : ''}
+                ${color === 'green' ? 'text-neon-green border-neon-green/50 shadow-neon-green/30' : ''}
               `}
             >
               {imagePlaceholders[currentIndex]}
@@ -214,8 +219,6 @@ export default function Carousel({ images, alt, imagePlaceholders, color }: Caro
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Navigation Buttons - Only in image container above. Duplicate removed for clarity and to avoid overlap. */}
     </div>
   );
 }
