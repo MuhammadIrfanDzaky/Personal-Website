@@ -27,6 +27,45 @@ export default function ProjectsPage() {
   const projects = [
     {
       id: 1,
+      title: "WeRent",
+      type: "Personal Project",
+      privacy: "Public",
+      description: "Modern full-stack e-commerce platform with advanced features including real-time inventory management, secure payment processing, and personalized product recommendations. Built with scalable architecture and optimized for performance.",
+      tech: ["Next.js", "NestJS"],
+      github: ["https://github.com/MuhammadIrfanDzaky/group-a-be", "https://github.com/MuhammadIrfanDzaky/group-a-fe"],
+      live: "https://a-we-rent-fe.vercel.app/",
+      status: "Completed",
+      color: "cyan",
+      repoType: "public",
+      images: [
+        "/werentfe.png",
+        "/werentppt.png"
+      ],
+      imagePlaceholders: [
+        "Frontend Page",
+        "Key Features Overview"
+      ],
+      keyFeatures: [
+        "Real-time inventory tracking with Redis caching",
+        "Secure payment integration with Stripe",
+        "Advanced product search and filtering",
+        "Shopping cart with persistent sessions",
+        "User authentication and authorization",
+        "Admin dashboard for product management",
+        "Responsive design for all devices",
+        "Email notifications for order updates"
+      ],
+      contribution: [
+        "Designed and implemented full-stack architecture",
+        "Integrated secure payment gateway with Stripe API",
+        "Implemented Redis caching for improved performance",
+        "Built RESTful API with Express and MongoDB",
+        "Created responsive UI with React and Tailwind CSS",
+        "Implemented JWT-based authentication system"
+      ]
+    },
+    {
+      id: 2,
       title: "DRIBBLE",
       type: "Final Project - RevoU",
       privacy: "Public",
@@ -70,7 +109,7 @@ export default function ProjectsPage() {
         ]
       },
       {
-        id: 2,
+        id: 3,
         title: "Personal Portfolio Website",
         type: "Personal Project",
         privacy: "Public",
@@ -109,7 +148,7 @@ export default function ProjectsPage() {
         ]
       },
       {
-        id: 3,
+        id: 4,
         title: "Kos-Kosan Gang Family No.3",
         type: "Freelance Project",
         privacy: "Private",
@@ -141,34 +180,6 @@ export default function ProjectsPage() {
           "Gathered client requirements & incorporated feedback iteratively",
           "Managed quality assurance & user testing"
         ]
-      },
-      {
-        id: 4,
-        title: "Absensi SDN 064037",
-        type: "Freelance Project",
-        privacy: "Private",
-        description: "A digital platform for elementary school (SDN) administration, including student data, attendance, and report cards. Built for school digitalization.",
-        tech: ["HTML", "CSS", "Javascript", "PHP", "MySQL"],
-        github: "https://github.com/yourusername/sdn",
-        live: null,
-        status: "Completed",
-        color: "purple",
-        repoType: "private",
-        images: [
-          "/sdn-1.jpg"
-        ],
-        imagePlaceholders: [
-          "Login Page"
-        ],
-        keyFeatures: [
-          "Student management",
-          "Attendance tracking",
-          "Report cards"
-        ],
-        contribution: [
-          "Backend",
-          "Frontend"
-        ]
       }
   ];
 
@@ -196,7 +207,7 @@ export default function ProjectsPage() {
           <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-neon-green/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '2s' }} />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 pt-20 md:pt-28 pb-24 md:pb-8">
+        <div className="relative z-10 w-full px-6 md:px-12 lg:px-16 pt-20 md:pt-28 pb-24 md:pb-8">
           {/* Page Header */}
           <div className="mb-8 md:mb-12 relative">
             <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
@@ -250,26 +261,44 @@ export default function ProjectsPage() {
                             keyFeatures={project.keyFeatures}
                             contribution={project.contribution}
                             tech={project.tech}
-                            demo={project.github}
+                            demo={Array.isArray(project.github) ? project.github[0] : project.github}
                             color={project.color}
                             repoType={project.repoType}
                             onExpandChange={(isExpanded) => {
                               setExpandedProjectId(isExpanded ? project.id : null);
                             }}
                             resource={
-                              <div className="flex gap-2 md:gap-3 pt-2">
-                                <AnimatedButton
-                                  href={project.github}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className={`group/btn flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-mono bg-transparent border-2 ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan hover:bg-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink hover:bg-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple hover:bg-neon-purple' : 'border-neon-green text-neon-green hover:bg-neon-green'} hover:text-dark-900 transition-all duration-300 relative overflow-hidden`}
-                                >
-                                  <span className="relative z-10 flex items-center gap-1.5 md:gap-2">
-                                    <FaGithub />
-                                    <span>{project.repoType === 'private' ? 'PRIVATE' : 'REPO'}</span>
-                                  </span>
-                                  <div className={`absolute inset-0 ${project.color === 'cyan' ? 'bg-neon-cyan' : project.color === 'pink' ? 'bg-neon-pink' : project.color === 'purple' ? 'bg-neon-purple' : 'bg-neon-green'} transform -translate-x-full group-hover/btn:translate-x-0 transition-transform duration-300`} />
-                                </AnimatedButton>
+                              <div className="flex gap-2 md:gap-3 pt-2 flex-wrap">
+                                {Array.isArray(project.github) ? (
+                                  project.github.map((githubLink, idx) => (
+                                    <AnimatedButton
+                                      key={idx}
+                                      href={githubLink}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className={`group/btn flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-mono bg-transparent border-2 ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan hover:bg-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink hover:bg-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple hover:bg-neon-purple' : 'border-neon-green text-neon-green hover:bg-neon-green'} hover:text-dark-900 transition-all duration-300 relative overflow-hidden`}
+                                    >
+                                      <span className="relative z-10 flex items-center gap-1.5 md:gap-2">
+                                        <FaGithub />
+                                        <span>{project.repoType === 'private' ? 'PRIVATE' : idx === 0 ? 'BE' : 'FE'}</span>
+                                      </span>
+                                      <div className={`absolute inset-0 ${project.color === 'cyan' ? 'bg-neon-cyan' : project.color === 'pink' ? 'bg-neon-pink' : project.color === 'purple' ? 'bg-neon-purple' : 'bg-neon-green'} transform -translate-x-full group-hover/btn:translate-x-0 transition-transform duration-300`} />
+                                    </AnimatedButton>
+                                  ))
+                                ) : (
+                                  <AnimatedButton
+                                    href={project.github}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={`group/btn flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-mono bg-transparent border-2 ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan hover:bg-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink hover:bg-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple hover:bg-neon-purple' : 'border-neon-green text-neon-green hover:bg-neon-green'} hover:text-dark-900 transition-all duration-300 relative overflow-hidden`}
+                                  >
+                                    <span className="relative z-10 flex items-center gap-1.5 md:gap-2">
+                                      <FaGithub />
+                                      <span>{project.repoType === 'private' ? 'PRIVATE' : 'REPO'}</span>
+                                    </span>
+                                    <div className={`absolute inset-0 ${project.color === 'cyan' ? 'bg-neon-cyan' : project.color === 'pink' ? 'bg-neon-pink' : project.color === 'purple' ? 'bg-neon-purple' : 'bg-neon-green'} transform -translate-x-full group-hover/btn:translate-x-0 transition-transform duration-300`} />
+                                  </AnimatedButton>
+                                )}
                                 {project.live && (
                                   <AnimatedButton
                                     href={project.live}
@@ -313,25 +342,43 @@ export default function ProjectsPage() {
                             keyFeatures={project.keyFeatures}
                             contribution={project.contribution}
                             tech={project.tech}
-                            demo={project.github}
+                            demo={Array.isArray(project.github) ? project.github[0] : project.github}
                             color={project.color}
                             onExpandChange={(isExpanded) => {
                               setExpandedProjectId(isExpanded ? project.id : null);
                             }}
                             resource={
-                              <div className="flex gap-2 md:gap-3 pt-2">
-                                <AnimatedButton
-                                  href={project.github}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className={`group/btn flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-mono bg-transparent border-2 ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan hover:bg-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink hover:bg-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple hover:bg-neon-purple' : 'border-neon-green text-neon-green hover:bg-neon-green'} hover:text-dark-900 transition-all duration-300 relative overflow-hidden`}
-                                >
-                                  <span className="relative z-10 flex items-center gap-1.5 md:gap-2">
-                                    <FaGithub />
-                                    <span>{project.repoType === 'private' ? 'PRIVATE' : 'REPO'}</span>
-                                  </span>
-                                  <div className={`absolute inset-0 ${project.color === 'cyan' ? 'bg-neon-cyan' : project.color === 'pink' ? 'bg-neon-pink' : project.color === 'purple' ? 'bg-neon-purple' : 'bg-neon-green'} transform -translate-x-full group-hover/btn:translate-x-0 transition-transform duration-300`} />
-                                </AnimatedButton>
+                              <div className="flex gap-2 md:gap-3 pt-2 flex-wrap">
+                                {Array.isArray(project.github) ? (
+                                  project.github.map((githubLink, idx) => (
+                                    <AnimatedButton
+                                      key={idx}
+                                      href={githubLink}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className={`group/btn flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-mono bg-transparent border-2 ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan hover:bg-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink hover:bg-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple hover:bg-neon-purple' : 'border-neon-green text-neon-green hover:bg-neon-green'} hover:text-dark-900 transition-all duration-300 relative overflow-hidden`}
+                                    >
+                                      <span className="relative z-10 flex items-center gap-1.5 md:gap-2">
+                                        <FaGithub />
+                                        <span>{project.repoType === 'private' ? 'PRIVATE' : idx === 0 ? 'BE' : 'FE'}</span>
+                                      </span>
+                                      <div className={`absolute inset-0 ${project.color === 'cyan' ? 'bg-neon-cyan' : project.color === 'pink' ? 'bg-neon-pink' : project.color === 'purple' ? 'bg-neon-purple' : 'bg-neon-green'} transform -translate-x-full group-hover/btn:translate-x-0 transition-transform duration-300`} />
+                                    </AnimatedButton>
+                                  ))
+                                ) : (
+                                  <AnimatedButton
+                                    href={project.github}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={`group/btn flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-mono bg-transparent border-2 ${project.color === 'cyan' ? 'border-neon-cyan text-neon-cyan hover:bg-neon-cyan' : project.color === 'pink' ? 'border-neon-pink text-neon-pink hover:bg-neon-pink' : project.color === 'purple' ? 'border-neon-purple text-neon-purple hover:bg-neon-purple' : 'border-neon-green text-neon-green hover:bg-neon-green'} hover:text-dark-900 transition-all duration-300 relative overflow-hidden`}
+                                  >
+                                    <span className="relative z-10 flex items-center gap-1.5 md:gap-2">
+                                      <FaGithub />
+                                      <span>{project.repoType === 'private' ? 'PRIVATE' : 'REPO'}</span>
+                                    </span>
+                                    <div className={`absolute inset-0 ${project.color === 'cyan' ? 'bg-neon-cyan' : project.color === 'pink' ? 'bg-neon-pink' : project.color === 'purple' ? 'bg-neon-purple' : 'bg-neon-green'} transform -translate-x-full group-hover/btn:translate-x-0 transition-transform duration-300`} />
+                                  </AnimatedButton>
+                                )}
                                 {project.live && (
                                   <AnimatedButton
                                     href={project.live}

@@ -87,7 +87,7 @@ export default function Home() {
         <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-neon-purple/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '2s' }} />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-20 md:pt-28 pb-24 md:pb-8 min-h-screen flex flex-col">
+      <div className="relative z-10 w-full px-6 md:px-12 lg:px-16 pt-20 md:pt-28 pb-24 md:pb-8 min-h-screen flex flex-col">
         
         {/* Hero Section - Full Width Glitch Style */}
         <section className="mb-8 relative">
