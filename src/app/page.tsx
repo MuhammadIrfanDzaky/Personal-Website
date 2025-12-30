@@ -320,10 +320,7 @@ export default function Home() {
                 <div className="relative pl-8 group/edu hover:translate-x-1 transition-transform">
                   <div className="absolute left-0 top-1 w-4 h-4 rounded-full bg-neon-cyan border-2 border-dark-800 group-hover/edu:scale-125 group-hover/edu:shadow-lg group-hover/edu:shadow-neon-cyan/50 transition-all" />
                   <div className="bg-dark-700/50 border border-neon-cyan/20 rounded-lg p-3 group-hover/edu:border-neon-cyan/60 transition-all">
-                    <div className="flex items-start justify-between gap-2 mb-2">
-                      <p className="text-neon-cyan font-bold text-base md:text-lg font-mono">RevoU</p>
-                      <span className="px-2 py-1 bg-neon-cyan/10 border border-neon-cyan/30 rounded text-neon-cyan text-sm font-mono">2025</span>
-                    </div>
+                    <p className="text-neon-cyan font-bold text-base md:text-lg font-mono mb-2">RevoU</p>
                     <p className="text-gray-300 text-sm md:text-base font-semibold mb-1">Full Stack Software Engineer</p>
                     <p className="text-gray-400 text-sm font-mono mb-2">Feb - Aug 2025</p>
                     <div className="flex flex-wrap gap-1.5 mt-2">
@@ -338,12 +335,10 @@ export default function Home() {
                 <div className="relative pl-8 group/edu hover:translate-x-1 transition-transform">
                   <div className="absolute left-0 top-1 w-4 h-4 rounded-full bg-neon-purple border-2 border-dark-800 group-hover/edu:scale-125 group-hover/edu:shadow-lg group-hover/edu:shadow-neon-purple/50 transition-all" />
                   <div className="bg-dark-700/50 border border-neon-purple/20 rounded-lg p-3 group-hover/edu:border-neon-purple/60 transition-all">
-                    <div className="flex items-start justify-between gap-2 mb-2">
-                      <p className="text-neon-purple font-bold text-base md:text-lg font-mono leading-tight">UNPAB</p>
-                      <span className="px-2 py-1 bg-neon-purple/10 border border-neon-purple/30 rounded text-neon-purple text-sm font-mono whitespace-nowrap">GPA 3.89</span>
-                    </div>
+                    <p className="text-neon-purple font-bold text-base md:text-lg font-mono leading-tight mb-2">UNPAB</p>
                     <p className="text-gray-300 text-sm md:text-base font-semibold mb-1">Bachelor of Computer Science</p>
                     <p className="text-gray-400 text-sm font-mono mb-2">2020 - 2024</p>
+                    <p className="text-gray-400 text-sm font-mono mb-2">GPA: 3.89/4.00</p>
                     <p className="text-gray-400 text-sm leading-relaxed mb-2">Thesis: Web-Based MIS for Internship Student Report Data</p>
                     <div className="flex flex-wrap gap-1.5 mt-2">
                       <span className="px-2 py-1 bg-orange-500/5 text-orange-500 text-sm rounded border border-orange-500/20">HTML</span>
