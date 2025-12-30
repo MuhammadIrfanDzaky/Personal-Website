@@ -3,13 +3,11 @@
 import { FaGithub, FaExternalLinkAlt, FaTimes } from 'react-icons/fa';
 import { useState } from 'react';
 import Image from 'next/image';
-import AnimatedButton from '@/components/AnimatedButton';
 import GlitchText from '@/components/GlitchText';
 import SquaresBackground from '@/components/SquaresBackground';
 
 export default function ProjectsPage() {
   const [expandedProjectId, setExpandedProjectId] = useState<number | null>(null);
-  const [selectedProject, setSelectedProject] = useState<number | null>(null);
 
   const projects = [
     {
@@ -88,7 +86,6 @@ export default function ProjectsPage() {
 
   return (
     <div className="min-h-screen bg-dark-900 relative overflow-x-hidden">
-      {/* Animated Squares Background */}
       <SquaresBackground
         squareSize={40}
         speed={0.5}
@@ -102,7 +99,6 @@ export default function ProjectsPage() {
         ]}
       />
 
-      {/* Glowing Orbs Background */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-20 left-10 w-96 h-96 bg-neon-pink/10 rounded-full blur-[120px] animate-pulse" />
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-neon-purple/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
@@ -110,7 +106,6 @@ export default function ProjectsPage() {
       </div>
 
       <div className="relative z-10 w-full px-6 md:px-12 lg:px-16 pt-20 md:pt-28 pb-24">
-        {/* Page Header */}
         <div className="mb-12 md:mb-16">
           <div className="flex items-center gap-4 mb-4">
             <div className="w-2 h-16 bg-gradient-to-b from-neon-cyan via-neon-purple to-neon-pink flicker-slow" />
@@ -124,232 +119,245 @@ export default function ProjectsPage() {
           <div className="h-px w-full bg-gradient-to-r from-neon-cyan/50 via-transparent to-transparent" />
         </div>
 
-        {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 gap-6 md:gap-8 mb-12">
-          {projects.map((project) => {
+        {/* Projects Container */}
+        <div className="relative min-h-[900px]">
+          {projects.map((project, index) => {
             const isExpanded = expandedProjectId === project.id;
+            const isOther = expandedProjectId !== null && !isExpanded;
+            
             const colorClasses = {
               cyan: { border: 'border-neon-cyan', text: 'text-neon-cyan', bg: 'bg-neon-cyan', glow: 'shadow-neon-cyan' },
               pink: { border: 'border-neon-pink', text: 'text-neon-pink', bg: 'bg-neon-pink', glow: 'shadow-neon-pink' },
               green: { border: 'border-neon-green', text: 'text-neon-green', bg: 'bg-neon-green', glow: 'shadow-neon-green' },
               purple: { border: 'border-neon-purple', text: 'text-neon-purple', bg: 'bg-neon-purple', glow: 'shadow-neon-purple' }
-            }[project.color];
+            }[project.color] || { border: 'border-neon-cyan', text: 'text-neon-cyan', bg: 'bg-neon-cyan', glow: 'shadow-neon-cyan' };
+
+            // Calculate position and size
+            const getCardStyle = () => {
+              if (expandedProjectId === null) {
+                // Grid 2x2
+                const row = Math.floor(index / 2);
+                const col = index % 2;
+                return {
+                  top: `${row * 420}px`,
+                  left: `${col * 50}%`,
+                  width: 'calc(50% - 16px)',
+                  height: '400px',
+                  zIndex: 1,
+                };
+              } else if (isExpanded) {
+                // Expanded - full width at top
+                return {
+                  top: '0px',
+                  left: '0px',
+                  width: '100%',
+                  height: '600px',
+                  zIndex: 10,
+                };
+              } else {
+                // Thumbnails at bottom
+                const otherCards = projects.filter(p => p.id !== expandedProjectId);
+                const thumbIndex = otherCards.findIndex(p => p.id === project.id);
+                return {
+                  top: '650px',
+                  left: `${thumbIndex * 33.33}%`,
+                  width: 'calc(33.33% - 12px)',
+                  height: '200px',
+                  zIndex: 1,
+                };
+              }
+            };
+
+            const cardStyle = getCardStyle();
 
             return (
               <div
                 key={project.id}
-                className={`${
-                  isExpanded ? 'md:col-span-2' : ''
-                } transition-all duration-700 ease-in-out`}
+                className="absolute transition-all duration-1000 ease-out"
                 style={{
-                  gridRow: isExpanded ? 'span 1' : 'auto',
+                  ...cardStyle,
+                  opacity: isOther ? 0.7 : 1,
+                  cursor: isExpanded ? 'default' : 'pointer',
                 }}
+                onClick={() => !isExpanded && setExpandedProjectId(project.id)}
               >
                 <div
-                  className={`bg-dark-800/50 backdrop-blur-sm border-2 ${colorClasses.border}/30 hover:${colorClasses.border}/60 rounded-2xl overflow-hidden group transition-all duration-700 ease-in-out ${
+                  className={`h-full bg-dark-800/95 backdrop-blur-xl border-2 rounded-2xl overflow-hidden transition-all duration-1000 ${
                     isExpanded
-                      ? `${colorClasses.border} ${colorClasses.glow}/40 shadow-2xl scale-100`
-                      : 'hover:scale-[1.02]'
-                  } ${!isExpanded && expandedProjectId !== null ? 'opacity-60 scale-95' : ''}`}
+                      ? `${colorClasses.border} ${colorClasses.glow}/60 shadow-2xl`
+                      : `${colorClasses.border}/30 hover:${colorClasses.border}/60 hover:scale-[1.02]`
+                  }`}
                 >
-                  {!isExpanded ? (
-                    // COMPACT VIEW
+                  <div 
+                    className="h-full flex transition-all duration-1000"
+                    style={{
+                      flexDirection: isExpanded ? 'row' : 'column',
+                    }}
+                  >
+                    {/* Image */}
                     <div 
-                      className="cursor-pointer"
-                      onClick={() => setExpandedProjectId(project.id)}
+                      className="relative overflow-hidden transition-all duration-1000"
+                      style={{
+                        width: isExpanded ? '40%' : '100%',
+                        height: isExpanded ? '100%' : '60%',
+                      }}
                     >
-                      {/* Project Image */}
-                      <div className="relative h-48 bg-dark-900/80 overflow-hidden">
-                        <Image
-                          src={project.image}
-                          alt={project.title}
-                          fill
-                          className="object-cover group-hover:scale-110 transition-transform duration-700"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-dark-800 to-transparent opacity-60" />
-                        
-                        {/* Status Badge */}
-                        <div className="absolute top-4 right-4">
-                          <span className={`px-3 py-1 text-xs font-mono border-2 ${colorClasses.border} ${colorClasses.text} bg-dark-900/90 backdrop-blur-sm`}>
-                            {project.status}
+                      <Image src={project.image} alt={project.title} fill className="object-cover" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-dark-800 to-transparent opacity-60" />
+                      <div className="absolute top-4 left-4">
+                        <span className={`font-mono bg-dark-900/90 backdrop-blur-sm border-2 ${colorClasses.border} ${colorClasses.text} px-3 py-1 text-xs`}>
+                          {project.status}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Content */}
+                    <div 
+                      className="relative p-5 transition-all duration-1000 overflow-y-auto custom-scrollbar"
+                      style={{
+                        width: isExpanded ? '60%' : '100%',
+                        height: isExpanded ? '100%' : '40%',
+                      }}
+                    >
+                      {/* Close Button */}
+                      {isExpanded && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setExpandedProjectId(null);
+                          }}
+                          className={`absolute top-4 right-4 p-2.5 z-20 ${colorClasses.bg}/10 backdrop-blur-md border ${colorClasses.border}/50 ${colorClasses.text} rounded-lg hover:${colorClasses.bg}/20 hover:scale-110 hover:rotate-90 transition-all`}
+                          style={{
+                            animation: 'fadeIn 0.3s ease-out 0.8s both',
+                          }}
+                        >
+                          <FaTimes className="w-5 h-5" />
+                        </button>
+                      )}
+
+                      {/* Compact View */}
+                      <div
+                        className="transition-opacity duration-300"
+                        style={{
+                          opacity: isExpanded ? 0 : 1,
+                          pointerEvents: isExpanded ? 'none' : 'auto',
+                        }}
+                      >
+                        <div className="mb-2">
+                          <span className={`inline-block font-mono border ${colorClasses.border}/50 ${colorClasses.text}/80 px-3 py-1 text-xs`}>
+                            {project.type}
                           </span>
                         </div>
-                      </div>
-
-                      {/* Compact Content */}
-                      <div className="p-5">
-                        {/* Type Badge */}
-                        <span className={`inline-block px-3 py-1 text-xs font-mono border ${colorClasses.border}/50 ${colorClasses.text}/80 mb-3`}>
-                          {project.type}
-                        </span>
-
-                        {/* Title */}
-                        <h3 className="text-xl font-bold text-white font-mono mb-2 group-hover:${colorClasses.text} transition-colors">
-                          {project.title}
-                        </h3>
-
-                        {/* Short Description */}
-                        <p className="text-gray-400 text-sm leading-relaxed mb-3 line-clamp-2">
-                          {project.description}
-                        </p>
-
-                        {/* Tech Stack Preview (first 3) */}
-                        <div className="flex flex-wrap gap-2 mb-3">
+                        <h3 className="font-bold font-mono text-white text-lg mb-2">{project.title}</h3>
+                        <p className="text-gray-300 text-sm line-clamp-2 mb-3">{project.description}</p>
+                        <div className="flex flex-wrap gap-2">
                           {project.tech.slice(0, 3).map((tech, idx) => (
-                            <span
-                              key={idx}
-                              className={`px-2 py-1 text-xs font-mono ${colorClasses.bg}/10 ${colorClasses.text} border ${colorClasses.border}/30 rounded`}
-                            >
+                            <span key={idx} className={`font-mono ${colorClasses.bg}/10 ${colorClasses.text} border ${colorClasses.border}/30 rounded px-2 py-1 text-xs`}>
                               {tech}
                             </span>
                           ))}
                           {project.tech.length > 3 && (
-                            <span className="px-2 py-1 text-xs font-mono text-gray-400">
-                              +{project.tech.length - 3} more
-                            </span>
+                            <span className="font-mono text-gray-400 px-2 py-1 text-xs">+{project.tech.length - 3}</span>
                           )}
                         </div>
-
-                        {/* View More CTA */}
-                        <div className={`text-sm font-mono ${colorClasses.text} mt-4 flex items-center gap-2`}>
-                          <span>Click to view details</span>
-                          <span className="animate-pulse">→</span>
-                        </div>
                       </div>
-                    </div>
-                  ) : (
-                    // EXPANDED VIEW
-                    <div className="relative">
-                      {/* Close Button */}
-                      <button
-                        onClick={() => setExpandedProjectId(null)}
-                        className={`absolute top-4 right-4 z-20 p-2 ${colorClasses.bg}/20 backdrop-blur-sm border-2 ${colorClasses.border} ${colorClasses.text} rounded-lg hover:${colorClasses.bg} hover:text-dark-900 transition-all duration-300`}
+
+                      {/* Expanded View */}
+                      <div
+                        className="transition-opacity duration-500"
+                        style={{
+                          opacity: isExpanded ? 1 : 0,
+                          pointerEvents: isExpanded ? 'auto' : 'none',
+                          transitionDelay: isExpanded ? '0.7s' : '0s',
+                        }}
                       >
-                        <FaTimes className="w-5 h-5" />
-                      </button>
-
-                      {/* Expanded Content Layout */}
-                      <div className="grid md:grid-cols-2 gap-6">
-                        {/* Left: Image */}
-                        <div className="relative h-96 bg-dark-900/80 overflow-hidden rounded-l-2xl">
-                          <Image
-                            src={project.image}
-                            alt={project.title}
-                            fill
-                            className="object-cover"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-dark-800 to-transparent opacity-60" />
-                          
-                          {/* Status Badge */}
-                          <div className="absolute top-4 left-4">
-                            <span className={`px-3 py-1 text-xs font-mono border-2 ${colorClasses.border} ${colorClasses.text} bg-dark-900/90 backdrop-blur-sm`}>
-                              {project.status}
-                            </span>
-                          </div>
-                        </div>
-
-                        {/* Right: Full Details */}
-                        <div className="p-6 space-y-4 max-h-96 overflow-y-auto custom-scrollbar">
-                          {/* Type Badge */}
-                          <span className={`inline-block px-3 py-1 text-xs font-mono border ${colorClasses.border}/50 ${colorClasses.text}/80`}>
+                        <div className="mb-3">
+                          <span className={`inline-block font-mono border ${colorClasses.border}/50 ${colorClasses.text}/80 px-3 py-1.5 text-sm font-medium`}>
                             {project.type}
                           </span>
+                        </div>
+                        <h3 className={`font-bold font-mono ${colorClasses.text} text-3xl mb-4 leading-tight`}>{project.title}</h3>
+                        <p className="text-gray-300 text-base leading-relaxed mb-6">{project.description}</p>
 
-                          {/* Title */}
-                          <h3 className={`text-3xl font-bold ${colorClasses.text} font-mono`}>
-                            {project.title}
-                          </h3>
-
-                          {/* Full Description */}
-                          <p className="text-gray-300 text-base leading-relaxed">
-                            {project.description}
-                          </p>
-
-                          {/* Highlights */}
+                        <div className="mb-6">
+                          <h4 className="text-xs font-mono text-white/80 uppercase tracking-widest flex items-center gap-2 mb-3">
+                            <span className={`w-1 h-4 ${colorClasses.bg}`} />
+                            Key Highlights
+                          </h4>
                           <div className="space-y-2">
-                            <h4 className="text-sm font-mono text-white uppercase tracking-wider">Highlights:</h4>
                             {project.highlights.map((highlight, idx) => (
-                              <div key={idx} className="flex items-start gap-2">
-                                <span className={`${colorClasses.text} text-sm mt-0.5`}>▹</span>
-                                <span className="text-gray-400 text-sm">{highlight}</span>
+                              <div key={idx} className="flex items-start gap-3">
+                                <span className={`${colorClasses.text} text-sm mt-1 flex-shrink-0`}>▹</span>
+                                <span className="text-gray-300 text-sm leading-relaxed">{highlight}</span>
                               </div>
                             ))}
                           </div>
+                        </div>
 
-                          {/* Full Tech Stack */}
-                          <div>
-                            <h4 className="text-sm font-mono text-white uppercase tracking-wider mb-2">Tech Stack:</h4>
-                            <div className="flex flex-wrap gap-2">
-                              {project.tech.map((tech, idx) => (
-                                <span
-                                  key={idx}
-                                  className={`px-3 py-1 text-xs font-mono ${colorClasses.bg}/10 ${colorClasses.text} border ${colorClasses.border}/30 rounded`}
-                                >
-                                  {tech}
-                                </span>
-                              ))}
-                            </div>
+                        <div className="mb-6">
+                          <h4 className="text-xs font-mono text-white/80 uppercase tracking-widest flex items-center gap-2 mb-3">
+                            <span className={`w-1 h-4 ${colorClasses.bg}`} />
+                            Technologies
+                          </h4>
+                          <div className="flex flex-wrap gap-2">
+                            {project.tech.map((tech, idx) => (
+                              <span key={idx} className={`font-mono ${colorClasses.bg}/10 ${colorClasses.text} border ${colorClasses.border}/30 rounded px-3 py-1.5 text-sm hover:scale-105 transition-transform`}>
+                                {tech}
+                              </span>
+                            ))}
                           </div>
+                        </div>
 
-                          {/* Action Buttons */}
-                          <div className="flex gap-3 pt-4">
-                            {Array.isArray(project.github) ? (
-                              project.github.map((githubLink, idx) => (
-                                <AnimatedButton
-                                  key={idx}
-                                  href={githubLink}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className={`group/btn flex items-center gap-2 px-4 py-2 text-sm font-mono bg-transparent border-2 ${colorClasses.border} ${colorClasses.text} hover:${colorClasses.bg} hover:text-dark-900 transition-all duration-300 relative overflow-hidden flex-1`}
-                                >
-                                  <span className="relative z-10 flex items-center gap-2">
-                                    <FaGithub />
-                                    <span>{idx === 0 ? 'BE' : 'FE'}</span>
-                                  </span>
-                                  <div className={`absolute inset-0 ${colorClasses.bg} transform -translate-x-full group-hover/btn:translate-x-0 transition-transform duration-300`} />
-                                </AnimatedButton>
-                              ))
-                            ) : (
-                              <AnimatedButton
-                                href={project.github}
+                        <div className="flex flex-wrap gap-3 pt-4 border-t border-white/5">
+                          {Array.isArray(project.github) ? (
+                            project.github.map((githubLink, idx) => (
+                              <a
+                                key={idx}
+                                href={githubLink}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className={`group/btn flex items-center gap-2 px-4 py-2 text-sm font-mono bg-transparent border-2 ${colorClasses.border} ${colorClasses.text} hover:${colorClasses.bg} hover:text-dark-900 transition-all duration-300 relative overflow-hidden flex-1`}
+                                className={`flex items-center gap-2 px-4 py-2 text-sm font-mono border ${colorClasses.border}/40 ${colorClasses.text} hover:${colorClasses.border} hover:bg-${colorClasses.bg}/5 rounded-lg transition-all flex-1 min-w-[120px]`}
+                                onClick={(e) => e.stopPropagation()}
                               >
-                                <span className="relative z-10 flex items-center gap-2">
-                                  <FaGithub />
-                                  <span>REPO</span>
-                                </span>
-                                <div className={`absolute inset-0 ${colorClasses.bg} transform -translate-x-full group-hover/btn:translate-x-0 transition-transform duration-300`} />
-                              </AnimatedButton>
-                            )}
-                            {project.live && (
-                              <AnimatedButton
-                                href={project.live}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={`group/btn flex items-center gap-2 px-4 py-2 text-sm font-mono bg-transparent border-2 ${colorClasses.border} ${colorClasses.text} hover:${colorClasses.bg} hover:text-dark-900 transition-all duration-300 relative overflow-hidden flex-1`}
-                              >
-                                <span className="relative z-10 flex items-center gap-2">
-                                  <FaExternalLinkAlt />
-                                  <span>LIVE</span>
-                                </span>
-                                <div className={`absolute inset-0 ${colorClasses.bg} transform -translate-x-full group-hover/btn:translate-x-0 transition-transform duration-300`} />
-                              </AnimatedButton>
-                            )}
-                          </div>
+                                <FaGithub className="w-4 h-4" />
+                                <span>{idx === 0 ? 'Backend' : 'Frontend'}</span>
+                              </a>
+                            ))
+                          ) : (
+                            <a
+                              href={project.github}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={`flex items-center gap-2 px-4 py-2 text-sm font-mono border ${colorClasses.border}/40 ${colorClasses.text} hover:${colorClasses.border} hover:bg-${colorClasses.bg}/5 rounded-lg transition-all flex-1 min-w-[120px]`}
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <FaGithub className="w-4 h-4" />
+                              <span>Repository</span>
+                            </a>
+                          )}
+                          {project.live && (
+                            <a
+                              href={project.live}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={`flex items-center gap-2 px-4 py-2 text-sm font-mono ${colorClasses.bg} text-dark-900 hover:opacity-90 rounded-lg transition-all flex-1 min-w-[120px] font-semibold`}
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <FaExternalLinkAlt className="w-4 h-4" />
+                              <span>Live Demo</span>
+                            </a>
+                          )}
                         </div>
                       </div>
                     </div>
-                  )}
+                  </div>
                 </div>
               </div>
             );
           })}
         </div>
 
-        {/* Bottom Note */}
-        <div className="text-center py-8">
+        <div className="text-center py-8 mt-12">
           <p className="text-gray-400 text-base font-mono">
             <span className="text-neon-cyan">{'>> '}</span>
             More projects coming soon. Stay tuned!
