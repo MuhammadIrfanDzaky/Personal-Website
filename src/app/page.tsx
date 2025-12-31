@@ -1,11 +1,7 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import GlitchText from '@/components/GlitchText';
-import TechBadge from '@/components/TechBadge';
-import AnimatedButton from '@/components/AnimatedButton';
-import SquaresBackground from '@/components/SquaresBackground';
-import { TooltipProvider } from '@/components/Tooltip';
 import { 
   FaGithub, 
   FaLinkedin, 
@@ -16,7 +12,6 @@ import {
   FaPhp,
   FaReact,
   FaNodeJs,
-  FaDatabase,
   FaGitAlt,
   FaNpm
 } from 'react-icons/fa';
@@ -32,6 +27,25 @@ import {
   SiSwagger
 } from 'react-icons/si';
 import { VscCode } from 'react-icons/vsc';
+
+// Lazy load heavy components
+const GlitchText = dynamic(() => import('@/components/GlitchText'), {
+  ssr: true,
+});
+const TechBadge = dynamic(() => import('@/components/TechBadge'), {
+  ssr: true,
+});
+const AnimatedButton = dynamic(() => import('@/components/AnimatedButton'), {
+  ssr: true,
+});
+const SquaresBackground = dynamic(() => import('@/components/SquaresBackground'), {
+  ssr: false,
+  loading: () => null,
+});
+const TooltipProvider = dynamic(() => 
+  import('@/components/Tooltip').then((mod) => ({ default: mod.TooltipProvider })), 
+  { ssr: true }
+);
 
 export default function Home() {
   const techStack = {

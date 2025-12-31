@@ -1,11 +1,21 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import { FaGithub, FaLinkedin, FaEnvelope, FaPhone, FaMapMarkerAlt, FaWhatsapp, FaExclamationCircle } from 'react-icons/fa';
-import AnimatedButton from '@/components/AnimatedButton';
-import GlitchText from '@/components/GlitchText';
-import SquaresBackground from '@/components/SquaresBackground';
 import toast, { Toaster } from 'react-hot-toast';
+
+// Lazy load heavy components
+const AnimatedButton = dynamic(() => import('@/components/AnimatedButton'), {
+  ssr: true,
+});
+const GlitchText = dynamic(() => import('@/components/GlitchText'), {
+  ssr: true,
+});
+const SquaresBackground = dynamic(() => import('@/components/SquaresBackground'), {
+  ssr: false,
+  loading: () => null,
+});
 
 interface FormErrors {
   name?: string;

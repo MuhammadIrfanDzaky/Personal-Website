@@ -1,10 +1,18 @@
 "use client";
 
+import dynamic from 'next/dynamic';
 import { FaGithub, FaExternalLinkAlt, FaTimes } from 'react-icons/fa';
 import { useState } from 'react';
 import Image from 'next/image';
-import GlitchText from '@/components/GlitchText';
-import SquaresBackground from '@/components/SquaresBackground';
+
+// Lazy load components
+const GlitchText = dynamic(() => import('@/components/GlitchText'), {
+  ssr: true,
+});
+const SquaresBackground = dynamic(() => import('@/components/SquaresBackground'), {
+  ssr: false,
+  loading: () => null,
+});
 
 export default function ProjectsPage() {
   const [expandedProjectId, setExpandedProjectId] = useState<number | null>(null);
@@ -203,9 +211,14 @@ export default function ProjectsPage() {
                       }}
                     >
                       <Image src={project.image} alt={project.title} fill className="object-cover" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-dark-800 to-transparent opacity-60" />
-                      <div className="absolute top-4 left-4">
-                        <span className={`font-mono bg-dark-900/90 backdrop-blur-sm border-2 ${colorClasses.border} ${colorClasses.text} px-3 py-1 text-xs`}>
+                      <div 
+                        className="absolute inset-0 bg-gradient-to-t from-dark-800/80 to-transparent transition-opacity duration-1000"
+                        style={{
+                          opacity: isExpanded ? 0.3 : 0.5,
+                        }}
+                      />
+                      <div className={`absolute ${isExpanded ? 'top-3 left-3' : 'top-4 left-4'} transition-all duration-1000`}>
+                        <span className={`font-mono bg-dark-900/95 backdrop-blur-md border ${colorClasses.border} ${colorClasses.text} ${isExpanded ? 'px-2.5 py-1 text-[10px]' : 'px-3 py-1 text-xs'} transition-all duration-1000 shadow-lg`}>
                           {project.status}
                         </span>
                       </div>
@@ -213,10 +226,11 @@ export default function ProjectsPage() {
 
                     {/* Content */}
                     <div 
-                      className="relative p-5 transition-all duration-1000 overflow-y-auto custom-scrollbar"
+                      className="relative transition-all duration-1000 overflow-y-auto custom-scrollbar flex flex-col"
                       style={{
                         width: isExpanded ? '60%' : '100%',
                         height: isExpanded ? '100%' : '40%',
+                        padding: isExpanded ? '24px' : '20px',
                       }}
                     >
                       {/* Close Button */}
@@ -226,12 +240,12 @@ export default function ProjectsPage() {
                             e.stopPropagation();
                             setExpandedProjectId(null);
                           }}
-                          className={`absolute top-4 right-4 p-2.5 z-20 ${colorClasses.bg}/10 backdrop-blur-md border ${colorClasses.border}/50 ${colorClasses.text} rounded-lg hover:${colorClasses.bg}/20 hover:scale-110 hover:rotate-90 transition-all`}
+                          className={`absolute top-3 right-3 p-2 z-20 ${colorClasses.bg}/10 backdrop-blur-md border ${colorClasses.border}/50 ${colorClasses.text} rounded-lg hover:${colorClasses.bg}/20 hover:scale-110 hover:rotate-90 transition-all`}
                           style={{
                             animation: 'fadeIn 0.3s ease-out 0.8s both',
                           }}
                         >
-                          <FaTimes className="w-5 h-5" />
+                          <FaTimes className="w-4 h-4" />
                         </button>
                       )}
 
@@ -241,74 +255,76 @@ export default function ProjectsPage() {
                         style={{
                           opacity: isExpanded ? 0 : 1,
                           pointerEvents: isExpanded ? 'none' : 'auto',
+                          display: isExpanded ? 'none' : 'block',
                         }}
                       >
                         <div className="mb-2">
-                          <span className={`inline-block font-mono border ${colorClasses.border}/50 ${colorClasses.text}/80 px-3 py-1 text-xs`}>
+                          <span className={`inline-block font-mono border ${colorClasses.border}/50 ${colorClasses.text}/80 px-2.5 py-0.5 text-xs`}>
                             {project.type}
                           </span>
                         </div>
-                        <h3 className="font-bold font-mono text-white text-lg mb-2">{project.title}</h3>
-                        <p className="text-gray-300 text-sm line-clamp-2 mb-3">{project.description}</p>
-                        <div className="flex flex-wrap gap-2">
+                        <h3 className="font-bold font-mono text-white text-base mb-1.5 leading-snug">{project.title}</h3>
+                        <p className="text-gray-300 text-xs line-clamp-2 mb-2.5 leading-relaxed">{project.description}</p>
+                        <div className="flex flex-wrap gap-1.5">
                           {project.tech.slice(0, 3).map((tech, idx) => (
-                            <span key={idx} className={`font-mono ${colorClasses.bg}/10 ${colorClasses.text} border ${colorClasses.border}/30 rounded px-2 py-1 text-xs`}>
+                            <span key={idx} className={`font-mono ${colorClasses.bg}/10 ${colorClasses.text} border ${colorClasses.border}/30 rounded px-2 py-0.5 text-[10px]`}>
                               {tech}
                             </span>
                           ))}
                           {project.tech.length > 3 && (
-                            <span className="font-mono text-gray-400 px-2 py-1 text-xs">+{project.tech.length - 3}</span>
+                            <span className="font-mono text-gray-400 px-2 py-0.5 text-[10px]">+{project.tech.length - 3}</span>
                           )}
                         </div>
                       </div>
 
                       {/* Expanded View */}
                       <div
-                        className="transition-opacity duration-500"
+                        className="transition-opacity duration-500 h-full flex flex-col"
                         style={{
                           opacity: isExpanded ? 1 : 0,
                           pointerEvents: isExpanded ? 'auto' : 'none',
                           transitionDelay: isExpanded ? '0.7s' : '0s',
+                          display: isExpanded ? 'flex' : 'none',
                         }}
                       >
-                        <div className="mb-3">
-                          <span className={`inline-block font-mono border ${colorClasses.border}/50 ${colorClasses.text}/80 px-3 py-1.5 text-sm font-medium`}>
+                        <div className="mb-2.5">
+                          <span className={`inline-block font-mono border ${colorClasses.border}/50 ${colorClasses.text}/80 px-2.5 py-1 text-xs font-medium`}>
                             {project.type}
                           </span>
                         </div>
-                        <h3 className={`font-bold font-mono ${colorClasses.text} text-3xl mb-4 leading-tight`}>{project.title}</h3>
-                        <p className="text-gray-300 text-base leading-relaxed mb-6">{project.description}</p>
+                        <h3 className={`font-bold font-mono ${colorClasses.text} text-2xl mb-3 leading-tight`}>{project.title}</h3>
+                        <p className="text-gray-300 text-sm leading-relaxed mb-4">{project.description}</p>
 
-                        <div className="mb-6">
-                          <h4 className="text-xs font-mono text-white/80 uppercase tracking-widest flex items-center gap-2 mb-3">
-                            <span className={`w-1 h-4 ${colorClasses.bg}`} />
+                        <div className="mb-4">
+                          <h4 className="text-[10px] font-mono text-white/70 uppercase tracking-wider flex items-center gap-2 mb-2">
+                            <span className={`w-0.5 h-3 ${colorClasses.bg}`} />
                             Key Highlights
                           </h4>
-                          <div className="space-y-2">
+                          <div className="space-y-1.5">
                             {project.highlights.map((highlight, idx) => (
-                              <div key={idx} className="flex items-start gap-3">
-                                <span className={`${colorClasses.text} text-sm mt-1 flex-shrink-0`}>▹</span>
-                                <span className="text-gray-300 text-sm leading-relaxed">{highlight}</span>
+                              <div key={idx} className="flex items-start gap-2">
+                                <span className={`${colorClasses.text} text-xs mt-0.5 flex-shrink-0`}>▹</span>
+                                <span className="text-gray-300 text-xs leading-relaxed">{highlight}</span>
                               </div>
                             ))}
                           </div>
                         </div>
 
-                        <div className="mb-6">
-                          <h4 className="text-xs font-mono text-white/80 uppercase tracking-widest flex items-center gap-2 mb-3">
-                            <span className={`w-1 h-4 ${colorClasses.bg}`} />
+                        <div className="mb-4">
+                          <h4 className="text-[10px] font-mono text-white/70 uppercase tracking-wider flex items-center gap-2 mb-2">
+                            <span className={`w-0.5 h-3 ${colorClasses.bg}`} />
                             Technologies
                           </h4>
-                          <div className="flex flex-wrap gap-2">
+                          <div className="flex flex-wrap gap-1.5">
                             {project.tech.map((tech, idx) => (
-                              <span key={idx} className={`font-mono ${colorClasses.bg}/10 ${colorClasses.text} border ${colorClasses.border}/30 rounded px-3 py-1.5 text-sm hover:scale-105 transition-transform`}>
+                              <span key={idx} className={`font-mono ${colorClasses.bg}/10 ${colorClasses.text} border ${colorClasses.border}/30 rounded px-2.5 py-1 text-xs hover:scale-105 transition-transform`}>
                                 {tech}
                               </span>
                             ))}
                           </div>
                         </div>
 
-                        <div className="flex flex-wrap gap-3 pt-4 border-t border-white/5">
+                        <div className="flex flex-wrap gap-2 pt-3 border-t border-white/5 mt-auto">
                           {Array.isArray(project.github) ? (
                             project.github.map((githubLink, idx) => (
                               <a
@@ -316,10 +332,10 @@ export default function ProjectsPage() {
                                 href={githubLink}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className={`flex items-center gap-2 px-4 py-2 text-sm font-mono border ${colorClasses.border}/40 ${colorClasses.text} hover:${colorClasses.border} hover:bg-${colorClasses.bg}/5 rounded-lg transition-all flex-1 min-w-[120px]`}
+                                className={`flex items-center gap-2 px-3 py-1.5 text-xs font-mono border ${colorClasses.border}/40 ${colorClasses.text} hover:${colorClasses.border} hover:bg-${colorClasses.bg}/5 rounded-lg transition-all flex-1 min-w-[100px] justify-center`}
                                 onClick={(e) => e.stopPropagation()}
                               >
-                                <FaGithub className="w-4 h-4" />
+                                <FaGithub className="w-3.5 h-3.5" />
                                 <span>{idx === 0 ? 'Backend' : 'Frontend'}</span>
                               </a>
                             ))
@@ -328,10 +344,10 @@ export default function ProjectsPage() {
                               href={project.github}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className={`flex items-center gap-2 px-4 py-2 text-sm font-mono border ${colorClasses.border}/40 ${colorClasses.text} hover:${colorClasses.border} hover:bg-${colorClasses.bg}/5 rounded-lg transition-all flex-1 min-w-[120px]`}
+                              className={`flex items-center gap-2 px-3 py-1.5 text-xs font-mono border ${colorClasses.border}/40 ${colorClasses.text} hover:${colorClasses.border} hover:bg-${colorClasses.bg}/5 rounded-lg transition-all flex-1 min-w-[100px] justify-center`}
                               onClick={(e) => e.stopPropagation()}
                             >
-                              <FaGithub className="w-4 h-4" />
+                              <FaGithub className="w-3.5 h-3.5" />
                               <span>Repository</span>
                             </a>
                           )}
@@ -340,10 +356,10 @@ export default function ProjectsPage() {
                               href={project.live}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className={`flex items-center gap-2 px-4 py-2 text-sm font-mono ${colorClasses.bg} text-dark-900 hover:opacity-90 rounded-lg transition-all flex-1 min-w-[120px] font-semibold`}
+                              className={`flex items-center gap-2 px-3 py-1.5 text-xs font-mono ${colorClasses.bg} text-dark-900 hover:opacity-90 rounded-lg transition-all flex-1 min-w-[100px] font-semibold justify-center`}
                               onClick={(e) => e.stopPropagation()}
                             >
-                              <FaExternalLinkAlt className="w-4 h-4" />
+                              <FaExternalLinkAlt className="w-3.5 h-3.5" />
                               <span>Live Demo</span>
                             </a>
                           )}
