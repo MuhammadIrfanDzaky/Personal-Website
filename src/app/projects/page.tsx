@@ -114,21 +114,21 @@ export default function ProjectsPage() {
       </div>
 
       <div className="relative z-10 w-full px-6 md:px-12 lg:px-16 pt-20 md:pt-28 pb-24">
-        <div className="mb-12 md:mb-16">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="w-2 h-16 bg-gradient-to-b from-neon-cyan via-neon-purple to-neon-pink flicker-slow" />
+        <div className="mb-8 md:mb-12 relative">
+          <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
+            <div className="w-1 md:w-2 h-12 md:h-16 bg-gradient-to-b from-neon-cyan via-neon-purple to-neon-pink flicker-slow" />
             <div>
-              <h1 className="text-4xl md:text-6xl font-bold font-mono bg-gradient-to-r from-neon-cyan via-neon-purple to-neon-pink bg-clip-text text-transparent">
+              <h1 className="text-3xl md:text-5xl font-bold font-mono bg-gradient-to-r from-neon-cyan via-neon-purple to-neon-pink bg-clip-text text-transparent">
                 <GlitchText text="PROJECTS" delay={2500} />
               </h1>
-              <p className="text-gray-400 text-sm md:text-base font-mono mt-2">Featured work and experiments</p>
+              <p className="text-gray-500 text-xs md:text-sm font-mono mt-1 md:mt-2">{'<projects> Featured work and experiments </projects>'}</p>
             </div>
           </div>
           <div className="h-px w-full bg-gradient-to-r from-neon-cyan/50 via-transparent to-transparent" />
         </div>
 
         {/* Projects Container */}
-        <div className="relative min-h-[900px]">
+        <div id="projects-container" className="relative min-h-[900px]">
           {projects.map((project, index) => {
             const isExpanded = expandedProjectId === project.id;
             const isOther = expandedProjectId !== null && !isExpanded;
@@ -159,18 +159,18 @@ export default function ProjectsPage() {
                   top: '0px',
                   left: '0px',
                   width: '100%',
-                  height: '600px',
+                  height: '500px',
                   zIndex: 10,
                 };
               } else {
-                // Thumbnails at bottom
+                // Thumbnails at bottom with spacing
                 const otherCards = projects.filter(p => p.id !== expandedProjectId);
                 const thumbIndex = otherCards.findIndex(p => p.id === project.id);
                 return {
-                  top: '650px',
+                  top: '530px',
                   left: `${thumbIndex * 33.33}%`,
                   width: 'calc(33.33% - 12px)',
-                  height: '200px',
+                  height: '180px',
                   zIndex: 1,
                 };
               }
@@ -187,7 +187,22 @@ export default function ProjectsPage() {
                   opacity: isOther ? 0.7 : 1,
                   cursor: isExpanded ? 'default' : 'pointer',
                 }}
-                onClick={() => !isExpanded && setExpandedProjectId(project.id)}
+                onClick={() => {
+                  if (!isExpanded) {
+                    setExpandedProjectId(project.id);
+                    // Auto scroll to show expanded card
+                    setTimeout(() => {
+                      const container = document.getElementById('projects-container');
+                      if (container) {
+                        const containerTop = container.offsetTop;
+                        window.scrollTo({
+                          top: containerTop - 100,
+                          behavior: 'smooth'
+                        });
+                      }
+                    }, 100);
+                  }
+                }}
               >
                 <div
                   className={`h-full bg-dark-800/95 backdrop-blur-xl border-2 rounded-2xl overflow-hidden transition-all duration-1000 ${
@@ -206,31 +221,34 @@ export default function ProjectsPage() {
                     <div 
                       className="relative overflow-hidden transition-all duration-1000"
                       style={{
-                        width: isExpanded ? '40%' : '100%',
+                        width: isExpanded ? '45%' : '100%',
                         height: isExpanded ? '100%' : '60%',
                       }}
                     >
-                      <Image src={project.image} alt={project.title} fill className="object-cover" />
-                      <div 
-                        className="absolute inset-0 bg-gradient-to-t from-dark-800/80 to-transparent transition-opacity duration-1000"
+                      <Image 
+                        src={project.image} 
+                        alt={project.title} 
+                        fill 
+                        className="object-contain"
                         style={{
-                          opacity: isExpanded ? 0.3 : 0.5,
+                          objectPosition: 'center'
                         }}
                       />
-                      <div className={`absolute ${isExpanded ? 'top-3 left-3' : 'top-4 left-4'} transition-all duration-1000`}>
-                        <span className={`font-mono bg-dark-900/95 backdrop-blur-md border ${colorClasses.border} ${colorClasses.text} ${isExpanded ? 'px-2.5 py-1 text-[10px]' : 'px-3 py-1 text-xs'} transition-all duration-1000 shadow-lg`}>
-                          {project.status}
-                        </span>
-                      </div>
+                      <div 
+                        className="absolute inset-0 bg-gradient-to-t from-dark-800 via-dark-800/20 to-transparent transition-opacity duration-1000"
+                        style={{
+                          opacity: isExpanded ? 0.4 : 0.6,
+                        }}
+                      />
                     </div>
 
                     {/* Content */}
                     <div 
                       className="relative transition-all duration-1000 overflow-y-auto custom-scrollbar flex flex-col"
                       style={{
-                        width: isExpanded ? '60%' : '100%',
+                        width: isExpanded ? '55%' : '100%',
                         height: isExpanded ? '100%' : '40%',
-                        padding: isExpanded ? '24px' : '20px',
+                        padding: isExpanded ? '20px' : '16px',
                       }}
                     >
                       {/* Close Button */}
@@ -251,28 +269,28 @@ export default function ProjectsPage() {
 
                       {/* Compact View */}
                       <div
-                        className="transition-opacity duration-300"
+                        className="transition-opacity duration-300 h-full flex flex-col"
                         style={{
                           opacity: isExpanded ? 0 : 1,
                           pointerEvents: isExpanded ? 'none' : 'auto',
-                          display: isExpanded ? 'none' : 'block',
+                          display: isExpanded ? 'none' : 'flex',
                         }}
                       >
-                        <div className="mb-2">
-                          <span className={`inline-block font-mono border ${colorClasses.border}/50 ${colorClasses.text}/80 px-2.5 py-0.5 text-xs`}>
+                        <div className="mb-1.5">
+                          <span className={`inline-block font-mono border ${colorClasses.border}/50 ${colorClasses.text}/80 px-2 py-0.5 text-sm rounded`}>
                             {project.type}
                           </span>
                         </div>
-                        <h3 className="font-bold font-mono text-white text-base mb-1.5 leading-snug">{project.title}</h3>
-                        <p className="text-gray-300 text-xs line-clamp-2 mb-2.5 leading-relaxed">{project.description}</p>
-                        <div className="flex flex-wrap gap-1.5">
+                        <h3 className="font-bold font-mono text-white text-lg mb-1 leading-tight">{project.title}</h3>
+                        <p className="text-gray-300 text-sm line-clamp-1 mb-2 leading-relaxed flex-grow">{project.description}</p>
+                        <div className="flex flex-wrap gap-1 mt-auto">
                           {project.tech.slice(0, 3).map((tech, idx) => (
-                            <span key={idx} className={`font-mono ${colorClasses.bg}/10 ${colorClasses.text} border ${colorClasses.border}/30 rounded px-2 py-0.5 text-[10px]`}>
+                            <span key={idx} className={`font-mono ${colorClasses.bg}/10 ${colorClasses.text} border ${colorClasses.border}/30 rounded px-1.5 py-0.5 text-xs`}>
                               {tech}
                             </span>
                           ))}
                           {project.tech.length > 3 && (
-                            <span className="font-mono text-gray-400 px-2 py-0.5 text-[10px]">+{project.tech.length - 3}</span>
+                            <span className="font-mono text-gray-400 px-1.5 py-0.5 text-xs">+{project.tech.length - 3}</span>
                           )}
                         </div>
                       </div>
@@ -287,44 +305,47 @@ export default function ProjectsPage() {
                           display: isExpanded ? 'flex' : 'none',
                         }}
                       >
-                        <div className="mb-2.5">
-                          <span className={`inline-block font-mono border ${colorClasses.border}/50 ${colorClasses.text}/80 px-2.5 py-1 text-xs font-medium`}>
+                        <div className="mb-2 flex items-center gap-2">
+                          <span className={`inline-block font-mono border ${colorClasses.border} ${colorClasses.text} px-2.5 py-1 text-sm rounded`}>
                             {project.type}
                           </span>
+                          <span className={`inline-block font-mono bg-dark-900/90 backdrop-blur-sm border ${colorClasses.border} ${colorClasses.text} px-2.5 py-1 text-sm rounded`}>
+                            {project.status}
+                          </span>
                         </div>
-                        <h3 className={`font-bold font-mono ${colorClasses.text} text-2xl mb-3 leading-tight`}>{project.title}</h3>
-                        <p className="text-gray-300 text-sm leading-relaxed mb-4">{project.description}</p>
+                        <h3 className={`font-bold font-mono ${colorClasses.text} text-3xl mb-2.5 leading-tight`}>{project.title}</h3>
+                        <p className="text-gray-300 text-base leading-relaxed mb-3.5">{project.description}</p>
 
-                        <div className="mb-4">
-                          <h4 className="text-[10px] font-mono text-white/70 uppercase tracking-wider flex items-center gap-2 mb-2">
+                        <div className="mb-3.5">
+                          <h4 className="text-sm font-mono text-white/60 uppercase tracking-wider flex items-center gap-1.5 mb-2">
                             <span className={`w-0.5 h-3 ${colorClasses.bg}`} />
                             Key Highlights
                           </h4>
                           <div className="space-y-1.5">
                             {project.highlights.map((highlight, idx) => (
                               <div key={idx} className="flex items-start gap-2">
-                                <span className={`${colorClasses.text} text-xs mt-0.5 flex-shrink-0`}>▹</span>
-                                <span className="text-gray-300 text-xs leading-relaxed">{highlight}</span>
+                                <span className={`${colorClasses.text} text-sm mt-0.5 flex-shrink-0`}>▹</span>
+                                <span className="text-gray-300 text-sm leading-relaxed">{highlight}</span>
                               </div>
                             ))}
                           </div>
                         </div>
 
-                        <div className="mb-4">
-                          <h4 className="text-[10px] font-mono text-white/70 uppercase tracking-wider flex items-center gap-2 mb-2">
+                        <div className="mb-3.5">
+                          <h4 className="text-sm font-mono text-white/60 uppercase tracking-wider flex items-center gap-1.5 mb-2">
                             <span className={`w-0.5 h-3 ${colorClasses.bg}`} />
                             Technologies
                           </h4>
                           <div className="flex flex-wrap gap-1.5">
                             {project.tech.map((tech, idx) => (
-                              <span key={idx} className={`font-mono ${colorClasses.bg}/10 ${colorClasses.text} border ${colorClasses.border}/30 rounded px-2.5 py-1 text-xs hover:scale-105 transition-transform`}>
+                              <span key={idx} className={`font-mono ${colorClasses.bg}/10 ${colorClasses.text} border ${colorClasses.border}/30 rounded px-2.5 py-1 text-sm hover:scale-105 transition-transform`}>
                                 {tech}
                               </span>
                             ))}
                           </div>
                         </div>
 
-                        <div className="flex flex-wrap gap-2 pt-3 border-t border-white/5 mt-auto">
+                        <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/5 mt-auto">
                           {Array.isArray(project.github) ? (
                             project.github.map((githubLink, idx) => (
                               <a
@@ -332,11 +353,11 @@ export default function ProjectsPage() {
                                 href={githubLink}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className={`flex items-center gap-2 px-3 py-1.5 text-xs font-mono border ${colorClasses.border}/40 ${colorClasses.text} hover:${colorClasses.border} hover:bg-${colorClasses.bg}/5 rounded-lg transition-all flex-1 min-w-[100px] justify-center`}
+                                className={`flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-mono border ${colorClasses.border}/40 ${colorClasses.text} hover:${colorClasses.border} hover:bg-${colorClasses.bg}/5 rounded transition-all`}
                                 onClick={(e) => e.stopPropagation()}
                               >
-                                <FaGithub className="w-3.5 h-3.5" />
-                                <span>{idx === 0 ? 'Backend' : 'Frontend'}</span>
+                                <FaGithub className="w-4 h-4" />
+                                <span>{idx === 0 ? 'BE' : 'FE'}</span>
                               </a>
                             ))
                           ) : (
@@ -344,10 +365,10 @@ export default function ProjectsPage() {
                               href={project.github}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className={`flex items-center gap-2 px-3 py-1.5 text-xs font-mono border ${colorClasses.border}/40 ${colorClasses.text} hover:${colorClasses.border} hover:bg-${colorClasses.bg}/5 rounded-lg transition-all flex-1 min-w-[100px] justify-center`}
+                              className={`flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-mono border ${colorClasses.border}/40 ${colorClasses.text} hover:${colorClasses.border} hover:bg-${colorClasses.bg}/5 rounded transition-all col-span-2`}
                               onClick={(e) => e.stopPropagation()}
                             >
-                              <FaGithub className="w-3.5 h-3.5" />
+                              <FaGithub className="w-4 h-4" />
                               <span>Repository</span>
                             </a>
                           )}
@@ -356,11 +377,11 @@ export default function ProjectsPage() {
                               href={project.live}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className={`flex items-center gap-2 px-3 py-1.5 text-xs font-mono ${colorClasses.bg} text-dark-900 hover:opacity-90 rounded-lg transition-all flex-1 min-w-[100px] font-semibold justify-center`}
+                              className={`flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-mono ${colorClasses.bg} text-dark-900 hover:opacity-90 rounded transition-all font-semibold ${Array.isArray(project.github) ? '' : 'col-span-2'}`}
                               onClick={(e) => e.stopPropagation()}
                             >
-                              <FaExternalLinkAlt className="w-3.5 h-3.5" />
-                              <span>Live Demo</span>
+                              <FaExternalLinkAlt className="w-4 h-4" />
+                              <span>Demo</span>
                             </a>
                           )}
                         </div>
@@ -373,13 +394,13 @@ export default function ProjectsPage() {
           })}
         </div>
 
-        <div className="text-center py-8 mt-12">
-          <p className="text-gray-400 text-base font-mono">
+        <footer className="mt-auto pt-6 md:pt-8 pb-3 md:pb-4 text-center">
+          <div className="flex items-center justify-center gap-2 text-gray-400 text-xs md:text-sm font-mono">
             <span className="text-neon-cyan">{'>> '}</span>
-            More projects coming soon. Stay tuned!
+            <span>More projects coming soon. Stay tuned!</span>
             <span className="text-neon-cyan">{' <<'}</span>
-          </p>
-        </div>
+          </div>
+        </footer>
       </div>
     </div>
   );
