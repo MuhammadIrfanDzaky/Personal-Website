@@ -14,14 +14,17 @@ const SquaresBackground = dynamic(() => import('@/components/SquaresBackground')
   loading: () => null,
 });
 
+type ProjectCategory = 'ALL' | 'Personal Project' | 'Experimental' | 'Bootcamp' | 'Freelance';
+
 export default function ProjectsPage() {
   const [expandedProjectId, setExpandedProjectId] = useState<number | null>(null);
+  const [activeFilter, setActiveFilter] = useState<ProjectCategory>('ALL');
 
   const projects = [
     {
       id: 1,
       title: "WeRent",
-      type: "Personal Project",
+      type: "Personal Project" as ProjectCategory,
       description: "Modern full-stack e-commerce platform with real-time inventory management, secure payment processing, and personalized product recommendations.",
       tech: ["Next.js", "NestJS", "PostgreSQL", "Redis", "Stripe"],
       github: ["https://github.com/MuhammadIrfanDzaky/group-a-be", "https://github.com/MuhammadIrfanDzaky/group-a-fe"],
@@ -39,7 +42,7 @@ export default function ProjectsPage() {
     {
       id: 2,
       title: "DRIBBLE",
-      type: "Final Project - RevoU",
+      type: "Bootcamp" as ProjectCategory,
       description: "End-to-end futsal court booking platform with real-time availability, role-based dashboards, and secure authentication—built as RevoU bootcamp final project.",
       tech: ["Next.js", "Tailwind", "NestJS", "PostgreSQL", "Prisma ORM"],
       github: "https://github.com/yourusername/dribble",
@@ -57,7 +60,7 @@ export default function ProjectsPage() {
     {
       id: 3,
       title: "Personal Portfolio",
-      type: "Personal Project",
+      type: "Personal Project" as ProjectCategory,
       description: "Modern portfolio website with cyberpunk/neon aesthetic featuring smooth animations, interactive components, and responsive design.",
       tech: ["Next.js", "TypeScript", "Tailwind", "Framer Motion", "Radix UI"],
       github: "https://github.com/MuhammadIrfanDzaky/Personal-Website",
@@ -75,7 +78,7 @@ export default function ProjectsPage() {
     {
       id: 4,
       title: "Kos-Kosan Gang Family",
-      type: "Freelance Project",
+      type: "Freelance" as ProjectCategory,
       description: "Boarding house management platform addressing inefficiencies in manual booking processes and property management for dual user personas.",
       tech: ["HTML", "CSS", "Javascript", "PHP", "MySQL"],
       github: "https://github.com/yourusername/koskosan",
@@ -91,6 +94,12 @@ export default function ProjectsPage() {
       ]
     }
   ];
+
+  const categories: ProjectCategory[] = ['ALL', 'Personal Project', 'Experimental', 'Bootcamp', 'Freelance'];
+  
+  const filteredProjects = activeFilter === 'ALL' 
+    ? projects 
+    : projects.filter(project => project.type === activeFilter);
 
   return (
     <div className="min-h-screen bg-dark-900 relative overflow-x-hidden">
@@ -123,13 +132,69 @@ export default function ProjectsPage() {
               </h1>
               <p className="text-gray-500 text-xs md:text-sm font-mono mt-1 md:mt-2">{'<projects> Featured work and experiments </projects>'}</p>
             </div>
+          </div>          
+          {/* Filter Navigation */}
+          <div className="flex flex-wrap gap-2 mb-4">
+            {categories.map((category) => {
+              const getCategoryColors = () => {
+                switch(category) {
+                  case 'ALL':
+                    return {
+                      active: 'bg-white text-dark-900 border-white shadow-lg shadow-white/50',
+                      inactive: 'bg-transparent text-gray-400 border-gray-600 hover:border-white hover:text-white hover:shadow-md hover:shadow-white/30'
+                    };
+                  case 'Personal Project':
+                    return {
+                      active: 'bg-neon-cyan text-dark-900 border-neon-cyan shadow-lg shadow-neon-cyan/50',
+                      inactive: 'bg-transparent text-gray-400 border-gray-600 hover:border-neon-cyan hover:text-neon-cyan hover:shadow-md hover:shadow-neon-cyan/30'
+                    };
+                  case 'Experimental':
+                    return {
+                      active: 'bg-neon-purple text-dark-900 border-neon-purple shadow-lg shadow-neon-purple/50',
+                      inactive: 'bg-transparent text-gray-400 border-gray-600 hover:border-neon-purple hover:text-neon-purple hover:shadow-md hover:shadow-neon-purple/30'
+                    };
+                  case 'Bootcamp':
+                    return {
+                      active: 'bg-neon-green text-dark-900 border-neon-green shadow-lg shadow-neon-green/50',
+                      inactive: 'bg-transparent text-gray-400 border-gray-600 hover:border-neon-green hover:text-neon-green hover:shadow-md hover:shadow-neon-green/30'
+                    };
+                  case 'Freelance':
+                    return {
+                      active: 'bg-neon-pink text-dark-900 border-neon-pink shadow-lg shadow-neon-pink/50',
+                      inactive: 'bg-transparent text-gray-400 border-gray-600 hover:border-neon-pink hover:text-neon-pink hover:shadow-md hover:shadow-neon-pink/30'
+                    };
+                  default:
+                    return {
+                      active: 'bg-neon-cyan text-dark-900 border-neon-cyan shadow-lg shadow-neon-cyan/50',
+                      inactive: 'bg-transparent text-gray-400 border-gray-600 hover:border-neon-cyan hover:text-neon-cyan hover:shadow-md hover:shadow-neon-cyan/30'
+                    };
+                }
+              };
+              
+              const colors = getCategoryColors();
+              
+              return (
+                <button
+                  key={category}
+                  onClick={() => {
+                    setActiveFilter(category);
+                    setExpandedProjectId(null);
+                  }}
+                  className={`px-3 md:px-4 py-1.5 md:py-2 font-mono text-xs md:text-sm border-2 rounded transition-all duration-300 ${
+                    activeFilter === category ? colors.active : colors.inactive
+                  }`}
+                >
+                  {category}
+                </button>
+              );
+            })}
           </div>
-          <div className="h-px w-full bg-gradient-to-r from-neon-cyan/50 via-transparent to-transparent" />
+                    <div className="h-px w-full bg-gradient-to-r from-neon-cyan/50 via-transparent to-transparent" />
         </div>
 
         {/* Projects Container */}
         <div id="projects-container" className="relative min-h-[900px]">
-          {projects.map((project, index) => {
+          {filteredProjects.map((project, index) => {
             const isExpanded = expandedProjectId === project.id;
             const isOther = expandedProjectId !== null && !isExpanded;
             
