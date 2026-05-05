@@ -101,7 +101,7 @@ export default function Home() {
         <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-neon-purple/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '2s' }} />
       </div>
 
-      <div className="relative z-10 w-full px-6 md:px-12 lg:px-16 pt-20 md:pt-28 pb-24 md:pb-8 flex flex-col">
+      <main className="relative z-10 w-full px-6 md:px-12 lg:px-16 pt-20 md:pt-28 pb-24 md:pb-8 flex flex-col">
         
         {/* Hero Section - Full Screen Height */}
         <section className="mb-8 relative flex-1 flex items-center">
@@ -123,7 +123,7 @@ export default function Home() {
                 <div className="relative group/photo">
                   <div className="absolute inset-0 bg-neon-cyan/20 blur-xl rounded-full animate-pulse" />
                   <a 
-                    href="/profpic.jpg" 
+                    href="/jek-reduce.jpg" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="block w-48 h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-2xl border-4 border-neon-cyan overflow-hidden bg-dark-700 relative hover:border-neon-pink transition-all duration-500 hover:shadow-2xl hover:shadow-neon-cyan hover:rotate-2 transform cursor-pointer"
@@ -212,7 +212,7 @@ export default function Home() {
                     <div className="absolute inset-0 bg-neon-pink transform -translate-x-full group-hover/btn:translate-x-0 transition-transform duration-300" />
                   </AnimatedButton>
                   <AnimatedButton
-                    href="/jek's-resume.pdf"
+                    href="/ATS CV Muhammad Irfan Dzaky.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group/btn flex items-center justify-center px-4 md:px-6 py-3 md:py-4 text-sm md:text-base font-mono bg-transparent border-2 border-neon-green text-neon-green hover:bg-neon-green hover:text-dark-900 rounded-none transition-all duration-300 relative overflow-hidden"
@@ -458,7 +458,7 @@ export default function Home() {
           </div>
         </footer>
 
-        </div>
+        </main>
       </div>
     </TooltipProvider>
   );
