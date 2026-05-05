@@ -122,8 +122,8 @@ export default function ProjectsPage() {
         <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-neon-green/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '2s' }} />
       </div>
 
-      <div className="relative z-10 w-full px-6 md:px-12 lg:px-16 pt-20 md:pt-28 pb-24">
-        <div className="mb-8 md:mb-12 relative">
+      <main className="relative z-10 w-full px-6 md:px-12 lg:px-16 pt-20 md:pt-28 pb-24 md:pb-8">
+        <header className="mb-8 md:mb-12 relative">
           <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
             <div className="w-1 md:w-2 h-12 md:h-16 bg-gradient-to-b from-neon-cyan via-neon-purple to-neon-pink flicker-slow" />
             <div>
@@ -134,7 +134,7 @@ export default function ProjectsPage() {
             </div>
           </div>          
           {/* Filter Navigation */}
-          <div className="flex flex-wrap gap-2 mb-4">
+          <nav aria-label="Project categories" className="flex flex-wrap gap-2 mb-4">
             {categories.map((category) => {
               const getCategoryColors = () => {
                 switch(category) {
@@ -188,12 +188,12 @@ export default function ProjectsPage() {
                 </button>
               );
             })}
-          </div>
-                    <div className="h-px w-full bg-gradient-to-r from-neon-cyan/50 via-transparent to-transparent" />
-        </div>
+          </nav>
+          <div className="h-px w-full bg-gradient-to-r from-neon-cyan/50 via-transparent to-transparent" />
+        </header>
 
         {/* Projects Container */}
-        <div id="projects-container" className="relative min-h-[900px]">
+        <section id="projects-container" className="relative min-h-[900px]" aria-label="Project showcase">
           {filteredProjects.map((project, index) => {
             const isExpanded = expandedProjectId === project.id;
             const isOther = expandedProjectId !== null && !isExpanded;
@@ -244,7 +244,7 @@ export default function ProjectsPage() {
             const cardStyle = getCardStyle();
 
             return (
-              <div
+              <article
                 key={project.id}
                 className="absolute transition-all duration-1000 ease-out"
                 style={{
@@ -268,6 +268,7 @@ export default function ProjectsPage() {
                     }, 100);
                   }
                 }}
+                aria-label={`${project.title} - ${project.type}`}
               >
                 <div
                   className={`h-full bg-dark-800/95 backdrop-blur-xl border-2 rounded-2xl overflow-hidden transition-all duration-1000 ${
@@ -454,19 +455,20 @@ export default function ProjectsPage() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </article>
             );
           })}
-        </div>
+        </section>
 
-        <footer className="mt-auto pt-6 md:pt-8 pb-3 md:pb-4 text-center">
-          <div className="flex items-center justify-center gap-2 text-gray-400 text-xs md:text-sm font-mono">
+        {/* Footer */}
+        <footer className="text-center py-8">
+          <p className="text-gray-500 text-sm font-mono">
             <span className="text-neon-cyan">{'>> '}</span>
-            <span>More projects coming soon. Stay tuned!</span>
+            More projects coming soon. Stay tuned!
             <span className="text-neon-cyan">{' <<'}</span>
-          </div>
+          </p>
         </footer>
-      </div>
+      </main>
     </div>
   );
 }
