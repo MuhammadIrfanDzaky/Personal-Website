@@ -95,25 +95,25 @@ export default function ContactPage() {
     }
   };
 
-  const handleWhatsAppClick = () => {
-    if (!validateForm()) {
-      toast.error('Please fill in all fields correctly', {
-        icon: '⚠️',
-        style: {
-          background: '#12121a',
-          color: '#ff10f0',
-          border: '2px solid #ff10f0',
-          fontFamily: 'monospace',
-        },
-      });
-      return;
-    }
+  // const handleWhatsAppClick = () => {
+  //   if (!validateForm()) {
+  //     toast.error('Please fill in all fields correctly', {
+  //       icon: '⚠️',
+  //       style: {
+  //         background: '#12121a',
+  //         color: '#ff10f0',
+  //         border: '2px solid #ff10f0',
+  //         fontFamily: 'monospace',
+  //       },
+  //     });
+  //     return;
+  //   }
 
-    const msg = encodeURIComponent(
-      `Hi Jek, saya ${formData.name}\n(${formData.email})\n\n**Subjek:** ${formData.subject}\n\n**Pesan:** ${formData.message}`
-    );
-    window.open(`https://wa.me/6285767615311?text=${msg}`, '_blank');
-  };
+  //   const msg = encodeURIComponent(
+  //     `Hi Jek, saya ${formData.name}\n(${formData.email})\n\n**Subjek:** ${formData.subject}\n\n**Pesan:** ${formData.message}`
+  //   );
+  //   window.open(`https://wa.me/6285767615311?text=${msg}`, '_blank');
+  // };
 
   const handleEmailClick = () => {
     if (!validateForm()) {
@@ -161,10 +161,10 @@ export default function ContactPage() {
         <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-neon-purple/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '2s' }} />
       </div>
 
-      <div className="relative z-10 w-full px-6 md:px-12 lg:px-16 pt-20 md:pt-28 pb-24 md:pb-8">
+      <main className="relative z-10 w-full px-6 md:px-12 lg:px-16 pt-20 md:pt-28 pb-24 md:pb-8">
         
         {/* Page Header */}
-        <div className="mb-8 md:mb-12 relative">
+        <header className="mb-8 md:mb-12 relative">
           <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
             <div className="w-1 md:w-2 h-12 md:h-16 bg-gradient-to-b from-neon-cyan via-neon-purple to-neon-pink flicker-slow" />
             <div>
@@ -175,9 +175,9 @@ export default function ContactPage() {
             </div>
           </div>
           <div className="h-px w-full bg-gradient-to-r from-neon-cyan/50 via-transparent to-transparent" />
-        </div>
+        </header>
 
-        <div className="flex flex-col gap-6 md:gap-8 mb-8">
+        <section className="flex flex-col gap-6 md:gap-8 mb-8" aria-label="Contact forms and information">
           {/* Contact Form (SEND_MESSAGE) */}
           <div className="bg-dark-800/50 backdrop-blur-sm border-2 border-neon-cyan/30 rounded-2xl p-4 md:p-8 relative group hover:border-neon-cyan/60 transition-all duration-500 hover:shadow-2xl hover:shadow-neon-cyan/20">
             {/* Scanline Effect on Hover */}
@@ -315,7 +315,7 @@ export default function ContactPage() {
                     </label>
                   </div>
 
-                  <div className="flex flex-row gap-4 w-full">
+                  {/* <div className="flex flex-row gap-4 w-full">
                     <button
                       type="button"
                       onClick={handleWhatsAppClick}
@@ -344,7 +344,7 @@ export default function ContactPage() {
                       </span>
                       <div className="absolute inset-0 bg-neon-cyan transform -translate-x-full group-hover/submit:translate-x-0 transition-transform duration-300" />
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               </form>
             </div>
@@ -409,7 +409,7 @@ export default function ContactPage() {
                     </div>
                     <span className="text-neon-green">{'>'}</span>
                   </AnimatedButton>
-                  <AnimatedButton
+                  {/* <AnimatedButton
                     href="https://wa.me/6285767615311?text=Hi%20Jek!"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -421,23 +421,23 @@ export default function ContactPage() {
                       <p className="text-gray-500 text-sm font-mono">+62 857-6761-5311</p>
                     </div>
                     <span className="text-neon-pink">{'>'}</span>
-                  </AnimatedButton>
+                  </AnimatedButton> */}
                 </div>
               </div>
             </div>
           </div>
 
-        </div>
+        </section>
 
-        {/* Bottom Note - Let's Connect! */}
-        <div className="text-center py-8">
+        {/* Footer */}
+        <footer className="text-center py-8">
           <p className="text-gray-500 text-sm font-mono">
             <span className="text-neon-cyan">{'>> '}</span>
             Let&apos;s Connect!
             <span className="text-neon-cyan">{' <<'}</span>
           </p>
-        </div>
-      </div>
+        </footer>
+      </main>
       </div>
     </>
   );
