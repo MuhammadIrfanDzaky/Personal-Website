@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
+import { TypeAnimation } from 'react-type-animation';
 import { 
   FaGithub, 
   FaLinkedin, 
@@ -123,14 +124,14 @@ export default function Home() {
                 <div className="relative group/photo">
                   <div className="absolute inset-0 bg-neon-cyan/20 blur-xl rounded-full animate-pulse" />
                   <a 
-                    href="/jek-reduce.jpg" 
+                    href="/index/jek.jpg" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="block w-48 h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-2xl border-4 border-neon-cyan overflow-hidden bg-dark-700 relative hover:border-neon-pink transition-all duration-500 hover:shadow-2xl hover:shadow-neon-cyan hover:rotate-2 transform cursor-pointer"
                     title="Click Me!"
                   >
                     <Image 
-                      src="/avatar.png" 
+                      src="/index/avatar.png" 
                       alt="Muhammad Irfan Dzaky" 
                       fill
                       sizes="(max-width: 768px) 192px, (max-width: 1024px) 224px, 256px"
@@ -155,7 +156,10 @@ export default function Home() {
                       Hi! My name is
                     </h2>
                   </div>
-                  <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-neon-cyan via-neon-purple to-neon-pink bg-clip-text text-transparent leading-tight mb-3 md:mb-4">
+                  <h1
+                    className="text-4xl md:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent leading-tight mb-3 md:mb-4"
+                    style={{ backgroundImage: 'linear-gradient(to right, #00e5ff, #a855f7, #ff10f0, #10f0a0)' }}
+                  >
                     Muhammad Irfan Dzaky
                   </h1>
                   <p className="text-lg md:text-2xl lg:text-3xl text-gray-400 font-light italic mb-4 md:mb-5">
@@ -163,14 +167,22 @@ export default function Home() {
                   </p>
                   <div className="flex items-center gap-3 justify-center md:justify-start mb-4 md:mb-6">
                     <div className="h-px w-12 md:w-16 bg-gradient-to-r from-transparent to-neon-cyan" />
-                    <p className="text-xl md:text-2xl lg:text-3xl text-gray-400 font-mono">
-                      Full Stack Web Developer
-                    </p>
+                    <TypeAnimation
+                      sequence={[
+                        'Full Stack Web Developer', 2000,
+                        'Tech Enthusiast', 2000,
+                      ]}
+                      wrapper="p"
+                      speed={60}
+                      deletionSpeed={80}
+                      repeat={Infinity}
+                      className="text-xl md:text-2xl lg:text-3xl text-gray-400 font-mono"
+                    />
                   </div>
                   
                   {/* Brief Bio */}
                   <p className="text-gray-400 text-base md:text-lg lg:text-xl leading-relaxed max-w-3xl text-center md:text-left">
-                    Specializing in <span className="text-neon-cyan font-semibold">Next.js</span> & <span className="text-neon-pink font-semibold">NestJS</span>. Building high-quality web applications with modern tech. Fast learner, problem solver, and team collaborator.
+                    Still Somewhere Between <span className="text-neon-green font-semibold">Junior</span> and <span className="text-neon-pink font-semibold">Figuring It Out</span>.
                   </p>
                   
                   <p className="text-sm md:text-base font-mono text-neon-cyan mt-4">{'</developer>'}</p>
@@ -250,7 +262,7 @@ export default function Home() {
               <div className="space-y-3 mb-5 md:mb-6">
                 <div className="flex items-start gap-3 group/item hover:translate-x-1 transition-transform">
                   <span className="text-neon-cyan text-xl md:text-2xl mt-0.5">▹</span>
-                  <p className="text-gray-300 text-base md:text-lg"><span className="text-neon-cyan font-semibold">Full-stack developer</span> specializing in <span className="text-white">Next.js</span> and <span className="text-white">NestJS</span></p>
+                  <p className="text-gray-300 text-base md:text-lg"><span className="text-neon-green font-semibold">Full-stack developer</span> specializing in <span className="text-neon-cyan font-semibold">Next.js</span> and <span className="text-neon-pink font-semibold">NestJS</span></p>
                 </div>
                 <div className="flex items-start gap-3 group/item hover:translate-x-1 transition-transform">
                   <span className="text-neon-purple text-xl md:text-2xl mt-0.5">▹</span>
