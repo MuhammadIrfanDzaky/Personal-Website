@@ -42,6 +42,8 @@ export default function ProjectsPage() {
       github: "https://github.com/MuhammadIrfanDzaky/PitchCrushAI",
       live: "https://pitch-crush-ai.vercel.app",
       status: "Completed",
+      role: "Solo Developer",
+      period: "Apr 2025",
       color: "purple",
       images: ["/pitchcrushai/pitchcrushai.jpg", "/pitchcrushai/pitchcrushai_analyze.jpeg"],
       image: "/pitchcrushai.jpg",
@@ -65,9 +67,11 @@ export default function ProjectsPage() {
       github: ["https://github.com/MuhammadIrfanDzaky/group-a-be", "https://github.com/MuhammadIrfanDzaky/group-a-fe"],
       live: "https://a-we-rent-fe.vercel.app/",
       status: "Completed",
+      role: "Fullstack Engineer",
+      period: "Jun – Aug 2025",
       color: "cyan",
-      images: ["/werentfe.png", "/werent/werentppt.png"],
-      image: "/werentfe.png",
+      images: ["/werent/werentfe.png", "/werent/werentppt.png"],
+      image: "/werent/werentfe.png",
       highlights: [
         "Real-time inventory with Redis caching",
         "Secure Stripe payment integration",
@@ -84,6 +88,8 @@ export default function ProjectsPage() {
       github: ["https://github.com/MuhammadIrfanDzaky/final-project-fe-MuhammadIrfanDzaky", "https://github.com/MuhammadIrfanDzaky/final-project-be-MuhammadIrfanDzaky"],
       live: null,
       status: "Completed",
+      role: "Fullstack Engineer",
+      period: "Jul – Aug 2025",
       color: "green",
       images: ["/dribble/signin_page.jpg", "/dribble/signup_page.jpg", "/dribble/dashboard_page.png", "/dribble/courts_page.jpg", "/dribble/booking_page.jpg", "/dribble/users_page.jpg", "/dribble/profile_page.jpg"],
       image: "/dribble/signin_page.jpg",
@@ -103,9 +109,11 @@ export default function ProjectsPage() {
       github: "https://github.com/MuhammadIrfanDzaky/Personal-Website",
       live: "https://muhammadirfandzaky.netlify.app",
       status: "Completed",
+      role: "Solo Developer",
+      period: "May 2025 – Present",
       color: "cyan",
-      images: ["/portfolio-1.jpg"],
-      image: "/portfolio-1.jpg",
+      images: ["/personal/portfolio-1.jpg", "/personal/portfolio-2.jpg"],
+      image: "/personal/portfolio-1.jpg",
       highlights: [
         "Custom glitch animations",
         "14+ reusable components",
@@ -122,9 +130,11 @@ export default function ProjectsPage() {
       github: "https://github.com/yourusername/koskosan",
       live: null,
       status: "Completed",
+      role: "Lead Developer",
+      period: "Jan – Mar 2024",
       color: "pink",
-      images: ["/koskosan-1.jpg"],
-      image: "/koskosan-1.jpg",
+      images: ["/koskosan/koskosan-1.jpg"],
+      image: "/koskosan/koskosan-1.jpg",
       highlights: [
         "Multi-role authentication",
         "Room availability tracking",
@@ -462,6 +472,23 @@ export default function ProjectsPage() {
                           </span>
                         </div>
                         <h3 className={`font-bold font-mono ${colorClasses.text} text-3xl mb-2.5 leading-tight`}>{project.title}</h3>
+
+                        {/* Meta row — role · period · stats */}
+                        <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 mb-3 text-sm font-mono">
+                          {project.role && (
+                            <span className="flex items-center gap-1.5 text-white/70">
+                              <span className={`${colorClasses.text}`}>◈</span>
+                              {project.role}
+                            </span>
+                          )}
+                          {project.period && (
+                            <span className="flex items-center gap-1.5 text-white/70">
+                              <span className={`${colorClasses.text}`}>◈</span>
+                              {project.period}
+                            </span>
+                          )}
+                        </div>
+
                         <p className="text-gray-300 text-base leading-relaxed mb-3.5">{project.description}</p>
 
                         <div className="mb-3.5">
