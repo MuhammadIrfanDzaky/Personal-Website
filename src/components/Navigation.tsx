@@ -5,7 +5,6 @@ import { usePathname } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
 import { FaHome, FaCode, FaEnvelope, FaSun, FaMoon } from 'react-icons/fa';
 import { useTheme } from '@/contexts/ThemeContext';
-import Dock from '@/components/Dock';
 
 const animationSteps = [
   '[J]',
@@ -212,7 +211,7 @@ export default function Navigation() {
 
         {/* Bottom Navigation Bar (Instagram/TikTok style) */}
         <nav className="fixed bottom-0 left-0 right-0 z-50 bg-dark-900/95 backdrop-blur-md border-t border-neon-cyan/20 pb-safe">
-          <div className="flex items-center justify-around px-4 py-3">
+          <div className="flex items-center justify-around px-4 py-2">
             {navItems.map((item) => {
               const isActive = pathname === item.path;
               return (
@@ -252,18 +251,6 @@ export default function Navigation() {
                   `}>
                     {item.name}
                   </span>
-
-                  {/* Active indicator dot */}
-                  {isActive && (
-                    <span 
-                      className={`absolute -top-1 w-1.5 h-1.5 rounded-full animate-pulse ${
-                        item.color === 'cyan' ? 'bg-neon-cyan shadow-[0_0_8px_rgba(0,229,255,0.8)]' :
-                        item.color === 'green' ? 'bg-neon-green shadow-[0_0_8px_rgba(16,240,160,0.8)]' :
-                        item.color === 'purple' ? 'bg-neon-purple shadow-[0_0_8px_rgba(168,85,247,0.8)]' :
-                        'bg-neon-pink shadow-[0_0_8px_rgba(255,16,240,0.8)]'
-                      }`}
-                    />
-                  )}
                 </Link>
               );
             })}
