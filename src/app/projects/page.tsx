@@ -1,9 +1,10 @@
 "use client";
 
 import dynamic from 'next/dynamic';
-import { FaGithub, FaExternalLinkAlt, FaTimes } from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt, FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { useState } from 'react';
 import Image from 'next/image';
+import { image } from 'framer-motion/client';
 
 // Lazy load components
 const GlitchText = dynamic(() => import('@/components/GlitchText'), {
@@ -19,18 +20,53 @@ type ProjectCategory = 'ALL' | 'Personal Project' | 'Experimental' | 'Bootcamp' 
 export default function ProjectsPage() {
   const [expandedProjectId, setExpandedProjectId] = useState<number | null>(null);
   const [activeFilter, setActiveFilter] = useState<ProjectCategory>('ALL');
+  const [imageIndices, setImageIndices] = useState<{[key: number]: number}>({});
+
+  const getImageIndex = (id: number) => imageIndices[id] ?? 0;
+  const prevImage = (id: number, total: number, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setImageIndices(prev => ({ ...prev, [id]: (getImageIndex(id) - 1 + total) % total }));
+  };
+  const nextImage = (id: number, total: number, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setImageIndices(prev => ({ ...prev, [id]: (getImageIndex(id) + 1) % total }));
+  };
 
   const projects = [
     {
       id: 1,
+      title: "PitchCrush AI",
+      type: "Experimental" as ProjectCategory,
+      description: "AI-powered pitch stress testing platform that helps founders evaluate startup ideas through multiple perspectives such as investors, customers, competitors, boards, demo day audiences, and incumbent threats.",
+      tech: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "OpenRouter API"],
+      github: "https://github.com/MuhammadIrfanDzaky/PitchCrushAI",
+      live: "https://pitch-crush-ai.vercel.app",
+      status: "Completed",
+      color: "purple",
+      images: ["/pitchcrushai/pitchcrushai.jpg", "/pitchcrushai/pitchcrushai_analyze.jpeg"],
+      image: "/pitchcrushai.jpg",
+      highlights: [
+        "AI-powered pitch analysis",
+        "9 stress test modes",
+        "Dynamic goal selection",
+        "Structured result dashboard",
+        "Fallback analysis system",
+        "Multi-perspective analysis",
+        "OpenRouter LLM integration",
+        "Responsive mobile UI"
+      ]
+    },
+    {
+      id: 2,
       title: "WeRent",
-      type: "Personal Project" as ProjectCategory,
+      type: "Bootcamp" as ProjectCategory,
       description: "Modern full-stack e-commerce platform with real-time inventory management, secure payment processing, and personalized product recommendations.",
       tech: ["Next.js", "NestJS", "PostgreSQL", "Redis", "Stripe"],
       github: ["https://github.com/MuhammadIrfanDzaky/group-a-be", "https://github.com/MuhammadIrfanDzaky/group-a-fe"],
       live: "https://a-we-rent-fe.vercel.app/",
       status: "Completed",
       color: "cyan",
+      images: ["/werentfe.png", "/werent/werentppt.png"],
       image: "/werentfe.png",
       highlights: [
         "Real-time inventory with Redis caching",
@@ -40,16 +76,17 @@ export default function ProjectsPage() {
       ]
     },
     {
-      id: 2,
+      id: 3,
       title: "DRIBBLE",
       type: "Bootcamp" as ProjectCategory,
       description: "End-to-end futsal court booking platform with real-time availability, role-based dashboards, and secure authentication—built as RevoU bootcamp final project.",
       tech: ["Next.js", "Tailwind", "NestJS", "PostgreSQL", "Prisma ORM"],
-      github: "https://github.com/yourusername/dribble",
+      github: ["https://github.com/MuhammadIrfanDzaky/final-project-fe-MuhammadIrfanDzaky", "https://github.com/MuhammadIrfanDzaky/final-project-be-MuhammadIrfanDzaky"],
       live: null,
       status: "Completed",
       color: "green",
-      image: "/dribble/dribble-1.jpg",
+      images: ["/dribble/signin_page.jpg", "/dribble/signup_page.jpg", "/dribble/dashboard_page.png", "/dribble/courts_page.jpg", "/dribble/booking_page.jpg", "/dribble/users_page.jpg", "/dribble/profile_page.jpg"],
+      image: "/dribble/signin_page.jpg",
       highlights: [
         "Role-based access control",
         "Real-time booking system",
@@ -58,15 +95,16 @@ export default function ProjectsPage() {
       ]
     },
     {
-      id: 3,
+      id: 4,
       title: "Personal Portfolio",
       type: "Personal Project" as ProjectCategory,
       description: "Modern portfolio website with cyberpunk/neon aesthetic featuring smooth animations, interactive components, and responsive design.",
       tech: ["Next.js", "TypeScript", "Tailwind", "Framer Motion", "Radix UI"],
       github: "https://github.com/MuhammadIrfanDzaky/Personal-Website",
       live: "https://muhammadirfandzaky.netlify.app",
-      status: "Ongoing",
+      status: "Completed",
       color: "cyan",
+      images: ["/portfolio-1.jpg"],
       image: "/portfolio-1.jpg",
       highlights: [
         "Custom glitch animations",
@@ -76,7 +114,7 @@ export default function ProjectsPage() {
       ]
     },
     {
-      id: 4,
+      id: 5,
       title: "Kos-Kosan Gang Family",
       type: "Freelance" as ProjectCategory,
       description: "Boarding house management platform addressing inefficiencies in manual booking processes and property management for dual user personas.",
@@ -85,6 +123,7 @@ export default function ProjectsPage() {
       live: null,
       status: "Completed",
       color: "pink",
+      images: ["/koskosan-1.jpg"],
       image: "/koskosan-1.jpg",
       highlights: [
         "Multi-role authentication",
@@ -100,6 +139,16 @@ export default function ProjectsPage() {
   const filteredProjects = activeFilter === 'ALL' 
     ? projects 
     : projects.filter(project => project.type === activeFilter);
+
+  const getContainerMinHeight = () => {
+    if (expandedProjectId !== null) {
+      const thumbnailCount = filteredProjects.length - 1;
+      const thumbnailRows = Math.ceil(thumbnailCount / 3);
+      return 650 + thumbnailRows * 200 + 20;
+    }
+    const rows = Math.ceil(filteredProjects.length / 2);
+    return rows * 420 + 20;
+  };
 
   return (
     <div className="min-h-screen bg-dark-900 relative overflow-x-hidden">
@@ -193,7 +242,7 @@ export default function ProjectsPage() {
         </header>
 
         {/* Projects Container */}
-        <section id="projects-container" className="relative min-h-[900px]" aria-label="Project showcase">
+        <section id="projects-container" className="relative" style={{ minHeight: `${getContainerMinHeight()}px` }} aria-label="Project showcase">
           {filteredProjects.map((project, index) => {
             const isExpanded = expandedProjectId === project.id;
             const isOther = expandedProjectId !== null && !isExpanded;
@@ -224,16 +273,18 @@ export default function ProjectsPage() {
                   top: '0px',
                   left: '0px',
                   width: '100%',
-                  height: '500px',
+                  height: '620px',
                   zIndex: 10,
                 };
               } else {
                 // Thumbnails at bottom with spacing
-                const otherCards = projects.filter(p => p.id !== expandedProjectId);
+                const otherCards = filteredProjects.filter(p => p.id !== expandedProjectId);
                 const thumbIndex = otherCards.findIndex(p => p.id === project.id);
+                const thumbRow = Math.floor(thumbIndex / 3);
+                const thumbCol = thumbIndex % 3;
                 return {
-                  top: '530px',
-                  left: `${thumbIndex * 33.33}%`,
+                  top: `${650 + thumbRow * 200}px`,
+                  left: `${thumbCol * 33.33}%`,
                   width: 'calc(33.33% - 12px)',
                   height: '180px',
                   zIndex: 1,
@@ -291,21 +342,52 @@ export default function ProjectsPage() {
                         height: isExpanded ? '100%' : '60%',
                       }}
                     >
-                      <Image 
-                        src={project.image} 
-                        alt={project.title} 
-                        fill 
-                        className="object-contain"
-                        style={{
-                          objectPosition: 'center'
-                        }}
-                      />
-                      <div 
-                        className="absolute inset-0 bg-gradient-to-t from-dark-800 via-dark-800/20 to-transparent transition-opacity duration-1000"
-                        style={{
-                          opacity: isExpanded ? 0.4 : 0.6,
-                        }}
-                      />
+                      {(() => {
+                        const images = project.images ?? [project.image];
+                        const imgIdx = getImageIndex(project.id);
+                        return (
+                          <>
+                            <Image 
+                              src={images[imgIdx]} 
+                              alt={`${project.title} screenshot ${imgIdx + 1}`} 
+                              fill 
+                              className="object-contain transition-opacity duration-500"
+                              style={{ objectPosition: 'center' }}
+                            />
+                            <div 
+                              className="absolute inset-0 bg-gradient-to-t from-dark-800 via-dark-800/20 to-transparent transition-opacity duration-1000"
+                              style={{ opacity: isExpanded ? 0.4 : 0.6 }}
+                            />
+                            {isExpanded && images.length > 1 && (
+                              <>
+                                <button
+                                  onClick={(e) => prevImage(project.id, images.length, e)}
+                                  className="absolute left-2 top-1/2 -translate-y-1/2 z-10 p-1.5 bg-dark-900/70 backdrop-blur-sm border border-white/20 text-white rounded-full hover:bg-dark-900/90 transition-all"
+                                >
+                                  <FaChevronLeft className="w-3 h-3" />
+                                </button>
+                                <button
+                                  onClick={(e) => nextImage(project.id, images.length, e)}
+                                  className="absolute right-2 top-1/2 -translate-y-1/2 z-10 p-1.5 bg-dark-900/70 backdrop-blur-sm border border-white/20 text-white rounded-full hover:bg-dark-900/90 transition-all"
+                                >
+                                  <FaChevronRight className="w-3 h-3" />
+                                </button>
+                                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-10 flex gap-1.5">
+                                  {images.map((_, dotIdx) => (
+                                    <button
+                                      key={dotIdx}
+                                      onClick={(e) => { e.stopPropagation(); setImageIndices(prev => ({ ...prev, [project.id]: dotIdx })); }}
+                                      className={`w-1.5 h-1.5 rounded-full transition-all ${
+                                        dotIdx === imgIdx ? `${colorClasses.bg} scale-125` : 'bg-white/40 hover:bg-white/70'
+                                      }`}
+                                    />
+                                  ))}
+                                </div>
+                              </>
+                            )}
+                          </>
+                        );
+                      })()}
                     </div>
 
                     {/* Content */}
@@ -343,12 +425,12 @@ export default function ProjectsPage() {
                         }}
                       >
                         <div className="mb-1.5">
-                          <span className={`inline-block font-mono border ${colorClasses.border}/50 ${colorClasses.text}/80 px-2 py-0.5 text-sm rounded`}>
+                          <span className={`inline-block font-mono border ${colorClasses.border}/50 ${colorClasses.text} px-2 py-0.5 text-sm rounded`}>
                             {project.type}
                           </span>
                         </div>
                         <h3 className="font-bold font-mono text-white text-lg mb-1 leading-tight">{project.title}</h3>
-                        <p className="text-gray-300 text-sm line-clamp-1 mb-2 leading-relaxed flex-grow">{project.description}</p>
+                        <p className="text-gray-300 text-sm line-clamp-2 mb-2 leading-relaxed flex-grow">{project.description}</p>
                         <div className="flex flex-wrap gap-1 mt-auto">
                           {project.tech.slice(0, 3).map((tech, idx) => (
                             <span key={idx} className={`font-mono ${colorClasses.bg}/10 ${colorClasses.text} border ${colorClasses.border}/30 rounded px-1.5 py-0.5 text-xs`}>
@@ -387,13 +469,23 @@ export default function ProjectsPage() {
                             <span className={`w-0.5 h-3 ${colorClasses.bg}`} />
                             Key Highlights
                           </h4>
-                          <div className="space-y-1.5">
-                            {project.highlights.map((highlight, idx) => (
-                              <div key={idx} className="flex items-start gap-2">
-                                <span className={`${colorClasses.text} text-sm mt-0.5 flex-shrink-0`}>▹</span>
-                                <span className="text-gray-300 text-sm leading-relaxed">{highlight}</span>
-                              </div>
-                            ))}
+                          <div className="grid grid-cols-2 gap-x-4 gap-y-1.5">
+                            {(() => {
+                              const left = project.highlights.slice(0, 4);
+                              const right = left.length === 4 ? project.highlights.slice(4, 8) : [];
+                              const renderItem = (highlight: string, idx: number) => (
+                                <div key={idx} className="flex items-start gap-2">
+                                  <span className={`${colorClasses.text} text-sm mt-0.5 flex-shrink-0`}>▹</span>
+                                  <span className="text-gray-300 text-sm leading-relaxed">{highlight}</span>
+                                </div>
+                              );
+                              return (
+                                <>
+                                  <div className="space-y-1.5">{left.map(renderItem)}</div>
+                                  {right.length > 0 && <div className="space-y-1.5">{right.map((h, i) => renderItem(h, i + 4))}</div>}
+                                </>
+                              );
+                            })()}
                           </div>
                         </div>
 
@@ -411,7 +503,7 @@ export default function ProjectsPage() {
                           </div>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/5 mt-auto">
+                        <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/5">
                           {Array.isArray(project.github) ? (
                             project.github.map((githubLink, idx) => (
                               <a
