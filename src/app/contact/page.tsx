@@ -12,11 +12,6 @@ const AnimatedButton = dynamic(() => import('@/components/AnimatedButton'), {
 const GlitchText = dynamic(() => import('@/components/GlitchText'), {
   ssr: true,
 });
-const SquaresBackground = dynamic(() => import('@/components/SquaresBackground'), {
-  ssr: false,
-  loading: () => null,
-});
-
 interface FormErrors {
   name?: string;
   email?: string;
@@ -121,8 +116,8 @@ export default function ContactPage() {
         icon: '⚠️',
         style: {
           background: '#12121a',
-          color: '#ff10f0',
-          border: '2px solid #ff10f0',
+          color: '#00e5ff',
+          border: '2px solid #00e5ff',
           fontFamily: 'monospace',
         },
       });
@@ -140,25 +135,9 @@ export default function ContactPage() {
     <>
       <Toaster position="top-right" />
       <div className="min-h-screen bg-dark-900 relative overflow-x-hidden">
-      {/* Animated Squares Background */}
-      <SquaresBackground
-        squareSize={40}
-        speed={0.5}
-        direction="down"
-        borderColor="rgba(168, 85, 247, 0.15)"
-        hoverColor={[
-          'rgba(0, 229, 255, 0.6)',
-          'rgba(255, 16, 240, 0.6)',
-          'rgba(168, 85, 247, 0.6)',
-          'rgba(16, 240, 160, 0.6)',
-        ]}
-      />
-
-      {/* Glowing Orbs Background */}
+      {/* Glowing Orb Background */}
       <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-20 left-10 w-96 h-96 bg-neon-cyan/10 rounded-full blur-[120px] animate-pulse" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-neon-pink/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-neon-purple/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-1/3 left-1/4 w-[600px] h-[600px] bg-neon-cyan/5 rounded-full blur-[140px]" />
       </div>
 
       <main className="relative z-10 w-full px-6 md:px-12 lg:px-16 pt-20 md:pt-28 pb-24 md:pb-8">
@@ -166,9 +145,9 @@ export default function ContactPage() {
         {/* Page Header */}
         <header className="mb-8 md:mb-12 relative">
           <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
-            <div className="w-1 md:w-2 h-12 md:h-16 bg-gradient-to-b from-neon-cyan via-neon-purple to-neon-pink flicker-slow" />
+            <div className="w-1 md:w-2 h-12 md:h-16 bg-neon-cyan flicker-slow" />
             <div>
-              <h1 className="text-3xl md:text-5xl font-bold font-mono bg-gradient-to-r from-neon-cyan via-neon-purple to-neon-pink bg-clip-text text-transparent">
+              <h1 className="text-3xl md:text-5xl font-bold font-mono text-white">
                 <GlitchText text="GET_IN_TOUCH" delay={2800} />
               </h1>
               <p className="text-gray-500 text-xs md:text-sm font-mono mt-1 md:mt-2">{'<contact> Let\'s work together </contact>'}</p>
@@ -351,15 +330,15 @@ export default function ContactPage() {
           </div>
 
           {/* Social Links */}
-          <div className="bg-dark-800/50 backdrop-blur-sm border-2 border-neon-purple/30 rounded-2xl p-6 relative group hover:border-neon-purple/60 transition-all duration-500 hover:shadow-2xl hover:shadow-neon-purple/20">
+          <div className="bg-dark-800/50 backdrop-blur-sm border-2 border-neon-cyan/30 rounded-2xl p-6 relative group hover:border-neon-cyan/60 transition-all duration-500 hover:shadow-2xl hover:shadow-neon-cyan/20">
             {/* Corner Accents */}
-            <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-neon-purple" />
-            <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-neon-purple" />
+            <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-neon-cyan" />
+            <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-neon-cyan" />
             {/* Watermark */}
-            <div className="absolute top-4 right-4 text-neon-purple/20 text-6xl font-mono">02</div>
+            <div className="absolute top-4 right-4 text-neon-cyan/20 text-6xl font-mono">02</div>
             <div className="relative z-10">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-1 h-8 bg-neon-purple flicker-slow" />
+                <div className="w-1 h-8 bg-neon-cyan flicker-slow" />
                 <h3 className="text-2xl font-bold font-mono text-white">
                   <GlitchText text="SOCIAL_LINKS" delay={4000} />
                 </h3>
@@ -384,14 +363,14 @@ export default function ContactPage() {
                     href="https://www.linkedin.com/in/muhammad-irfan-dzaky/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group/btn w-full flex items-center gap-4 p-4 border-2 border-neon-purple/30 hover:border-neon-purple hover:bg-neon-purple/10 transition-all duration-300"
+                    className="group/btn w-full flex items-center gap-4 p-4 border-2 border-neon-cyan/30 hover:border-neon-cyan hover:bg-neon-cyan/10 transition-all duration-300"
                   >
-                    <FaLinkedin className="text-neon-purple text-2xl" />
+                    <FaLinkedin className="text-neon-cyan text-2xl" />
                     <div className="flex-1 text-left">
                       <p className="text-white font-mono text-sm">LinkedIn</p>
                       <p className="text-gray-500 text-sm font-mono">@muhammad-irfan-dzaky</p>
                     </div>
-                    <span className="text-neon-purple">{'>'}</span>
+                    <span className="text-neon-cyan">{'>'}</span>
                   </AnimatedButton>
                 </div>
                 {/* Kanan: Email & WhatsApp */}
@@ -400,14 +379,14 @@ export default function ContactPage() {
                     href="mailto:irfndzky@gmail.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group/btn w-full flex items-center gap-4 p-4 border-2 border-neon-green/30 hover:border-neon-green hover:bg-neon-green/10 transition-all duration-300"
+                    className="group/btn w-full flex items-center gap-4 p-4 border-2 border-neon-cyan/30 hover:border-neon-cyan hover:bg-neon-cyan/10 transition-all duration-300"
                   >
-                    <FaEnvelope className="text-neon-green text-2xl" />
+                    <FaEnvelope className="text-neon-cyan text-2xl" />
                     <div className="flex-1 text-left">
                       <p className="text-white font-mono text-sm">Email</p>
                       <p className="text-gray-500 text-sm font-mono">irfndzky@gmail.com</p>
                     </div>
-                    <span className="text-neon-green">{'>'}</span>
+                    <span className="text-neon-cyan">{'>'}</span>
                   </AnimatedButton>
                   {/* <AnimatedButton
                     href="https://wa.me/6285767615311?text=Hi%20Jek!"

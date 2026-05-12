@@ -10,11 +10,6 @@ import { image } from 'framer-motion/client';
 const GlitchText = dynamic(() => import('@/components/GlitchText'), {
   ssr: true,
 });
-const SquaresBackground = dynamic(() => import('@/components/SquaresBackground'), {
-  ssr: false,
-  loading: () => null,
-});
-
 type ProjectCategory = 'ALL' | 'Personal Project' | 'Experimental' | 'Bootcamp' | 'Freelance';
 
 export default function ProjectsPage() {
@@ -44,7 +39,7 @@ export default function ProjectsPage() {
       status: "Completed",
       role: "Solo Developer",
       period: "Apr 2025",
-      color: "purple",
+      color: "cyan",
       images: ["/pitchcrushai/pitchcrushai.jpg", "/pitchcrushai/pitchcrushai_analyze.jpeg"],
       image: "/pitchcrushai.jpg",
       highlights: [
@@ -90,7 +85,7 @@ export default function ProjectsPage() {
       status: "Completed",
       role: "Fullstack Engineer",
       period: "Jul – Aug 2025",
-      color: "green",
+      color: "cyan",
       images: ["/dribble/signin_page.jpg", "/dribble/signup_page.jpg", "/dribble/dashboard_page.png", "/dribble/courts_page.jpg", "/dribble/booking_page.jpg", "/dribble/users_page.jpg", "/dribble/profile_page.jpg"],
       image: "/dribble/signin_page.jpg",
       highlights: [
@@ -132,7 +127,7 @@ export default function ProjectsPage() {
       status: "Completed",
       role: "Lead Developer",
       period: "Jan – Mar 2024",
-      color: "pink",
+      color: "cyan",
       images: ["/koskosan/koskosan-1.jpg"],
       image: "/koskosan/koskosan-1.jpg",
       highlights: [
@@ -162,31 +157,17 @@ export default function ProjectsPage() {
 
   return (
     <div className="min-h-screen bg-dark-900 relative overflow-x-hidden">
-      <SquaresBackground
-        squareSize={40}
-        speed={0.5}
-        direction="down"
-        borderColor="rgba(255, 16, 240, 0.15)"
-        hoverColor={[
-          'rgba(0, 229, 255, 0.6)',
-          'rgba(255, 16, 240, 0.6)',
-          'rgba(168, 85, 247, 0.6)',
-          'rgba(16, 240, 160, 0.6)',
-        ]}
-      />
-
+      {/* Glowing Orb Background */}
       <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-20 left-10 w-96 h-96 bg-neon-pink/10 rounded-full blur-[120px] animate-pulse" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-neon-purple/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-neon-green/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-1/3 left-1/4 w-[600px] h-[600px] bg-neon-cyan/5 rounded-full blur-[140px]" />
       </div>
 
       <main className="relative z-10 w-full px-6 md:px-12 lg:px-16 pt-20 md:pt-28 pb-24 md:pb-8">
         <header className="mb-8 md:mb-12 relative">
           <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
-            <div className="w-1 md:w-2 h-12 md:h-16 bg-gradient-to-b from-neon-cyan via-neon-purple to-neon-pink flicker-slow" />
+            <div className="w-1 md:w-2 h-12 md:h-16 bg-neon-cyan flicker-slow" />
             <div>
-              <h1 className="text-3xl md:text-5xl font-bold font-mono bg-gradient-to-r from-neon-cyan via-neon-purple to-neon-pink bg-clip-text text-transparent">
+              <h1 className="text-3xl md:text-5xl font-bold font-mono text-white">
                 <GlitchText text="PROJECTS" delay={2500} />
               </h1>
               <p className="text-gray-500 text-xs md:text-sm font-mono mt-1 md:mt-2">{'<projects> Featured work and experiments </projects>'}</p>
@@ -199,28 +180,8 @@ export default function ProjectsPage() {
                 switch(category) {
                   case 'ALL':
                     return {
-                      active: 'bg-white text-dark-900 border-white shadow-lg shadow-white/50',
-                      inactive: 'bg-transparent text-gray-400 border-gray-600 hover:border-white hover:text-white hover:shadow-md hover:shadow-white/30'
-                    };
-                  case 'Personal Project':
-                    return {
                       active: 'bg-neon-cyan text-dark-900 border-neon-cyan shadow-lg shadow-neon-cyan/50',
                       inactive: 'bg-transparent text-gray-400 border-gray-600 hover:border-neon-cyan hover:text-neon-cyan hover:shadow-md hover:shadow-neon-cyan/30'
-                    };
-                  case 'Experimental':
-                    return {
-                      active: 'bg-neon-purple text-dark-900 border-neon-purple shadow-lg shadow-neon-purple/50',
-                      inactive: 'bg-transparent text-gray-400 border-gray-600 hover:border-neon-purple hover:text-neon-purple hover:shadow-md hover:shadow-neon-purple/30'
-                    };
-                  case 'Bootcamp':
-                    return {
-                      active: 'bg-neon-green text-dark-900 border-neon-green shadow-lg shadow-neon-green/50',
-                      inactive: 'bg-transparent text-gray-400 border-gray-600 hover:border-neon-green hover:text-neon-green hover:shadow-md hover:shadow-neon-green/30'
-                    };
-                  case 'Freelance':
-                    return {
-                      active: 'bg-neon-pink text-dark-900 border-neon-pink shadow-lg shadow-neon-pink/50',
-                      inactive: 'bg-transparent text-gray-400 border-gray-600 hover:border-neon-pink hover:text-neon-pink hover:shadow-md hover:shadow-neon-pink/30'
                     };
                   default:
                     return {
@@ -259,9 +220,6 @@ export default function ProjectsPage() {
             
             const colorClasses = {
               cyan: { border: 'border-neon-cyan', text: 'text-neon-cyan', bg: 'bg-neon-cyan', glow: 'shadow-neon-cyan' },
-              pink: { border: 'border-neon-pink', text: 'text-neon-pink', bg: 'bg-neon-pink', glow: 'shadow-neon-pink' },
-              green: { border: 'border-neon-green', text: 'text-neon-green', bg: 'bg-neon-green', glow: 'shadow-neon-green' },
-              purple: { border: 'border-neon-purple', text: 'text-neon-purple', bg: 'bg-neon-purple', glow: 'shadow-neon-purple' }
             }[project.color] || { border: 'border-neon-cyan', text: 'text-neon-cyan', bg: 'bg-neon-cyan', glow: 'shadow-neon-cyan' };
 
             // Calculate position and size
@@ -440,7 +398,7 @@ export default function ProjectsPage() {
                           </span>
                         </div>
                         <h3 className="font-bold font-mono text-white text-lg mb-1 leading-tight">{project.title}</h3>
-                        <p className="text-gray-300 text-sm line-clamp-2 mb-2 leading-relaxed flex-grow">{project.description}</p>
+                        <p className="text-gray-300 text-sm line-clamp-2 leading-relaxed flex-grow">{project.description}</p>
                         <div className="flex flex-wrap gap-1 mt-auto">
                           {project.tech.slice(0, 3).map((tech, idx) => (
                             <span key={idx} className={`font-mono ${colorClasses.bg}/10 ${colorClasses.text} border ${colorClasses.border}/30 rounded px-1.5 py-0.5 text-xs`}>
