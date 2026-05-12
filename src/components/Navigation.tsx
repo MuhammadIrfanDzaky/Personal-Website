@@ -88,26 +88,14 @@ export default function Navigation() {
 
   const navItems = [
     { name: 'Home', path: '/', icon: <FaHome />, color: 'cyan' },
-    { name: 'Projects', path: '/projects', icon: <FaCode />, color: 'green' },
-    { name: 'Contact', path: '/contact', icon: <FaEnvelope />, color: 'purple' },
+    { name: 'Projects', path: '/projects', icon: <FaCode />, color: 'cyan' },
+    { name: 'Contact', path: '/contact', icon: <FaEnvelope />, color: 'cyan' },
   ];
 
   const getColorClasses = (color: string, isActive: boolean) => {
-    const colors = {
-      cyan: isActive 
-        ? 'border-neon-cyan text-neon-cyan bg-neon-cyan/10 shadow-[0_0_15px_rgba(0,229,255,0.5)]' 
-        : 'border-transparent text-gray-400 hover:text-neon-cyan hover:border-neon-cyan/50 hover:shadow-[0_0_10px_rgba(0,229,255,0.3)]',
-      pink: isActive 
-        ? 'border-neon-pink text-neon-pink bg-neon-pink/10 shadow-[0_0_15px_rgba(255,16,240,0.5)]' 
-        : 'border-transparent text-gray-400 hover:text-neon-pink hover:border-neon-pink/50 hover:shadow-[0_0_10px_rgba(255,16,240,0.3)]',
-      green: isActive 
-        ? 'border-neon-green text-neon-green bg-neon-green/10 shadow-[0_0_15px_rgba(16,240,160,0.5)]' 
-        : 'border-transparent text-gray-400 hover:text-neon-green hover:border-neon-green/50 hover:shadow-[0_0_10px_rgba(16,240,160,0.3)]',
-      purple: isActive 
-        ? 'border-neon-purple text-neon-purple bg-neon-purple/10 shadow-[0_0_15px_rgba(168,85,247,0.5)]' 
-        : 'border-transparent text-gray-400 hover:text-neon-purple hover:border-neon-purple/50 hover:shadow-[0_0_10px_rgba(168,85,247,0.3)]',
-    };
-    return colors[color as keyof typeof colors] || colors.cyan;
+    return isActive
+      ? 'border-neon-cyan text-neon-cyan bg-neon-cyan/10 shadow-[0_0_15px_rgba(0,229,255,0.5)]'
+      : 'border-transparent text-gray-400 hover:text-neon-cyan hover:border-neon-cyan/50 hover:shadow-[0_0_10px_rgba(0,229,255,0.3)]';
   };
 
   return (
@@ -115,7 +103,7 @@ export default function Navigation() {
       {/* Desktop Navigation */}
       <nav className="hidden md:block fixed top-0 left-0 right-0 z-50 bg-dark-900/80 backdrop-blur-md border-b border-neon-cyan/20 transition-colors duration-300">
         {/* Scroll Progress Bar */}
-        <div className="absolute top-0 left-0 h-1 bg-gradient-to-r from-neon-cyan via-neon-pink to-neon-purple transition-all duration-300"
+        <div className="absolute top-0 left-0 h-1 bg-neon-cyan transition-all duration-300"
           style={{ width: `${scrollProgress}%` }}
         />
         
@@ -129,7 +117,7 @@ export default function Navigation() {
               onMouseLeave={() => setIsHovered(false)}
             >
               <span
-                className={`transition-colors duration-300 ${isHovered ? 'text-neon-pink' : 'text-neon-cyan'}`}
+                className="text-neon-cyan transition-colors duration-300"
                 style={{ fontFamily: 'Staatliches, sans-serif' }}
               >
                 {displayText}
@@ -154,14 +142,7 @@ export default function Navigation() {
                     <span>{item.name}</span>
                     {/* Active underline indicator */}
                     {isActive && (
-                      <span 
-                        className={`absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r ${
-                          item.color === 'cyan' ? 'from-transparent via-neon-cyan to-transparent' :
-                          item.color === 'green' ? 'from-transparent via-neon-green to-transparent' :
-                          item.color === 'purple' ? 'from-transparent via-neon-purple to-transparent' :
-                          'from-transparent via-neon-pink to-transparent'
-                        }`}
-                      />
+                      <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-neon-cyan to-transparent" />
                     )}
                   </Link>
                 );
@@ -170,7 +151,7 @@ export default function Navigation() {
               {/* Theme Toggle Button */}
               <button
                 onClick={toggleTheme}
-                className="flex items-center justify-center w-10 h-10 border-2 border-neon-pink text-neon-pink hover:bg-neon-pink hover:text-dark-900 transition-all duration-300 group/theme"
+                className="flex items-center justify-center w-10 h-10 border-2 border-neon-cyan text-neon-cyan hover:bg-neon-cyan hover:text-dark-900 transition-all duration-300 group/theme"
                 title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
               >
                 {theme === 'dark' ? (
@@ -189,7 +170,7 @@ export default function Navigation() {
         {/* Mobile Top Bar (Logo only) */}
         <nav className="fixed top-0 left-0 right-0 z-50 bg-dark-900/95 backdrop-blur-md border-b border-neon-cyan/20">
           {/* Scroll Progress Bar */}
-          <div className="absolute top-0 left-0 h-1 bg-gradient-to-r from-neon-cyan via-neon-pink to-neon-purple transition-all duration-300"
+          <div className="absolute top-0 left-0 h-1 bg-neon-cyan transition-all duration-300"
             style={{ width: `${scrollProgress}%` }}
           />
           
@@ -228,10 +209,7 @@ export default function Navigation() {
                   <div className={`
                     text-2xl transition-all duration-300
                     ${isActive 
-                      ? item.color === 'cyan' ? 'text-neon-cyan drop-shadow-[0_0_8px_rgba(0,229,255,0.8)]' :
-                        item.color === 'green' ? 'text-neon-green drop-shadow-[0_0_8px_rgba(16,240,160,0.8)]' :
-                        item.color === 'purple' ? 'text-neon-purple drop-shadow-[0_0_8px_rgba(168,85,247,0.8)]' :
-                        'text-neon-pink drop-shadow-[0_0_8px_rgba(255,16,240,0.8)]'
+                      ? 'text-neon-cyan drop-shadow-[0_0_8px_rgba(0,229,255,0.8)]'
                       : 'text-gray-400 group-hover:text-gray-300'
                     }
                   `}>
@@ -242,10 +220,7 @@ export default function Navigation() {
                   <span className={`
                     text-xs font-mono transition-all duration-300
                     ${isActive 
-                      ? item.color === 'cyan' ? 'text-neon-cyan font-semibold' :
-                        item.color === 'green' ? 'text-neon-green font-semibold' :
-                        item.color === 'purple' ? 'text-neon-purple font-semibold' :
-                        'text-neon-pink font-semibold'
+                      ? 'text-neon-cyan font-semibold'
                       : 'text-gray-400 group-hover:text-gray-300'
                     }
                   `}>
@@ -261,7 +236,7 @@ export default function Navigation() {
               className="relative flex flex-col items-center justify-center gap-1 px-4 py-2 transition-all duration-300 group"
             >
               {/* Icon */}
-              <div className="text-2xl text-neon-pink transition-all duration-300 group-hover:text-neon-pink/80 drop-shadow-[0_0_8px_rgba(255,16,240,0.6)]">
+              <div className="text-2xl text-neon-cyan transition-all duration-300 group-hover:text-neon-cyan/80 drop-shadow-[0_0_8px_rgba(0,229,255,0.6)]">
                 {theme === 'dark' ? (
                   <FaSun className="transition-transform duration-300 group-hover:rotate-180" />
                 ) : (
@@ -270,7 +245,7 @@ export default function Navigation() {
               </div>
               
               {/* Label */}
-              <span className="text-xs font-mono text-neon-pink transition-all duration-300 group-hover:text-neon-pink/80">
+              <span className="text-xs font-mono text-neon-cyan transition-all duration-300 group-hover:text-neon-cyan/80">
                 Theme
               </span>
             </button>

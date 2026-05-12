@@ -22,13 +22,7 @@ function DockIcon({ item }: { item: DockItem }) {
       whileTap={{ scale: 0.85 }}
       transition={{ type: "spring", stiffness: 400, damping: 17 }}
     >
-      <div className={`text-2xl ${
-        item.color === 'cyan' ? 'text-neon-cyan' :
-        item.color === 'green' ? 'text-neon-green' :
-        item.color === 'purple' ? 'text-neon-purple' :
-        item.color === 'pink' ? 'text-neon-pink' :
-        'text-neon-cyan'
-      }`}>
+      <div className="text-2xl text-neon-cyan">
         {item.icon}
       </div>
     </motion.div>

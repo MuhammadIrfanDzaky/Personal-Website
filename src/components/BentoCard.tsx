@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 interface BentoCardProps {
   children: ReactNode;
   className?: string;
-  glowColor?: 'cyan' | 'pink' | 'purple' | 'green' | 'blue';
+  glowColor?: 'cyan';
   delay?: number;
 }
 
@@ -18,10 +18,6 @@ export default function BentoCard({
 }: BentoCardProps) {
   const glowColors = {
     cyan: 'hover:shadow-neon-cyan/20',
-    pink: 'hover:shadow-neon-pink/20',
-    purple: 'hover:shadow-neon-purple/20',
-    green: 'hover:shadow-neon-green/20',
-    blue: 'hover:shadow-neon-blue/20',
   };
 
   return (

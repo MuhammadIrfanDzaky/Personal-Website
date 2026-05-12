@@ -190,64 +190,16 @@
     color: #0891b2;
   }
 
-  [data-theme="light"] .text-neon-pink {
-    color: #db2777;
-  }
-
-  [data-theme="light"] .text-neon-purple {
-    color: #7c3aed;
-  }
-
-  [data-theme="light"] .text-neon-green {
-    color: #059669;
-  }
-
   [data-theme="light"] .border-neon-cyan {
     border-color: #0891b2;
-  }
-
-  [data-theme="light"] .border-neon-pink {
-    border-color: #db2777;
-  }
-
-  [data-theme="light"] .border-neon-purple {
-    border-color: #7c3aed;
-  }
-
-  [data-theme="light"] .border-neon-green {
-    border-color: #059669;
   }
 
   [data-theme="light"] .border-neon-cyan\/30 {
     border-color: rgba(8, 145, 178, 0.3);
   }
 
-  [data-theme="light"] .border-neon-pink\/30 {
-    border-color: rgba(219, 39, 119, 0.3);
-  }
-
-  [data-theme="light"] .border-neon-purple\/30 {
-    border-color: rgba(124, 58, 237, 0.3);
-  }
-
-  [data-theme="light"] .border-neon-green\/30 {
-    border-color: rgba(5, 150, 105, 0.3);
-  }
-
   [data-theme="light"] .border-neon-cyan\/60 {
     border-color: rgba(8, 145, 178, 0.6);
-  }
-
-  [data-theme="light"] .border-neon-pink\/60 {
-    border-color: rgba(219, 39, 119, 0.6);
-  }
-
-  [data-theme="light"] .border-neon-purple\/60 {
-    border-color: rgba(124, 58, 237, 0.6);
-  }
-
-  [data-theme="light"] .border-neon-green\/60 {
-    border-color: rgba(5, 150, 105, 0.6);
   }
 
   [data-theme="light"] .border-neon-cyan\/20 {
@@ -258,93 +210,25 @@
     border-color: rgba(8, 145, 178, 0.5);
   }
 
-  [data-theme="light"] .border-neon-pink\/50 {
-    border-color: rgba(219, 39, 119, 0.5);
-  }
-
-  [data-theme="light"] .border-neon-purple\/50 {
-    border-color: rgba(124, 58, 237, 0.5);
-  }
-
-  [data-theme="light"] .border-neon-green\/50 {
-    border-color: rgba(5, 150, 105, 0.5);
-  }
-
   /* Theme-aware hover background colors */
   [data-theme="light"] .hover\:bg-neon-cyan:hover {
     background-color: #0891b2;
-  }
-
-  [data-theme="light"] .hover\:bg-neon-pink:hover {
-    background-color: #db2777;
-  }
-
-  [data-theme="light"] .hover\:bg-neon-purple:hover {
-    background-color: #7c3aed;
-  }
-
-  [data-theme="light"] .hover\:bg-neon-green:hover {
-    background-color: #059669;
   }
 
   [data-theme="light"] .hover\:text-neon-cyan:hover {
     color: #0891b2;
   }
 
-  [data-theme="light"] .hover\:text-neon-pink:hover {
-    color: #db2777;
-  }
-
-  [data-theme="light"] .hover\:text-neon-purple:hover {
-    color: #7c3aed;
-  }
-
-  [data-theme="light"] .hover\:text-neon-green:hover {
-    color: #059669;
-  }
-
   [data-theme="light"] .hover\:border-neon-cyan:hover {
     border-color: #0891b2;
-  }
-
-  [data-theme="light"] .hover\:border-neon-pink:hover {
-    border-color: #db2777;
-  }
-
-  [data-theme="light"] .hover\:border-neon-purple:hover {
-    border-color: #7c3aed;
-  }
-
-  [data-theme="light"] .hover\:border-neon-green:hover {
-    border-color: #059669;
   }
 
   [data-theme="light"] .hover\:border-neon-cyan\/50:hover {
     border-color: rgba(8, 145, 178, 0.5);
   }
 
-  [data-theme="light"] .hover\:border-neon-pink\/50:hover {
-    border-color: rgba(219, 39, 119, 0.5);
-  }
-
-  [data-theme="light"] .hover\:border-neon-purple\/50:hover {
-    border-color: rgba(124, 58, 237, 0.5);
-  }
-
-  [data-theme="light"] .hover\:border-neon-green\/50:hover {
-    border-color: rgba(5, 150, 105, 0.5);
-  }
-
   [data-theme="light"] .hover\:border-neon-cyan\/60:hover {
     border-color: rgba(8, 145, 178, 0.6);
-  }
-
-  [data-theme="light"] .hover\:border-neon-pink\/60:hover {
-    border-color: rgba(219, 39, 119, 0.6);
-  }
-
-  [data-theme="light"] .hover\:border-neon-green\/60:hover {
-    border-color: rgba(5, 150, 105, 0.6);
   }
 
   [data-theme="light"] .hover\:text-dark-900:hover {
@@ -354,23 +238,6 @@
   /* Background colors with opacity */
   [data-theme="light"] .bg-neon-cyan\/10 {
     background-color: rgba(8, 145, 178, 0.1);
-  }
-
-  [data-theme="light"] .bg-neon-pink\/10 {
-    background-color: rgba(219, 39, 119, 0.1);
-  }
-
-  [data-theme="light"] .bg-neon-purple\/10 {
-    background-color: rgba(124, 58, 237, 0.1);
-  }
-
-  [data-theme="light"] .bg-neon-green\/10 {
-    background-color: rgba(5, 150, 105, 0.1);
-  }
-
-  /* Gradient text in light mode */
-  [data-theme="light"] .bg-gradient-to-r {
-    background-image: linear-gradient(to right, var(--tw-gradient-stops));
   }
 }
 

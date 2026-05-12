@@ -18,8 +18,8 @@ type ProjectAccordionProps = {
 
 export default function ProjectAccordion({ description, keyFeatures, tech, color, contribution, demo, resource, onExpandChange }: ProjectAccordionProps) {
   const { theme } = useTheme();
-  const colorClass = color === 'cyan' ? 'text-neon-cyan' : color === 'pink' ? 'text-neon-pink' : color === 'purple' ? 'text-neon-purple' : 'text-neon-green';
-  const borderClass = color === 'cyan' ? 'border-neon-cyan/40' : color === 'pink' ? 'border-neon-pink/40' : color === 'purple' ? 'border-neon-purple/40' : 'border-neon-green/40';
+  const colorClass = 'text-neon-cyan';
+  const borderClass = 'border-neon-cyan/40';
   const bgClass = theme === 'dark' ? 'bg-dark-900/70' : 'bg-white/80';
   const borderThemeClass = theme === 'dark' ? 'border-dark-700' : 'border-gray-300';
   const textClass = theme === 'dark' ? 'text-gray-300' : 'text-gray-700';

@@ -25,7 +25,7 @@ export default function GlitchText({ text, className = '', delay = 3000 }: Glitc
       className={`${className} ${isGlitching ? 'glitch-text' : ''} inline-block`}
       style={{
         textShadow: isGlitching 
-          ? '3px 0 0 rgba(0, 229, 255, 0.8), -3px 0 0 rgba(255, 16, 240, 0.8)'
+          ? '2px 0 0 rgba(0, 229, 255, 0.7)'
           : 'none'
       }}
     >

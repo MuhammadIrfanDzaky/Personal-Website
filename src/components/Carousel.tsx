@@ -81,7 +81,7 @@ export default function Carousel({ images, alt, imagePlaceholders, color }: Caro
   return (
     <div className="relative w-full flex flex-col items-center group">
       {/* Main Image with Slide Animation */}
-      <div className="relative w-full overflow-hidden rounded-lg bg-gradient-to-br from-dark-800 via-dark-700 to-dark-900 shadow-2xl border border-neon-cyan/20">
+      <div className="relative w-full overflow-hidden rounded-lg bg-dark-800 shadow-2xl border border-neon-cyan/20">
         {/* Aspect ratio container - 16:9 on mobile, auto on desktop */}
         <div className="relative w-full aspect-video md:aspect-auto md:h-[400px] lg:h-[500px]">
           <AnimatePresence initial={false} custom={direction}>
@@ -206,14 +206,7 @@ export default function Carousel({ images, alt, imagePlaceholders, color }: Caro
             transition={{ duration: 0.3 }}
             className="mt-4 md:mt-6 flex justify-center w-full"
           >
-            <span
-              className={`text-xs md:text-sm font-mono text-center px-4 md:px-5 py-2 md:py-2.5 rounded-full shadow-lg backdrop-blur-md bg-dark-900/90 border-2 transition-all duration-300
-                ${color === 'cyan' ? 'text-neon-cyan border-neon-cyan/50 shadow-neon-cyan/30' : ''}
-                ${color === 'pink' ? 'text-neon-pink border-neon-pink/50 shadow-neon-pink/30' : ''}
-                ${color === 'purple' ? 'text-neon-purple border-neon-purple/50 shadow-neon-purple/30' : ''}
-                ${color === 'green' ? 'text-neon-green border-neon-green/50 shadow-neon-green/30' : ''}
-              `}
-            >
+            <span className="text-xs md:text-sm font-mono text-center px-4 md:px-5 py-2 md:py-2.5 rounded-full shadow-lg backdrop-blur-md bg-dark-900/90 border-2 transition-all duration-300 text-neon-cyan border-neon-cyan/50 shadow-neon-cyan/30">
               {imagePlaceholders[currentIndex]}
             </span>
           </motion.div>

@@ -7,27 +7,21 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/Tooltip';
 interface TechBadgeProps {
   name: string;
   icon: React.ReactNode;
-  color: 'cyan' | 'pink' | 'purple' | 'green';
+  color?: 'cyan';
   iconColor?: string;
   iconOnly?: boolean;
   showTooltip?: boolean;
 }
 
-export default function TechBadge({ name, icon, color, iconColor, iconOnly = false, showTooltip = false }: TechBadgeProps) {
+export default function TechBadge({ name, icon, color = 'cyan', iconColor, iconOnly = false, showTooltip = false }: TechBadgeProps) {
   const { theme } = useTheme();
   
   const colorClasses = {
     cyan: 'border-neon-cyan hover:bg-neon-cyan hover:shadow-neon-cyan',
-    pink: 'border-neon-pink hover:bg-neon-pink hover:shadow-neon-pink',
-    purple: 'border-neon-purple hover:bg-neon-purple hover:shadow-neon-purple',
-    green: 'border-neon-green hover:bg-neon-green hover:shadow-neon-green',
   };
 
   const textColorClasses = {
     cyan: 'text-neon-cyan',
-    pink: 'text-neon-pink',
-    purple: 'text-neon-purple',
-    green: 'text-neon-green',
   };
 
   // Check if icon color is too similar to hover background (for React's cyan and Tailwind)
